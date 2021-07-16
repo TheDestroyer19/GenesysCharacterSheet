@@ -26,7 +26,7 @@ function SetMotivations() {
     Desire.value = motivations.desire;
 }
 
-MotivationsElement.addEventListener("change", (event) => {
+function SaveMotivations(event) {
     let motivations = window.character.motivations;
     let target = event.target;
 
@@ -39,6 +39,7 @@ MotivationsElement.addEventListener("change", (event) => {
     }
 
     SendCharacterUpdated();
-});
+}
 
+MotivationsElement.addEventListener("change", SaveMotivations);
 document.addEventListener("character-loaded", SetMotivations);
