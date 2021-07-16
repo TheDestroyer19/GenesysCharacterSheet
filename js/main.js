@@ -3,6 +3,7 @@ import {Favor, AddAllFavors} from './favor.js';
 import {Skill, COMBAT_SKILL_NAME, AddAllSkills} from './skill.js';
 import {Weapon, AddAllWeapons, RANGE} from './weapon.js';
 import {SetCharacteristics} from './characteristics.js';
+import {SetMotivations} from './motivations.js';
 
 const default_character = {
     header: {
@@ -27,6 +28,12 @@ const default_character = {
         StrainCurrent: 0,
         DefenseMelee: 0,
         DefenseRanged: 0,
+    },
+    motivations: {
+        fear: "",
+        strength: "",
+        flaw: "",
+        desire: "",
     },
     skills_general: [
         new Skill("Athletics", CHARACTERISTIC.Brawn, false, 0),
@@ -119,14 +126,15 @@ function GetFromLocalStorage() {
 
 document.addEventListener("DOMContentLoaded", (event) => {
     let character = GetFromLocalStorage();
+    window.character = character;
 
     set_header(character.header)
     SetCharacteristics(character.characteristics);
+    SetMotivations();
     AddAllSkills(character);
     AddAllFavors(character);
     AddAllWeapons(character.weapons);
 
-    window.character = character;
 });
 
 document.addEventListener("character-updated", () => {

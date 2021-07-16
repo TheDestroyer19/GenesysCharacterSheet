@@ -47,6 +47,7 @@ CharacteristicsElement.addEventListener("change", (event) => {
         case "strain-current": character.characteristics.StrainCurrent = parseInt(target.value); break;
         case "defense-ranged": character.characteristics.DefenseRanged = parseInt(target.value); break;
         case "defense-melee": character.characteristics.DefenseMelee = parseInt(target.value); break;
+        default: return;
     }
 
     SendCharacterUpdated();
