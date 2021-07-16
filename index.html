@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Akio - Genesys Character</title>
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/shared.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script type="module" src="./js/main.js"></script>
+  </head>
+  <body>
+    <header id="app-header" class="horizontal-row">
+        <h1>Genesys HTML Character Sheet</h1>
+    </header>
+
+    <section id="page1" class="sheet">
+        <header id="page1header">
+            <div>
+                <label for="name">Character Name</label><input id="name" type="text" />
+                <label for="player">Player Name</label><input id="player" type="text" />
+            </div>
+            <div>
+                <label for="archetype">Species/Archetype</label><input id="archetype" type="text" />
+                <label for="career">Career</label><input id="career" type="text" />
+            </div>
+            <div>
+                <label for="xp-available">Available XP</label><input id="xp-available" type="number" />
+                <label for="xp-total">Total XP</label><input id="xp-total" type="number" />
+            </div>
+        </header>
+        <section id="characteristics">
+            <div class="stat">
+                <input id="brawn" type=number />
+                <label for="brawn" id="brawn-label">Brawn</label>
+            </div>
+            <div class="stat">
+                <input id="agility" type=number />
+                <label for="agility" id="agility-label">Agility</label>
+            </div>
+            <div class="stat">
+                <input id="intellect" type=number />
+                <label for="intellect" id="intellect-label">Intellect</label>
+            </div>
+            <div class="stat">
+                <input id="cunning" type=number />
+                <label for="cunning" id="cunning-label">Cunning</label>
+            </div>
+            <div class="stat">
+                <input id="willpower" type=number />
+                <label for="willpower" id="willpower-label">Willpower</label>
+            </div>
+            <div class="stat">
+                <input id="presence" type=number />
+                <label for="presence" id="presence-label">Presence</label>
+            </div>
+            <div class="condition">
+                <span class="caption">Soak Value</span>
+                <input id="soak" type="number"/>
+                <label id="soak-lbl" for="soak" style="visibility: hidden;">Soak Value</label>
+            </div>
+            <div class="condition">
+                <span class="caption">Wounds</span>
+                <label for="wounds-threshold">Threshold</label>
+                <input id="wounds-threshold" type="number"/>
+                <label for="wounds-current">Current</label>
+                <input id="wounds-current" type="number" />
+            </div>
+            <div class="condition">
+                <span class="caption">Strain</span>
+                <label for="strain-threshold">Threshold</label>
+                <input id="strain-threshold" type="number" value="13" />
+                <label for="strain-current">Current</label>
+                <input id="strain-current" type="number" />
+            </div>
+            <div class="condition">
+                <span class="caption">Defense</span>
+                <label for="defense-ranged">Ranged</label>
+                <input id="defense-ranged" type="number" value="13" />
+                <label for="defense-melee">Melee</label>
+                <input id="defense-melee" type="number" />
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <template id="skill-template">
+                <tr class="skill">
+                    <td><span class="skill-name"></span> (<span class="skill-characteristic"></span>)</td>
+                    <td><input type="checkbox" class="career"/></td>
+                    <td><input type="checkbox" class="rank"/><input type="checkbox" class="rank"/><input type="checkbox" class="rank"/><input type="checkbox" class="rank"/><input type="checkbox" class="rank"/></td>
+                </tr>
+            </template>
+            <table class="left">
+                <thead><tr>
+                    <th>General Skills</th>
+                    <th>Career</th>
+                    <th class="th-rank">Rank</th>
+                </tr></thead>
+                <tbody id="skills-general"></tbody>
+                <thead><tr><th>Magic Skills</th><th>Career</th><th>Rank</th></tr></thead>
+                <tbody id="skills-magic"></tbody>
+            </table>
+            <table class="right">
+                <thead><tr><th>Combat Skills</th><th>Career</th><th class="th-rank">Rank</th></tr></thead>
+                <tbody id="skills-combat"></tbody>
+                <thead><tr><th>Social Skills</th><th>Career</th><th>Rank</th></tr></thead>
+                <tbody id="skills-social"></tbody>
+                <thead><tr><th>Knowledge Skills</th><th>Career</th><th>Rank</th></tr></thead>
+                <tbody id="skills-knowledge"></tbody>
+            </table>
+        </section>
+
+        <section id="favors">
+            <template id="favor-template">
+                <li class="favor"><div>
+                    <span class="text"></span><div><button class="edit" title="Edit favor">🖉</button></div>
+                </div></li>
+            </template>
+            <h2>Favors</h2>
+            <div>
+                <h3 class="horizontal-row">Given<button id="give-favor" class="edit" title="Give Favor">＋</button></h3>
+                <hr>
+                <ul id="favors-given">
+                </ul>
+            </div>
+            <div>
+                <h3 class="horizontal-row">Owed<button id="owe-favor" class="edit" title="Add Owed Favor">＋</button></h3>
+                <hr>
+                <ul id="favors-owed">
+                </ul>
+            </div>
+        </section>
+
+        <section id="weapons">
+            <h2>Weapons</h2>
+            <template id="weapon-template">
+                <tr class="weapon">
+                    <td class="name"></td>
+                    <td class="skill"></td>
+                    <td class="damage"></td>
+                    <td class="crit"></td>
+                    <td class="range"></td>
+                    <td class="special"></td>
+                    <td><button class="edit" title="Edit Weapon">🖉</button></td>
+                </tr>
+            </template>
+            <table>
+                <thead><tr>
+                    <th>Weapon</th>
+                    <th>Skill</th>
+                    <th>Damage</th>
+                    <th>Crit</th>
+                    <th>Range</th>
+                    <th>Special</th>
+                    <th><button id="new-weapon" class="edit" title="New Weapon">＋</button></th>
+                </tr></thead>
+                <tbody id="weapons-table">
+                </tbody>
+            </table>
+        </section>
+        <footer>
+        </footer>
+    </section>
+
+    <div id="modal-edit-favor" class="modal closed">
+        <h1>Favor</h1>
+        <textarea id="edit-favor"></textarea>
+        <div class="horizontal-row">
+            <button class="modal-close">Cancel</button>
+            <button class="modal-delete">Delete</button>
+            <button class="modal-save">Save</button>
+        </div>
+    </div>
+
+    <div id="modal-edit-weapon" class="modal closed">
+        <h1>Weapon</h1>
+        <label for="edit-weapon-name">Name:</label>
+        <input type="text" id="edit-weapon-name" />
+        <label for="edit-weapon-skill">Skill:</label>
+        <input type="text" id="edit-weapon-skill" />
+        <label for="edit-weapon-damage">Damage:</label>
+        <input type="number" id="edit-weapon-damage" />
+        <label for="edit-weapon-critical">Critical:</label>
+        <input type="number" id="edit-weapon-critical" />
+        <label for="edit-weapon-range">Range:</label>
+        <select id="edit-weapon-range">
+            <option>Engaged</option>
+            <option>Short</option>
+            <option>Medium</option>
+            <option>Long</option>
+            <option>Extreme</option>
+        </select>
+        <label for="edit-weapon-special">Special:</label>
+        <input type="text" id="edit-weapon-special" />
+        <div class="horizontal-row">
+            <button class="modal-close">Cancel</button>
+            <button class="modal-delete">Delete</button>
+            <button class="modal-save">Save</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay closed" id="modal-overlay">
+
+    </div>
+  </body>
+</html>

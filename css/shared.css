@@ -1,0 +1,119 @@
+html {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 0.5rem;
+}
+
+hr {
+    border: none;
+    border-bottom: 1px solid black;
+    margin-top: 0.125rem;
+    margin-bottom: 0.125rem;
+}
+
+small {
+    font-size: x-small;
+}
+
+label {
+    font-size: small;
+}
+
+h1 {
+    font-size: medium;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+h2 {
+    font-size: small;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+h3 {
+    font-size: small;
+    margin: 0;
+}
+ul {
+    margin: 0;
+    font-size: small;
+    padding-left: 1.5em;
+    list-style-position: outside;
+}
+table {
+    font-size: small;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+tr > * {
+    text-align: center;
+}
+tr > *:first-child {
+    text-align: start;
+}
+tr > *:last-child {
+    text-align: end;
+}
+tbody tr {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
+}
+
+
+/* ************************************************************************* */
+/* Input styling                                                             */
+/* ************************************************************************* */
+button.edit {
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    background-color: transparent;
+    margin-left: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+    line-height: 0.75rem;
+    font-size: 0.75rem;
+    text-align: center;
+    padding: 0;
+}
+
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    resize: none;
+}
+
+input {
+    box-sizing: border-box;
+    border: .1rem solid #ddd;
+    border-radius: 0.3rem;
+}
+
+select {
+    box-sizing: border-box;
+    min-width: 100%;
+}
+
+input[type=text] {
+    padding: 0.1rem;
+}
+
+input[type=number] {
+    width: 100%;
+}
+
+@media only print {
+    button.edit {
+        display: none;
+    }
+
+    input {
+        border: none;
+        -moz-appearance: textfield;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+}

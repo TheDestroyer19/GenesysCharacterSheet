@@ -1,6 +1,5 @@
-import {OpenModal} from './modal.js';
+import {Modal} from './modal.js';
 
-const WeaponModal = document.getElementById("modal-edit-weapon");
 const WeaponTemplate = document.getElementById("weapon-template");
 const WeaponTable = document.getElementById("weapons-table");
 
@@ -12,8 +11,12 @@ const WeaponRangeInput = document.getElementById("edit-weapon-range");
 const WeaponSpecialInput = document.getElementById("edit-weapon-special");
 
 const NewWeapon = document.getElementById('new-weapon');
-const SaveWeapon = document.getElementById("edit-weapon-save");
-const DeleteWeapon = document.getElementById("edit-weapon-delete");
+
+const WeaponModal = new Modal(
+    document.getElementById("modal-edit-weapon"),
+    UpdateActiveWeaponData,
+    DeleteActiveWeapon,
+);
 
 let activeWeapon = null;
 let activeElement = null;
@@ -59,7 +62,7 @@ function UpdateActiveWeaponData() {
 
     UpdateWeaponDisplay(activeElement, activeWeapon);
 
-    var event = new CustomEvent("character-updated", {});
+    let event = new CustomEvent("character-updated", {});
     document.dispatchEvent(event);
 }
 
@@ -98,7 +101,7 @@ function AddWeapon(weapon, editNow = false) {
         WeaponRangeInput.value = weapon.range;
         WeaponSpecialInput.value = weapon.special;
 
-        OpenModal(WeaponModal);
+        WeaponModal.Open();
     }
 
     weaponRow.querySelector(".edit").addEventListener("click", edit);
@@ -108,8 +111,7 @@ function AddWeapon(weapon, editNow = false) {
     WeaponTable.appendChild(weaponRow);
 }
 
-SaveWeapon.addEventListener('click', UpdateActiveWeaponData);
-DeleteWeapon.addEventListener('click', () => {
+function DeleteActiveWeapon() {
     let character = window.character;
 
     let idx = character.weapons.findIndex(e => e === activeWeapon);
@@ -121,7 +123,7 @@ DeleteWeapon.addEventListener('click', () => {
 
     var event = new CustomEvent("character-updated", {});
     document.dispatchEvent(event);
-});
+}
 
 NewWeapon.addEventListener('click', () => {
     let character = window.character;

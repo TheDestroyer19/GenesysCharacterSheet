@@ -1,0 +1,153 @@
+/* Shared Styles */
+
+.sheet {
+    max-width: 8in;
+}
+
+.horizontal-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#skills, #favors, #weapons, .modal, header,
+#condition div, #characteristics div, #app-header {
+    border: 0.2rem solid orange;
+    border-radius: 0.75rem;
+    padding: 0.25rem;
+}
+
+/* Header styles */
+@media not print {
+    #page1header input[type=text] {
+        width: 10rem;
+    }
+    #page1header input[type=number] {
+        width: 3.5rem;
+    }
+}
+
+/* Condition Styles */
+#characteristics .condition {
+    display: grid;
+    grid-column: span 3;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.25rem;
+    align-items: baseline;
+    justify-items: center;
+}
+
+.condition .caption {
+    font-size: medium;
+    grid-row: 1;
+    grid-column: span 2;
+}
+.condition input {
+    grid-row: 2;
+    min-width: 100%;
+    text-align: center;
+    justify-self: stretch;
+}
+
+.condition label {
+    grid-row: 3;
+    font-size: x-small;
+}
+
+#soak, #soak-lbl {
+    grid-column: span 2;
+}
+
+/* Characteristic Styles */
+#characteristics {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 0.5em;
+    row-gap: 0.5rem;
+}
+
+#characteristics > .stat {
+    justify-self: center;
+    text-align: center;
+}
+
+.stat {
+    grid-column: span 2;
+    display: grid;
+}
+
+.stat input {
+    font-size: large;
+    text-align: center;
+    grid-row: 1;
+}
+
+.stat label {
+    grid-row: 2;
+}
+
+/* Skill Styles*/
+#skills {
+    display: grid;
+    column-gap: 0.25rem;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+}
+#skills input[type="checkbox"] {
+    width: 12px;
+    height: 12px;
+}
+#skills .th-rank {
+    width: 62px;
+}
+
+#skills h2 {
+    grid-column: span 2;
+}
+
+/* Favor styles*/
+#favors {
+    display: flex;
+    flex-direction: column;
+}
+#favors > div {
+    flex-grow: 1;
+    align-items: flex-start;
+}
+.favor > * {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Weapon styles*/
+#weapons table {
+    min-width: 100%;
+}
+
+/* Modal styling */
+.modal {
+    z-index: 110;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4in;
+    max-width: 100%;
+    background-color: white;
+    display: grid;
+    column-gap: 0.25rem;
+    row-gap: 0.25rem;
+}
+.closed {
+    display: none;
+}
+.modal-overlay {
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 50%;
+}

@@ -1,0 +1,84 @@
+/* ************************************************************************* */
+/* Top level layout                                                          */
+/* ************************************************************************* */
+body {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-areas: 
+        "h"
+        "p1";
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+}
+#app-header {
+    grid-area: h;
+}
+#page1 {
+    grid-area: p1;
+}
+
+/* ************************************************************************* */
+/* Page 1 Layout                                                             */
+/* ************************************************************************* */
+#page1 {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 0.5em;
+    row-gap: 0.5em;
+    grid-template-areas: 
+        "h h"
+        "c f"
+        "s f"
+        "w w";
+}
+#page1header {
+    grid-area: h;
+}
+#characteristics {
+    grid-area: c;
+}
+#skills {
+    grid-area: s;
+}
+#favors {
+    grid-area: f;
+}
+#weapons {
+    grid-area: w;
+}
+
+/* ************************************************************************* */
+/* Page 1 - header Layout                                                    */
+/* ************************************************************************* */
+#page1header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#page1header div {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 0.25rem;
+    row-gap: 0.25rem;
+    align-items: center;
+}
+
+#page1header label {
+    text-align: end;
+}
+
+/* ************************************************************************* */
+/* Weapon Modal Layout                                                       */
+/* ************************************************************************* */
+#modal-edit-weapon {
+    grid-template-columns: auto auto;
+    column-gap: 0.25rem;
+}
+#modal-edit-weapon h1, #modal-edit-weapon .horizontal-row {
+    grid-column: span 2;
+}
+#modal-edit-weapon label {
+    grid-column: 1;
+    text-align: end;
+}
