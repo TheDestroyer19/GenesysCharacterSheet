@@ -1,3 +1,5 @@
+import { SendCharacterUpdated } from "./common.js";
+
 const CharacteristicsElement = document.getElementById('characteristics');
 
 export function SetCharacteristics(characteristics) {
@@ -47,6 +49,5 @@ CharacteristicsElement.addEventListener("change", (event) => {
         case "defense-melee": character.characteristics.DefenseMelee = parseInt(target.value); break;
     }
 
-    var event = new CustomEvent("character-updated", {});
-    document.dispatchEvent(event);
+    SendCharacterUpdated();
 });

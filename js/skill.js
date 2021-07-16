@@ -1,4 +1,4 @@
-import {CHARACTERISTIC, ShortenCharacteristic} from './common.js';
+import {CHARACTERISTIC, SendCharacterUpdated, ShortenCharacteristic} from './common.js';
 
 const SkillsElement = document.getElementById("skills");
 
@@ -121,6 +121,5 @@ SkillsElement.addEventListener("change", (event) => {
     let target = event.target;
 
     UpdateSkill(character, target);
-    var event = new CustomEvent("character-updated", {});
-    document.dispatchEvent(event);
+    SendCharacterUpdated();
 })

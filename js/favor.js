@@ -1,3 +1,4 @@
+import { SendCharacterUpdated } from './common.js';
 import {Modal} from './modal.js';
 
 /** @type {HTMLTemplateElement} */
@@ -71,8 +72,7 @@ function DeleteActiveFavor() {
     activeFavor = null;
     activeElement = null;
 
-    var event = new CustomEvent("character-updated", {});
-    document.dispatchEvent(event);
+    SendCharacterUpdated();
 }
 
 function UpdateActiveFavor() {
@@ -81,8 +81,7 @@ function UpdateActiveFavor() {
     activeFavor = null;
     activeElement = null;
 
-    var event = new CustomEvent("character-updated", {});
-    document.dispatchEvent(event);
+    SendCharacterUpdated();
 }
 
 GiveFavorBtn.addEventListener("click", () => {

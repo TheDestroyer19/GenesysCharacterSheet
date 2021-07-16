@@ -1,3 +1,4 @@
+import { SendCharacterUpdated } from './common.js';
 import {Modal} from './modal.js';
 
 const WeaponTemplate = document.getElementById("weapon-template");
@@ -62,8 +63,7 @@ function UpdateActiveWeaponData() {
 
     UpdateWeaponDisplay(activeElement, activeWeapon);
 
-    let event = new CustomEvent("character-updated", {});
-    document.dispatchEvent(event);
+    SendCharacterUpdated();
 }
 
 /**
@@ -121,8 +121,7 @@ function DeleteActiveWeapon() {
     activeWeapon = null;
     activeElement = null;
 
-    var event = new CustomEvent("character-updated", {});
-    document.dispatchEvent(event);
+    SendCharacterUpdated();
 }
 
 NewWeapon.addEventListener('click', () => {

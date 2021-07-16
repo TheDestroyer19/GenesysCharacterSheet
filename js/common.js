@@ -23,3 +23,11 @@ export const CHARACTERISTIC = {
         case CHARACTERISTIC.Presence: return "Pr";
     }
 }
+
+/**
+ * Sends an event to signal that the character has been updated and needs to be saved
+ */
+export function SendCharacterUpdated() {
+    var event = new CustomEvent("character-updated", {});
+    document.dispatchEvent(event);
+}
