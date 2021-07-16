@@ -113,6 +113,48 @@ function GetFromLocalStorage() {
 
 }
 
+function DownloadCharacter() {
+    let element = document.createElement('a');
+    let character = window.character;
+    let filename = character.header.name + ".json";
+    let text = JSON.stringify(character);
+    element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+function UploadCharacter() {
+    let files = document.getElementById('import-character').files;
+    console.log(files);
+    if (files.length <= 0) {
+        return;
+    }
+
+    let fr = new FileReader();
+    fr.onload = (e) => {
+        console.log(e);
+        let character = JSON.parse(e.target.result);
+        window.character = character;
+        SendCharacterLoaded();
+
+        AddAllSkills(character);
+        AddAllFavors(character);
+        AddAllWeapons(character.weapons);
+    }
+
+    fr.readAsText(files.item(0));
+}
+
+document.getElementById('import-character').addEventListener('change', UploadCharacter);
+
+document.getElementById('export-character').addEventListener('click', DownloadCharacter);
+
 document.addEventListener("DOMContentLoaded", (event) => {
     let character = GetFromLocalStorage();
     window.character = character;
