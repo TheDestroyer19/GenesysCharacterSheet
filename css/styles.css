@@ -1,5 +1,9 @@
 /* Shared Styles */
 
+body {
+    background-color: whitesmoke;
+}
+
 .sheet {
     max-width: 8in;
 }
@@ -12,7 +16,8 @@
 
 #skills, #favors, #weapons, .modal, header,
 #condition div, #characteristics div, #app-header,
-#motivations {
+#motivations, #inventory {
+    background: white;
     border: 0.2rem solid orange;
     border-radius: 0.75rem;
     padding: 0.25rem;

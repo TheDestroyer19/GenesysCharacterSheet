@@ -42,7 +42,7 @@ ul {
 }
 table {
     font-size: small;
-    table-layout: fixed;
+    /* table-layout: fixed; */
     border-collapse: collapse;
 }
 tr > * {
@@ -59,7 +59,6 @@ tbody tr {
     border-left: none;
     border-right: none;
 }
-
 
 /* ************************************************************************* */
 /* Input styling                                                             */

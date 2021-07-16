@@ -112,6 +112,23 @@ body {
 /* ************************************************************************* */
 /* Page 2 layout                                                             */
 /* ************************************************************************* */
+#page2 {
+    display: grid;
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
+    grid-template-columns: auto auto;
+    grid-template-areas: 
+        "mo cd"
+        "eq cd"
+        "nn ci"
+        "sa sa";
+}
+#motivations {
+    grid-area: mo;
+}
+#inventory {
+    grid-area: eq;
+}
 
 /* Page 2 - motivations layout ********************************************* */
 #motivations {
@@ -124,6 +141,22 @@ body {
 }
 #motivations h2 {
     grid-column: span 2;
+}
+/* Page 2 - equipment layout *********************************************** */
+#inventory table {
+    width: 100%;
+}
+#inventory .name,
+#inventory .description {
+    text-align: start;
+}
+#inventory .quantity {
+    width: 2rem;
+    text-align: center;
+}
+#inventory tr > :last-child {
+    width: 1rem;
+    text-align: end;
 }
 
 /* ************************************************************************* */

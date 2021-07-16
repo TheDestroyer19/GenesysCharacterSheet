@@ -85,7 +85,7 @@ function DeleteActiveWeapon() {
     let character = window.character;
 
     let idx = character.weapons.findIndex(e => e === activeWeapon);
-    if (idx >= 0) character.favors_given.splice(idx, 1);
+    if (idx >= 0) character.weapons.splice(idx, 1);
 
     activeElement.remove();
     activeWeapon = null;

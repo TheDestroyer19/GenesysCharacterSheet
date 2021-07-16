@@ -1,4 +1,4 @@
-import {CHARACTERISTIC, Skill, COMBAT_SKILL_NAME, Favor, Weapon, RANGE} from './genesys.js';
+import {CHARACTERISTIC, Skill, COMBAT_SKILL_NAME, Favor, Weapon, RANGE, Item} from './genesys.js';
 import {CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
 
 const default_character = {
@@ -78,6 +78,9 @@ const default_character = {
     favors_given: [
         new Favor("Andrew needed a job, so I helped him out"),
         new Favor("a very very very long favor whose text definitely wraps at least one, but preferrabley two or three times"),
+    ],
+    inventory: [
+        new Item("Forensic Kit", 1, ""),
     ],
     weapons: [
         new Weapon("Fletcher Pistol", COMBAT_SKILL_NAME.RangedLight, 4, 2, RANGE.Medium, "Pierce 2, Vicious 2"),

@@ -85,7 +85,7 @@ export class Favor {
 }
 
 /**
- * @typedef {object} Weapon
+ * @typedef {Object} Weapon
  * @property {string} name 
  * @property {COMBAT_SKILL_NAME} skill 
  * @property {number} damage 
@@ -110,5 +110,19 @@ export class Weapon {
         this.crit = crit;
         this.range = range;
         this.special = special;
+    }
+}
+
+/**
+ * @typedef {Object} Item
+ * @property {string} name
+ * @property {number} quantity
+ * @property {string} description
+ */
+export class Item {
+    constructor(name, quantity, description) {
+        this.name = name;
+        this.quantity = quantity;
+        this.description = description;
     }
 }
