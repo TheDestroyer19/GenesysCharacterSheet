@@ -10,13 +10,14 @@
     <script type="module" src="./js/main.js"></script>
     <script type="module" src="./js/motivations.js"></script>
     <script type="module" src="./js/characteristics.js"></script>
+    <script type="module" src="./js/header.js"></script>
   </head>
   <body>
     <header id="app-header" class="horizontal-row">
         <h1>Genesys HTML Character Sheet</h1>
     </header>
 
-    <section id="page1" class="sheet">
+    <form autocomplete="off" action="javascript:void(0);" id="page1" class="sheet">
         <header id="page1header">
             <div>
                 <label for="name">Character Name</label><input id="name" type="text" />
@@ -161,9 +162,9 @@
                 </tbody>
             </table>
         </section>
-    </section>
+    </form>
 
-    <section id="page2" class="sheet">
+    <form autocomplete="off" action="javascript:void(0);" id="page2" class="sheet">
         <section id="motivations">
             <h2>Motivations</h2>
             <div>
@@ -183,7 +184,7 @@
                 <textarea id="motivation-fear"></textarea>
             </div>
         </section>
-    </section>
+    </form>
 
     <div id="modal-edit-favor" class="modal closed">
         <h1>Favor</h1>
