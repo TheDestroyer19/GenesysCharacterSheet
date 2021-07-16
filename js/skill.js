@@ -1,43 +1,9 @@
-import {CHARACTERISTIC, SendCharacterUpdated, ShortenCharacteristic, RemoveAllChildNodes} from './common.js';
-
+import {SendCharacterUpdated, RemoveAllChildNodes} from './common.js';
+import {ShortenCharacteristic, Skill} from './genesys.js';
 const SkillsElement = document.getElementById("skills");
 
 /**
- * @enum {string}
- */
-export const COMBAT_SKILL_NAME = {
-    Brawl: "Brawl",
-    Melee: "Melee",
-    RangedLight: "Ranged - Light",
-    RangedHeavy: "Ranged - Heavy",
-    Gunnery: "Gunnery",
-};
-
-/**
- * @typedef {Object} Skill
- * @property {string} name
- * @property {CHARACTERISTIC} characteristic
- * @property {boolean} career
- * @property {number} rank
- */
-export class Skill {
-    /**
-     * 
-     * @param {string} name 
-     * @param {CHARACTERISTIC} characteristic
-     * @param {boolean} career 
-     * @param {number} rank 
-     */
-    constructor(name, characteristic, career, rank) {
-        this.name = name;
-        this.characteristic = characteristic;
-        this.career = career;
-        this.rank = rank;
-    }
-}
-
-/**
- * 
+ * @param {Skill} skill
  * @param {HTMLTemplateElement} template 
  * @param {HTMLTableSectionElement} tbody 
  */

@@ -1,6 +1,6 @@
-import {CHARACTERISTIC, CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
+import {CHARACTERISTIC, Skill, COMBAT_SKILL_NAME} from './genesys.js';
+import {CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
 import {Favor} from './favor.js';
-import {Skill, COMBAT_SKILL_NAME} from './skill.js';
 import {Weapon, RANGE} from './weapon.js';
 
 const default_character = {
