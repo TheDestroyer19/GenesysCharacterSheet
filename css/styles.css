@@ -29,62 +29,26 @@
 }
 
 /* Condition Styles */
-#characteristics .condition {
-    display: grid;
-    grid-column: span 3;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 0.25rem;
-    align-items: baseline;
-    justify-items: center;
-}
 
 .condition .caption {
     font-size: medium;
-    grid-row: 1;
-    grid-column: span 2;
 }
 .condition input {
-    grid-row: 2;
-    min-width: 100%;
     text-align: center;
-    justify-self: stretch;
 }
-
 .condition label {
-    grid-row: 3;
     font-size: x-small;
 }
 
-#soak, #soak-lbl {
-    grid-column: span 2;
-}
-
 /* Characteristic Styles */
-#characteristics {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: 0.5em;
-    row-gap: 0.5rem;
-}
 
 #characteristics > .stat {
-    justify-self: center;
     text-align: center;
-}
-
-.stat {
-    grid-column: span 2;
-    display: grid;
 }
 
 .stat input {
     font-size: large;
     text-align: center;
-    grid-row: 1;
-}
-
-.stat label {
-    grid-row: 2;
 }
 
 /* Skill Styles*/

@@ -47,9 +47,7 @@ body {
     grid-area: w;
 }
 
-/* ************************************************************************* */
-/* Page 1 - header Layout                                                    */
-/* ************************************************************************* */
+/* Page 1 - header Layout ************************************************** */
 #page1header {
     display: flex;
     flex-direction: row;
@@ -68,13 +66,51 @@ body {
     text-align: end;
 }
 
+/* Page 1 - Characteristics Layout ***************************************** */
+#characteristics {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
+}
+.stat {
+    grid-column: span 2;
+    display: grid;
+}
+.stat input {
+    grid-row: 1;
+}
+.stat label {
+    grid-row: 2;
+}
+.condition {
+    display: grid;
+    grid-column: span 3;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.25rem;
+    align-items: baseline;
+    justify-items: center;
+}
+.condition .caption {
+    grid-row: 1;
+    grid-column: span 2;
+}
+.condition input {
+    grid-row: 2;
+    justify-self: stretch;
+}
+.condition label {
+    grid-row: 3;
+}
+#soak, #soak-lbl {
+    grid-column: span 2;
+}
+
 /* ************************************************************************* */
 /* Page 2 layout                                                             */
 /* ************************************************************************* */
 
-/* ************************************************************************* */
-/* Page 2 - motivations layout                                               */
-/* ************************************************************************* */
+/* Page 2 - motivations layout ********************************************* */
 #motivations {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -87,9 +123,7 @@ body {
     grid-column: span 2;
 }
 
-/* ************************************************************************* */
-/* Weapon Modal Layout                                                       */
-/* ************************************************************************* */
+/* Weapon Modal Layout ***************************************************** */
 #modal-edit-weapon {
     grid-template-columns: auto auto;
     column-gap: 0.25rem;
