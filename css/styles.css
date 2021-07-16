@@ -19,13 +19,11 @@
 }
 
 /* Header styles */
-@media not print {
-    #page1header input[type=text] {
-        width: 10rem;
-    }
-    #page1header input[type=number] {
-        width: 3.5rem;
-    }
+#page1header input[type=text] {
+    width: 10rem;
+}
+#page1header input[type=number] {
+    width: 3.5rem;
 }
 
 /* Condition Styles */

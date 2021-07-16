@@ -134,7 +134,8 @@ input[type=number] {
 }
 
 @media only print {
-    button.edit {
+    /* Buttons are always user interactions, so they should be hidden */
+    button, .button {
         display: none;
     }
 
