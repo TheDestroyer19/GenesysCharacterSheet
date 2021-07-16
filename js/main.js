@@ -1,5 +1,5 @@
-import {CHARACTERISTIC, SendCharacterLoaded } from './common.js';
-import {Favor, AddAllFavors} from './favor.js';
+import {CHARACTERISTIC, CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
+import {Favor} from './favor.js';
 import {Skill, COMBAT_SKILL_NAME} from './skill.js';
 import {Weapon, AddAllWeapons, RANGE} from './weapon.js';
 
@@ -131,19 +131,18 @@ function DownloadCharacter() {
 
 function UploadCharacter() {
     let files = document.getElementById('import-character').files;
-    console.log(files);
     if (files.length <= 0) {
         return;
     }
 
     let fr = new FileReader();
     fr.onload = (e) => {
-        console.log(e);
         let character = JSON.parse(e.target.result);
         window.character = character;
         SendCharacterLoaded();
+        SaveToLocalStorage(window.character);
+        console.log("Character imported");
 
-        AddAllFavors(character);
         AddAllWeapons(character.weapons);
     }
 
@@ -159,11 +158,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     window.character = character;
     SendCharacterLoaded();
 
-    AddAllFavors(character);
     AddAllWeapons(character.weapons);
 
 });
 
-document.addEventListener("character-updated", () => {
+document.addEventListener(CHARACTER_UPDATED, () => {
     SaveToLocalStorage(window.character);
 });

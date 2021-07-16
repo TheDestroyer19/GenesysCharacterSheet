@@ -1,4 +1,4 @@
-import { SendCharacterUpdated } from './common.js';
+import { CHARACTER_LOADED, RemoveAllChildNodes, SendCharacterUpdated } from './common.js';
 import {Modal} from './modal.js';
 
 /** @type {HTMLTemplateElement} */
@@ -98,7 +98,11 @@ OweFavorBtn.addEventListener("click", () => {
     AddFavor(OwedFavors, favor, true);
 })
 
-export function AddAllFavors(character) {
+function AddAllFavors() {
+    let character = window.character;
+
+    RemoveAllChildNodes(GivenFavors);
+    RemoveAllChildNodes(OwedFavors);
     
     character.favors_given.forEach(favor => {
         AddFavor(GivenFavors, favor);
@@ -108,3 +112,5 @@ export function AddAllFavors(character) {
         AddFavor(OwedFavors, favor);
     });
 }
+
+document.addEventListener(CHARACTER_LOADED, AddAllFavors);
