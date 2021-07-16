@@ -1,6 +1,6 @@
-import {CHARACTERISTIC, SendCharacterUpdated, SendCharacterLoaded } from './common.js';
+import {CHARACTERISTIC, SendCharacterLoaded } from './common.js';
 import {Favor, AddAllFavors} from './favor.js';
-import {Skill, COMBAT_SKILL_NAME, AddAllSkills} from './skill.js';
+import {Skill, COMBAT_SKILL_NAME} from './skill.js';
 import {Weapon, AddAllWeapons, RANGE} from './weapon.js';
 
 const default_character = {
@@ -143,7 +143,6 @@ function UploadCharacter() {
         window.character = character;
         SendCharacterLoaded();
 
-        AddAllSkills(character);
         AddAllFavors(character);
         AddAllWeapons(character.weapons);
     }
@@ -160,7 +159,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     window.character = character;
     SendCharacterLoaded();
 
-    AddAllSkills(character);
     AddAllFavors(character);
     AddAllWeapons(character.weapons);
 

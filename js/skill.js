@@ -1,4 +1,4 @@
-import {CHARACTERISTIC, SendCharacterUpdated, ShortenCharacteristic} from './common.js';
+import {CHARACTERISTIC, SendCharacterUpdated, ShortenCharacteristic, RemoveAllChildNodes} from './common.js';
 
 const SkillsElement = document.getElementById("skills");
 
@@ -58,36 +58,43 @@ const SyncDisplay = (skill, container) => {
     }
 }
 
-export const AddAllSkills = (character) => {
+export const AddAllSkills = () => {
+    let character = window.character;
+
     /** @type {HTMLTemplateElement} */
     const skill_template = document.getElementById("skill-template");
 
     /** @type {HTMLTableSectionElement} */
     const general_skills = document.getElementById("skills-general");
+    RemoveAllChildNodes(general_skills);
     character.skills_general.forEach(skill => {
         AddToTable(skill, skill_template, general_skills);
     });
 
     /** @type {HTMLTableSectionElement} */
     const magic_skills = document.getElementById("skills-magic");
+    RemoveAllChildNodes(magic_skills);
     character.skills_magic.forEach(skill => {
         AddToTable(skill, skill_template, magic_skills);
     });
 
     /** @type {HTMLTableSectionElement} */
     const combat_skills = document.getElementById("skills-combat");
+    RemoveAllChildNodes(combat_skills);
     character.skills_combat.forEach(skill => {
         AddToTable(skill, skill_template, combat_skills);
     });
 
     /** @type {HTMLTableSectionElement} */
     const social_skills = document.getElementById("skills-social");
+    RemoveAllChildNodes(social_skills);
     character.skills_social.forEach(skill => {
         AddToTable(skill, skill_template, social_skills);
     });
 
     /** @type {HTMLTableSectionElement} */
     const knowledge_skills = document.getElementById("skills-knowledge");
+    RemoveAllChildNodes(knowledge_skills);
     character.skills_knowledge.forEach(skill => {
         AddToTable(skill, skill_template, knowledge_skills);
     });
@@ -122,4 +129,6 @@ SkillsElement.addEventListener("change", (event) => {
 
     UpdateSkill(character, target);
     SendCharacterUpdated();
-})
+});
+
+document.addEventListener('character-loaded', AddAllSkills);

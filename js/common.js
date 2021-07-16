@@ -39,3 +39,13 @@ export function SendCharacterLoaded() {
     var event = new CustomEvent("character-loaded", {});
     document.dispatchEvent(event);
 }
+
+/**
+ * Removes all children of the given element
+ * @param {HTMLElement} parent 
+ */
+export function RemoveAllChildNodes(parent) {
+    while(parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
