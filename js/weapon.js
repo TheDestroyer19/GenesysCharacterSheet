@@ -1,5 +1,6 @@
 import { CHARACTER_LOADED, RemoveAllChildNodes, SendCharacterUpdated } from './common.js';
 import {Modal} from './modal.js';
+import {COMBAT_SKILL_NAME, RANGE, Weapon} from './genesys.js';
 
 const WeaponTemplate = document.getElementById("weapon-template");
 const WeaponTable = document.getElementById("weapons-table");
@@ -21,37 +22,6 @@ const WeaponModal = new Modal(
 
 let activeWeapon = null;
 let activeElement = null;
-
-/**
-* @enum {string}
-*/
-export const RANGE = {
-    Engaged: "Engaged",
-    Short: "Short",
-    Medium: "Medium",
-    Long: "Long",
-    Extreme: "Extreme",
-}
-
-export class Weapon {
-    /**
-     * 
-     * @param {string} name 
-     * @param {string} skill 
-     * @param {number} damage 
-     * @param {number} crit 
-     * @param {RANGE} range 
-     * @param {string} special 
-     */
-    constructor(name, skill, damage, crit, range, special) {
-        this.name = name;
-        this.skill = skill;
-        this.damage = damage;
-        this.crit = crit;
-        this.range = range;
-        this.special = special;
-    }
-}
 
 function UpdateActiveWeaponData() {
     activeWeapon.name = WeaponNameInput.value;
@@ -138,7 +108,7 @@ document.addEventListener(CHARACTER_LOADED, AddAllWeapons);
 
 NewWeapon.addEventListener('click', () => {
     let character = window.character;
-    let weapon = new Weapon("Unnamed weapon", "Melee", 0, 0, RANGE.Engaged, "");
+    let weapon = new Weapon("Unnamed weapon", COMBAT_SKILL_NAME.Melee, 0, 0, RANGE.Engaged, "");"Melee"
     character.weapons.push(weapon);
     AddWeapon(weapon, true);
 });

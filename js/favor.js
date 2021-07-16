@@ -1,3 +1,4 @@
+import {Favor} from './genesys.js';
 import { CHARACTER_LOADED, RemoveAllChildNodes, SendCharacterUpdated } from './common.js';
 import {Modal} from './modal.js';
 
@@ -20,15 +21,6 @@ const FavorModal = new Modal(
 
 let activeFavor = null;
 let activeElement = null;
-
-/**
- * @property {string} text
- */
-export class Favor {
-    constructor(text) {
-        this.text = text;
-    }
-}
 
 /**
  * 

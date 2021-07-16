@@ -1,6 +1,7 @@
 // This module contains definitions for types used in the Genesys CharacterSheets.
 
 /**
+ * @readonly
  * @enum {string}
  */
 export const CHARACTERISTIC = {
@@ -27,6 +28,7 @@ export const CHARACTERISTIC = {
  }
 
 /**
+ * @readonly
  * @enum {string}
  */
 export const COMBAT_SKILL_NAME = {
@@ -36,6 +38,18 @@ export const COMBAT_SKILL_NAME = {
     RangedHeavy: "Ranged - Heavy",
     Gunnery: "Gunnery",
 };
+
+/**
+ * @readonly
+ * @enum {string}
+ */
+export const RANGE = {
+    Engaged: "Engaged",
+    Short: "Short",
+    Medium: "Medium",
+    Long: "Long",
+    Extreme: "Extreme",
+}
 
 /**
  * @typedef {Object} Skill
@@ -57,5 +71,44 @@ export const COMBAT_SKILL_NAME = {
         this.characteristic = characteristic;
         this.career = career;
         this.rank = rank;
+    }
+}
+
+/**
+ * @typedef {Object} Favor
+ * @property {string} text
+ */
+export class Favor {
+    constructor(text) {
+        this.text = text;
+    }
+}
+
+/**
+ * @typedef {object} Weapon
+ * @property {string} name 
+ * @property {COMBAT_SKILL_NAME} skill 
+ * @property {number} damage 
+ * @property {number} crit 
+ * @property {RANGE} range 
+ * @property {string} special 
+ */
+export class Weapon {
+    /**
+     * 
+     * @param {string} name 
+     * @param {COMBAT_SKILL_NAME} skill 
+     * @param {number} damage 
+     * @param {number} crit 
+     * @param {RANGE} range 
+     * @param {string} special 
+     */
+    constructor(name, skill, damage, crit, range, special) {
+        this.name = name;
+        this.skill = skill;
+        this.damage = damage;
+        this.crit = crit;
+        this.range = range;
+        this.special = special;
     }
 }
