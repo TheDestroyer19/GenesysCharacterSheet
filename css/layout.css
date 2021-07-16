@@ -97,7 +97,6 @@ body {
 }
 .condition input {
     grid-row: 2;
-    justify-self: stretch;
 }
 .condition label {
     grid-row: 3;
@@ -122,6 +121,10 @@ body {
 #motivations h2 {
     grid-column: span 2;
 }
+
+/* ************************************************************************* */
+/* Modals that need layout                                                   */
+/* ************************************************************************* */
 
 /* Weapon Modal Layout ***************************************************** */
 #modal-edit-weapon {
