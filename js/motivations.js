@@ -6,7 +6,7 @@ const Strength = document.getElementById('motivation-strength');
 const Flaw = document.getElementById('motivation-flaw');
 const Desire = document.getElementById('motivation-desire');
 
-export function SetMotivations() {
+function SetMotivations() {
     let character = window.character;
 
     if (character.motivations == undefined) {
@@ -40,3 +40,5 @@ MotivationsElement.addEventListener("change", (event) => {
 
     SendCharacterUpdated();
 });
+
+document.addEventListener("character-loaded", SetMotivations);

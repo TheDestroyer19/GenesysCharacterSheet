@@ -2,7 +2,9 @@ import { SendCharacterUpdated } from "./common.js";
 
 const CharacteristicsElement = document.getElementById('characteristics');
 
-export function SetCharacteristics(characteristics) {
+function SetCharacteristics() {
+    let characteristics = window.character.characteristics;
+
     document.getElementById("brawn").value = characteristics.Brawn;
     document.getElementById("agility").value = characteristics.Agility;
     document.getElementById("intellect").value = characteristics.Intellect;
@@ -19,36 +21,34 @@ export function SetCharacteristics(characteristics) {
     document.getElementById("defense-ranged").value = characteristics.DefenseRanged;
 }
 
-CharacteristicsElement.addEventListener("change", (event) => {
-    let character = window.character;
+function SaveChange(event) {
+    let stats = window.character.characteristics;
     let target = event.target;
+    let value = parseInt(target.value);
 
     //handle inputs with an id
     switch (target.id) {
-        // Header
-        case "name": character.header.name = target.value; break;
-        case "player": character.header.player = target.value; break;
-        case "archetype": character.header.archetype = target.value; break;
-        case "career": character.header.career = target.value; break;
-        case "xp-available": character.header.xpAvailable = parseInt(target.value); break;
-        case "xp-total": character.header.xpTotal = parseInt(target.value); break;
         // Characteristics
-        case "brawn": character.characteristics.Brawn = parseInt(target.value); break;
-        case "agility": character.characteristics.Agility = parseInt(target.value); break;
-        case "intellect": character.characteristics.Intellect = parseInt(target.value); break;
-        case "cunning": character.characteristics.Cunning = parseInt(target.value); break;
-        case "willpower": character.characteristics.Willpower = parseInt(target.value); break;
-        case "presence": character.characteristics.Presence = parseInt(target.value); break;
+        case "brawn": stats.Brawn = value; break;
+        case "agility": stats.Agility = value; break;
+        case "intellect": stats.Intellect = value; break;
+        case "cunning": stats.Cunning = value; break;
+        case "willpower": stats.Willpower = value; break;
+        case "presence": stats.Presence = value; break;
         // Conditions
-        case "soak": character.characteristics.Soak = parseInt(target.value); break;
-        case "wounds-threshold": character.characteristics.WoundsThreshold = parseInt(target.value); break;
-        case "wounds-current": character.characteristics.WoundsCurrent = parseInt(target.value); break;
-        case "strain-threshold": character.characteristics.StrainThreshold = parseInt(target.value); break;
-        case "strain-current": character.characteristics.StrainCurrent = parseInt(target.value); break;
-        case "defense-ranged": character.characteristics.DefenseRanged = parseInt(target.value); break;
-        case "defense-melee": character.characteristics.DefenseMelee = parseInt(target.value); break;
+        case "soak": stats.Soak = value; break;
+        case "wounds-threshold": stats.WoundsThreshold = value; break;
+        case "wounds-current": stats.WoundsCurrent = value; break;
+        case "strain-threshold": stats.StrainThreshold = value; break;
+        case "strain-current": stats.StrainCurrent = value; break;
+        case "defense-ranged": stats.DefenseRanged = value; break;
+        case "defense-melee": stats.DefenseMelee = value; break;
         default: return;
     }
 
     SendCharacterUpdated();
-});
+}
+
+CharacteristicsElement.addEventListener("change", SaveChange);
+
+document.addEventListener("character-loaded", SetCharacteristics);

@@ -25,9 +25,17 @@ export const CHARACTERISTIC = {
 }
 
 /**
- * Sends an event to signal that the character has been updated and needs to be saved
+ * Sends an event to signal that the character has been modified and needs to be saved
  */
 export function SendCharacterUpdated() {
     var event = new CustomEvent("character-updated", {});
+    document.dispatchEvent(event);
+}
+
+/**
+ * Sends an event to signal that the character has been loaded and the gui needs updated
+ */
+export function SendCharacterLoaded() {
+    var event = new CustomEvent("character-loaded", {});
     document.dispatchEvent(event);
 }

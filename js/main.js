@@ -1,9 +1,7 @@
-import {CHARACTERISTIC } from './common.js';
+import {CHARACTERISTIC, SendCharacterUpdated, SendCharacterLoaded } from './common.js';
 import {Favor, AddAllFavors} from './favor.js';
 import {Skill, COMBAT_SKILL_NAME, AddAllSkills} from './skill.js';
 import {Weapon, AddAllWeapons, RANGE} from './weapon.js';
-import {SetCharacteristics} from './characteristics.js';
-import {SetMotivations} from './motivations.js';
 
 const default_character = {
     header: {
@@ -88,6 +86,26 @@ const default_character = {
     ],
 }
 
+document.getElementById("page1header").addEventListener("change", SaveHeader);
+
+function SaveHeader(event) {
+    let header = window.character.header;
+    let target = event.target;
+
+    //handle inputs with an id
+    switch (target.id) {
+        case "name": header.name = target.value; break;
+        case "player": header.player = target.value; break;
+        case "archetype": header.archetype = target.value; break;
+        case "career": header.career = target.value; break;
+        case "xp-available": header.xpAvailable = parseInt(target.value); break;
+        case "xp-total": header.xpTotal = parseInt(target.value); break;
+        default: return;
+    }
+
+    SendCharacterUpdated();
+}
+
 function set_header(header) {
     document.getElementById("name").value = header.name;
     document.getElementById("player").value = header.player;
@@ -122,15 +140,15 @@ function GetFromLocalStorage() {
         console.error("Failed to parse character: " + error);
         return JSON.parse(JSON.stringify(default_character));
     }
+
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
     let character = GetFromLocalStorage();
     window.character = character;
+    SendCharacterLoaded();
 
-    set_header(character.header)
-    SetCharacteristics(character.characteristics);
-    SetMotivations();
+    set_header(character.header);
     AddAllSkills(character);
     AddAllFavors(character);
     AddAllWeapons(character.weapons);
