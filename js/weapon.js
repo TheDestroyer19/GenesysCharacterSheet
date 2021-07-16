@@ -1,4 +1,4 @@
-import { SendCharacterUpdated } from './common.js';
+import { CHARACTER_LOADED, RemoveAllChildNodes, SendCharacterUpdated } from './common.js';
 import {Modal} from './modal.js';
 
 const WeaponTemplate = document.getElementById("weapon-template");
@@ -124,6 +124,18 @@ function DeleteActiveWeapon() {
     SendCharacterUpdated();
 }
 
+function AddAllWeapons() {
+    let weapons = window.character.weapons;
+
+    RemoveAllChildNodes(WeaponTable);
+
+    weapons.forEach(weapon => {
+        AddWeapon(weapon, false);
+    });
+}
+
+document.addEventListener(CHARACTER_LOADED, AddAllWeapons);
+
 NewWeapon.addEventListener('click', () => {
     let character = window.character;
     let weapon = new Weapon("Unnamed weapon", "Melee", 0, 0, RANGE.Engaged, "");
@@ -131,8 +143,3 @@ NewWeapon.addEventListener('click', () => {
     AddWeapon(weapon, true);
 });
 
-export const AddAllWeapons = (weapons) => {
-    weapons.forEach(weapon => {
-        AddWeapon(weapon, false);
-    });
-}

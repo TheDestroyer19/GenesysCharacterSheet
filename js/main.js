@@ -1,7 +1,7 @@
 import {CHARACTERISTIC, CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
 import {Favor} from './favor.js';
 import {Skill, COMBAT_SKILL_NAME} from './skill.js';
-import {Weapon, AddAllWeapons, RANGE} from './weapon.js';
+import {Weapon, RANGE} from './weapon.js';
 
 const default_character = {
     header: {
@@ -142,8 +142,6 @@ function UploadCharacter() {
         SendCharacterLoaded();
         SaveToLocalStorage(window.character);
         console.log("Character imported");
-
-        AddAllWeapons(character.weapons);
     }
 
     fr.readAsText(files.item(0));
@@ -157,9 +155,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let character = GetFromLocalStorage();
     window.character = character;
     SendCharacterLoaded();
-
-    AddAllWeapons(character.weapons);
-
 });
 
 document.addEventListener(CHARACTER_UPDATED, () => {
