@@ -43,4 +43,9 @@ NewItem.addEventListener('click', () => {
     SendCharacterUpdated();
 });
 
-document.addEventListener(CHARACTER_LOADED, () => ItemListEditor.regenerate());
+document.addEventListener(CHARACTER_LOADED, () => {
+    if (!window.character.inventory) {
+        window.character.inventory = [];
+    }
+    ItemListEditor.regenerate();
+});
