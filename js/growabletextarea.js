@@ -8,8 +8,8 @@ export function SendRecalcSize(target) {
 };
 
 function resize(target) {
-    let scrollheight = target.scrollHeight;
     target.style['min-height'] = "0px";
+    let scrollheight = target.scrollHeight;
     target.style['min-height'] = scrollheight + "px";
 }
 

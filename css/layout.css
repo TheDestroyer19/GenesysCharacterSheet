@@ -132,6 +132,9 @@ body {
 #character-description {
     grid-area: cd;
 }
+#notes {
+    grid-area: nn;
+}
 
 /* Page 2 - motivations layout ********************************************* */
 #motivations {
@@ -139,8 +142,6 @@ body {
     grid-template-columns: 1fr 1fr;
     column-gap: 0.25rem;
     row-gap: 0.25rem;
-    grid-template-areas: 
-        "h h";
 }
 #motivations h2 {
     grid-column: span 2;
@@ -184,6 +185,14 @@ body {
 #character-description label {
     text-align: end;
 }
+/* Page 2 - notes layout *************************************************** */
+#notes {
+    display: flex;
+    flex-direction: column;
+}
+#notes-input {
+    flex-grow: 1;
+}
 
 /* ************************************************************************* */
 /* Modals that need layout                                                   */
@@ -201,4 +210,10 @@ body {
 #modal-edit-weapon label {
     grid-column: 1;
     text-align: end;
+}
+#modal-edit-item {
+    grid-template-columns: auto auto;
+}
+#modal-edit-item h1, #modal-edit-item .horizontal-row {
+    grid-column: span 2;
 }

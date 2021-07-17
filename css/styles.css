@@ -4,6 +4,10 @@ body {
     background-color: whitesmoke;
 }
 
+textarea {
+    font-size: small;
+}
+
 .sheet {
     max-width: 8in;
 }
@@ -22,7 +26,8 @@ body {
 
 #skills, #favors, #weapons, .modal, header,
 #condition div, #characteristics div, #app-header,
-#motivations, #inventory, #character-description {
+#motivations, #inventory, #character-description,
+#notes {
     background: white;
     border: 0.2rem solid orange;
     border-radius: 0.75rem;
@@ -98,14 +103,8 @@ body {
     min-width: 100%;
 }
 
-/* Motivation styling */
-#motivations textarea {
-    font-size: small;
-}
-
 /* Character Description Styling*/
-#character-description input,
-#character-description textarea {
+#character-description input {
     font-size: small;
 }
 
