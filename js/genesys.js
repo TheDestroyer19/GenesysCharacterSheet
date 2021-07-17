@@ -126,3 +126,22 @@ export class Item {
         this.description = description;
     }
 }
+
+/**
+ * @typedef {Object} CriticalInjury
+ * @property {number} severity
+ * @property {string} result
+ */
+export class CriticalInjury {
+    constructor(severity, result) {
+        this.severity = severity;
+        this.result = result;
+    }
+}
+
+/**
+ * @typedef {Object} ability
+ * @property {string} name
+ * @property {string} source
+ * @property {string} description
+ */

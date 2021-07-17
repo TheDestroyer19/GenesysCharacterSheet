@@ -193,6 +193,16 @@ body {
 #notes-input {
     flex-grow: 1;
 }
+/* Page 2 - critical injuries layout *************************************** */
+#critical-injuries table {
+    width: 100%;
+}
+#critical-injuries tr > :first-child {
+    width: 4rem;
+}
+#critical-injuries tr > :last-child {
+    width: 1rem;
+}
 
 /* ************************************************************************* */
 /* Modals that need layout                                                   */

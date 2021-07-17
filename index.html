@@ -13,6 +13,7 @@
     <script type="module" src="./js/favor.js"></script>
     <script type="module" src="./js/weapon.js"></script>
     <script type="module" src="./js/equipment.js"></script>
+    <script type="module" src="./js/injury.js"></script>
   </head>
   <body>
     <header id="app-header" class="horizontal-row">
@@ -240,6 +241,21 @@
         </section>
 
         <section id="critical-injuries">
+            <h2>Critical Injuries</h2>
+            <template id="injury-template">
+                <tr>
+                    <td><input class="severity" type="checkbox"><input class="severity" type="checkbox"><input class="severity" type="checkbox"><input class="severity" type="checkbox"></td>
+                    <td class="result"></td>
+                    <td><button class="edit" title="Edit Injury">🖉</button></td>
+                </tr>
+            </template>
+            <table>
+                <thead>
+                    <tr><th>Severity</th><th>Result</th><th><button id="new-injury" class="edit" title="Add Injury">＋</button></th></tr>
+                </thead>
+                <tbody id="injury-table">
+                </tbody>
+            </table>
         </section>
     </form>
 
@@ -252,6 +268,7 @@
             <button class="modal-save">Save</button>
         </div>
     </div>
+
     <div id="modal-edit-owed-favor" class="modal closed">
         <h1>Owed Favor</h1>
         <textarea id="edit-owed-favor"></textarea>
@@ -297,6 +314,24 @@
         <input type="number" id="edit-item-quantity" />
         <label for="edit-item-description">Description:</label>
         <input type="text" id="edit-item-description" />
+        <div class="horizontal-row">
+            <button class="modal-close">Cancel</button>
+            <button class="modal-delete">Delete</button>
+            <button class="modal-save">Save</button>
+        </div>
+    </div>
+
+    <div id="modal-edit-injury" class="modal closed">
+        <h1>Critical Injury</h1>
+        <label>
+            Severity
+            <input type="checkbox" class="severity">
+            <input type="checkbox" class="severity">
+            <input type="checkbox" class="severity">
+            <input type="checkbox" class="severity">
+        </label>
+        <label for="edit-injury-result">Result</label>
+        <textarea id="edit-injury-result"></textarea>
         <div class="horizontal-row">
             <button class="modal-close">Cancel</button>
             <button class="modal-delete">Delete</button>
