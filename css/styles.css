@@ -8,6 +8,12 @@ body {
     max-width: 8in;
 }
 
+.growable {
+    overflow-y: hidden;
+    resize: none;
+    min-height: 0;
+}
+
 .horizontal-row {
     display: flex;
     flex-direction: row;
@@ -95,7 +101,6 @@ body {
 /* Motivation styling */
 #motivations textarea {
     font-size: small;
-    resize: vertical;
 }
 
 /* Character Description Styling*/

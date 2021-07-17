@@ -1,4 +1,5 @@
-import { SendCharacterUpdated } from "./common.js";
+import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
+import { SendRecalcSize } from "./growabletextarea.js";
 
 // ========================================================================= //
 // HEADER ================================================================== //
@@ -22,7 +23,7 @@ document.getElementById("page1header").addEventListener('change', (event) => {
     SendCharacterUpdated();
 })
 
-document.addEventListener('character-loaded', () => {
+document.addEventListener(CHARACTER_LOADED, () => {
     let header = window.character.header;
     document.getElementById("name").value = header.name;
     document.getElementById("player").value = header.player;
@@ -106,7 +107,7 @@ document.getElementById('character-description').addEventListener('change', (eve
     SendCharacterUpdated();
 });
 
-document.addEventListener('character-loaded', () => {
+document.addEventListener(CHARACTER_LOADED, () => {
     let desc = character.description;
     if (!desc) {
         desc = {
@@ -127,4 +128,50 @@ document.addEventListener('character-loaded', () => {
     document.getElementById("bio-hair").value = desc.hair;
     document.getElementById("bio-eyes").value = desc.eyes;
     document.getElementById("bio-features").value = desc.features;
+});
+
+// ========================================================================= //
+// MOTIVATIONS ============================================================= //
+// ========================================================================= //
+
+document.getElementById('motivations').addEventListener('change', (event) => {
+    let motivations = window.character.motivations;
+    let target = event.target;
+    let value = target.value;
+
+    switch(target.id) {
+        case 'motivation-fear': motivations.fear = value; break;
+        case 'motivation-strength': motivations.strength = value; break;
+        case 'motivation-flaw': motivations.flaw = value; break;
+        case 'motivation-desire': motivations.desire = value; break;
+        default: return;
+    }
+
+    SendCharacterUpdated();
+})
+
+document.addEventListener(CHARACTER_LOADED, () => {
+    let motivations = window.character.motivations;
+    if (!motivations) {
+        motivations = {
+            fear: "",
+            strength: "",
+            flaw: "",
+            desire: "",
+        };
+        window.character.motivations = motivations;
+    }
+
+    const fear = document.getElementById('motivation-fear');
+    fear.value = motivations.fear;
+    SendRecalcSize(fear);
+    const strength = document.getElementById('motivation-strength');
+    strength.value = motivations.strength;
+    SendRecalcSize(strength);
+    const flaw = document.getElementById('motivation-flaw');
+    flaw.value = motivations.flaw;
+    SendRecalcSize(flaw);
+    const desire = document.getElementById('motivation-desire');
+    desire.value = motivations.desire;
+    SendRecalcSize(desire);
 });
