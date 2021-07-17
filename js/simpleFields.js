@@ -82,3 +82,49 @@ document.addEventListener("character-loaded", () => {
     document.getElementById("defense-melee").value = characteristics.DefenseMelee;
     document.getElementById("defense-ranged").value = characteristics.DefenseRanged;
 });
+
+// ========================================================================= //
+// CHARACTER DESCRIPTION =================================================== //
+// ========================================================================= //
+
+document.getElementById('character-description').addEventListener('change', (event) => {
+    let desc = window.character.description;
+    let target = event.target;
+    let value = target.value;
+
+    switch (target.id) {
+        case "bio-gender": desc.gender = value; break;
+        case "bio-age": desc.age = value; break;
+        case "bio-height": desc.height = value; break;
+        case "bio-build": desc.build = value; break;
+        case "bio-hair": desc.hair = value; break;
+        case "bio-eyes": desc.eyes = value; break;
+        case "bio-features": desc.features = value; break;
+        default: return;
+    }
+
+    SendCharacterUpdated();
+});
+
+document.addEventListener('character-loaded', () => {
+    let desc = character.description;
+    if (!desc) {
+        desc = {
+            gender: "",
+            age: "",
+            height: "",
+            build: "",
+            hair: "",
+            eyes: "",
+            features: "",
+        };
+        character.description = desc;
+    }
+    document.getElementById("bio-gender").value = desc.gender;
+    document.getElementById("bio-age").value = desc.age;
+    document.getElementById("bio-height").value = desc.height;
+    document.getElementById("bio-build").value = desc.build;
+    document.getElementById("bio-hair").value = desc.hair;
+    document.getElementById("bio-eyes").value = desc.eyes;
+    document.getElementById("bio-features").value = desc.features;
+});
