@@ -129,6 +129,9 @@ body {
 #inventory {
     grid-area: eq;
 }
+#character-description {
+    grid-area: cd;
+}
 
 /* Page 2 - motivations layout ********************************************* */
 #motivations {
@@ -159,6 +162,29 @@ body {
     text-align: end;
 }
 
+/* Page 2 - character description layout *********************************** */
+#character-description {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(8, auto) 1fr;
+    column-gap: 0.25rem;
+    align-items: center;
+}
+#character-description h2 {
+    grid-column: span 2;
+}
+#character-description label[for="bio-features"] {
+    grid-column: span 2;
+    text-align: start;
+}
+#character-description textarea {
+    grid-column: span 2;
+    min-height: 100%;
+}
+#character-description label {
+    text-align: end;
+}
+
 /* ************************************************************************* */
 /* Modals that need layout                                                   */
 /* ************************************************************************* */
@@ -167,6 +193,7 @@ body {
 #modal-edit-weapon {
     grid-template-columns: auto auto;
     column-gap: 0.25rem;
+    align-items: center;
 }
 #modal-edit-weapon h1, #modal-edit-weapon .horizontal-row {
     grid-column: span 2;

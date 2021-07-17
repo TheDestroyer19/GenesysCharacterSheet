@@ -16,7 +16,7 @@ body {
 
 #skills, #favors, #weapons, .modal, header,
 #condition div, #characteristics div, #app-header,
-#motivations, #inventory {
+#motivations, #inventory, #character-description {
     background: white;
     border: 0.2rem solid orange;
     border-radius: 0.75rem;
@@ -96,6 +96,12 @@ body {
 #motivations textarea {
     font-size: small;
     resize: vertical;
+}
+
+/* Character Description Styling*/
+#character-description input,
+#character-description textarea {
+    font-size: small;
 }
 
 /* Modal styling */
