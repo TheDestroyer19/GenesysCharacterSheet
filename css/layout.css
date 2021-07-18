@@ -135,6 +135,12 @@ body {
 #notes {
     grid-area: nn;
 }
+#critical-injuries {
+    grid-area: ci;
+}
+#abilities {
+    grid-area: sa;
+}
 
 /* Page 2 - motivations layout ********************************************* */
 #motivations {
@@ -193,6 +199,7 @@ body {
 #notes-input {
     flex-grow: 1;
 }
+
 /* Page 2 - critical injuries layout *************************************** */
 #critical-injuries table {
     width: 100%;
@@ -201,6 +208,14 @@ body {
     width: 4rem;
 }
 #critical-injuries tr > :last-child {
+    width: 1rem;
+}
+
+/* Page 2 - abilities layout *********************************************** */
+#abilities table {
+    width: 100%;
+}
+#abilities tr > :last-child {
     width: 1rem;
 }
 

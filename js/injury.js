@@ -1,5 +1,5 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
-import { CriticalInjury, Skill } from "./genesys.js";
+import { CriticalInjury } from "./genesys.js";
 import { ListEditor } from "./listEditor.js";
 
 const InjuryModal = document.getElementById('modal-edit-injury');

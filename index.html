@@ -14,6 +14,7 @@
     <script type="module" src="./js/weapon.js"></script>
     <script type="module" src="./js/equipment.js"></script>
     <script type="module" src="./js/injury.js"></script>
+    <script type="module" src="./js/ability.js"></script>
   </head>
   <body>
     <header id="app-header" class="horizontal-row">
@@ -257,6 +258,31 @@
                 </tbody>
             </table>
         </section>
+
+        <section id="abilities">
+            <h2>Talents and Special Abilities</h2>
+            <template id="ability-template">
+                <tr>
+                    <td class="name"></td>
+                    <td class="source"></td>
+                    <td class="description"></td>
+                    <td><button class="edit" title="Edit Ability">🖉</button></td>
+                </tr>
+            </template>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Source</th>
+                        <th>Ability Summary</th>
+                        <th><button id="new-ability" class="edit" title="Add Injury">＋</button></th>
+                    </tr>
+                </thead>
+                <tbody id="ability-table">
+
+                </tbody>
+            </table>
+        </section>
     </form>
 
     <div id="modal-edit-given-favor" class="modal closed">
@@ -332,6 +358,19 @@
         </label>
         <label for="edit-injury-result">Result</label>
         <textarea id="edit-injury-result"></textarea>
+        <div class="horizontal-row">
+            <button class="modal-close">Cancel</button>
+            <button class="modal-delete">Delete</button>
+            <button class="modal-save">Save</button>
+        </div>
+    </div>
+
+    <div id="modal-edit-ability" class="modal closed">
+        <h1>Ability</h1>
+        <label>Name <input id="edit-ability-name"></label>
+        <label>Source <input id="edit-ability-source"></label>
+        <label for="edit-ability-description">Description</label>
+        <textarea id="edit-ability-description"></textarea>
         <div class="horizontal-row">
             <button class="modal-close">Cancel</button>
             <button class="modal-delete">Delete</button>
