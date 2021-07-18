@@ -116,7 +116,7 @@ body {
     display: grid;
     column-gap: 0.5rem;
     row-gap: 0.5rem;
-    grid-template-columns: auto auto;
+    grid-template-columns: 2fr 1fr;
     grid-template-areas: 
         "mo cd"
         "eq cd"
