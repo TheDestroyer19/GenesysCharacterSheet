@@ -12,19 +12,31 @@ export const CHARACTERISTIC = {
     Willpower: "Willpower",
     Presence: "Presence"
  };
+
+ export class Characteristic {
+     static Shorten(characteristic) {
+        switch (characteristic) {
+            case CHARACTERISTIC.Brawn: return "Br";
+            case CHARACTERISTIC.Agility: return "Ag";
+            case CHARACTERISTIC.Intellect: return "Int";
+            case CHARACTERISTIC.Cunning: return "Cun";
+            case CHARACTERISTIC.Willpower: return "Will";
+            case CHARACTERISTIC.Presence: return "Pr";
+        }
+        console.warn("tried to shorten '" + characteristic + "' but it wasn't reconised as a characteristic");
+        return characteristic;
+     }
+
+     static Normalize(characteristic) {
+
+     }
+ }
  
  /**
   * @param {CHARACTERISTIC} characteristic 
   */
  export const ShortenCharacteristic = (characteristic) => {
-     switch (characteristic) {
-         case CHARACTERISTIC.Brawn: return "Br";
-         case CHARACTERISTIC.Agility: return "Ag";
-         case CHARACTERISTIC.Intellect: return "Int";
-         case CHARACTERISTIC.Cunning: return "Cun";
-         case CHARACTERISTIC.Willpower: return "Will";
-         case CHARACTERISTIC.Presence: return "Pr";
-     }
+     return Characteristic.Shorten(characteristic);
  }
 
 /**
