@@ -10,48 +10,38 @@ summary {
     display: flex;
     align-items: center;
     gap: 0.2em;
+
+    line-height: 1.15;
 }
 
 #root {
     cursor: pointer;
     background: #dddddd;
     border-radius: 0.35em;
-
-    line-height: 1.15;
 }
 
-#career {
+#career, #stat {
     display: inline-block;
-    width: 1.15em;
     height: 1.15em;
+    min-width: 1.15em;
 
     color: white;
     text-align: center;
     font-weight: bold;
 
-    background-color: #007186;
     border-radius: 0.35em;
+}
+
+#career {
+    background-color: #007186;
 }
 #career.hidden {
     visibility: hidden;
 }
 
 #stat {
-    display: inline-block;
-    height: 1.15em;
-    min-width: 1em;
     padding: 0 0.2em;
-
-    color: white;
-    text-align: center;
-
     background-color: orange;
-    border-radius: 0.35em;
-}
-
-#ranks {
-    display: flex;
-    align-items: center;
 }
 
 #edit {
@@ -59,41 +49,41 @@ summary {
     grid-template-columns: auto auto;
     grid-column-gap: 0.25rem;
     grid-row-gap: 0.25rem;
+    align-items: center;
     padding: 0.25rem;
 }
 #edit label {
     text-align: end;
 }
-
 input:not([type="checkbox"]), select {
     min-width: 2rem;
     justify-self: stretch;
 }
 
-.rank:first-child {
-    border-top-left-radius: 0.35em;
-    border-bottom-left-radius: 0.35em;
-    border-left: 0.1rem solid black;
-}
-.rank:last-child {
-    border-top-right-radius: 0.35em;
-    border-bottom-right-radius: 0.35em;
+#ranks {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 0.35em;
+    overflow: hidden;
+    height: 0.7em;
 }
 .rank {
     display: inline-block;
     box-sizing: border-box;
     width: 1.15em;
-    height: 0.8em;
+    height: 100%;
 
     background-color: white;
-    border: 0.1rem solid black;
-    border-left: none;
+    border-right: 1px solid black;
+}
+.rank:last-child {
+    width: calc(1.15em - 1px);
+    border-right: none;
 }
 .rank.filled {
     background-color: #06D8FF;
 }
-
-
 `;
 const ELEMENT_HTML = `
 <details id="root">
