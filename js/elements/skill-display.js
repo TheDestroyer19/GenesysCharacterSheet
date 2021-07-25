@@ -168,6 +168,23 @@ class SkillDisplay extends HTMLElement {
             this.rank = event.target.value;
             this.#send_change_event(this.name);
         });
+        for(const [key, box] of this.#ranks_h.entries()) {
+            box.addEventListener('click', () => {
+                let old = this.rank;
+                if (key >= this.rank) {
+                    this.rank += 1;
+                } else {
+                    this.rank -= 1;
+                }
+                this.#send_change_event(this.name);
+                if (this.#root.hasAttribute('open')) {
+                    this.#root.removeAttribute('open');
+                } else {
+                    this.#root.setAttribute('open', true);
+                }
+                return true;
+            });
+        }
 
         //call some methods to get display set up
         this.attributeChangedCallback('career', undefined, this.career);
@@ -208,6 +225,7 @@ class SkillDisplay extends HTMLElement {
             case 'stat':
                 if (this.stat) {
                     this.#stat_h.textContent = Characteristic.Shorten(this.stat);
+                    this.#stat_h.title = this.stat;
                     this.#stat_i.value = this.stat;
                 } else {
                     this.#stat_h.textContent = "";
@@ -228,7 +246,9 @@ class SkillDisplay extends HTMLElement {
     }
 
     get rank() {
-        return this.getAttribute('rank');
+        let value = parseInt(this.getAttribute('rank'));
+        if (isNaN(value)) return 0;
+        return value;
     }
     set rank(value) {
         if (value) {
