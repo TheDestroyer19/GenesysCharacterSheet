@@ -1,6 +1,12 @@
-import {SendCharacterUpdated, RemoveAllChildNodes} from './common.js';
+import {SendCharacterUpdated, RemoveAllChildNodes, CHARACTER_LOADED} from './common.js';
 import {Skill} from './genesys.js';
+
 const SkillsElement = document.getElementById("skills");
+const GeneralSkills = document.getElementById("skills-general");
+const MagicSkills = document.getElementById("skills-magic");
+const CombatSkills = document.getElementById("skills-combat");
+const SocialSkills = document.getElementById("skills-social");
+const KnowledgeSkills = document.getElementById("skills-knowledge");
 
 /**
  * @param {Skill} skill
@@ -8,57 +14,36 @@ const SkillsElement = document.getElementById("skills");
  */
 function AddToTable(skill, tbody) {
     let skill_row = document.createElement('skill-display');
-    SyncDisplay(skill, skill_row);
+    skill_row.career = skill.career;
+    skill_row.name = skill.name;
+    skill_row.rank = skill.rank;
+    skill_row.stat = skill.characteristic;
     tbody.appendChild(skill_row);
-}
-
-function SyncDisplay(skill, container) {
-    container.career = skill.career;
-    container.name = skill.name;
-    container.rank = skill.rank;
-    container.stat = skill.characteristic;
 }
 
 export const AddAllSkills = () => {
     let character = window.character;
 
-    /** @type {HTMLTableSectionElement} */
-    const general_skills = document.getElementById("skills-general");
-    RemoveAllChildNodes(general_skills);
-    character.skills_general.forEach(skill => {
-        AddToTable(skill, general_skills);
-    });
+    RemoveAllChildNodes(GeneralSkills);
+    character.skills_general.forEach(skill => AddToTable(skill, GeneralSkills));
 
-    /** @type {HTMLTableSectionElement} */
-    const magic_skills = document.getElementById("skills-magic");
-    RemoveAllChildNodes(magic_skills);
-    character.skills_magic.forEach(skill => {
-        AddToTable(skill, magic_skills);
-    });
+    RemoveAllChildNodes(MagicSkills);
+    character.skills_magic.forEach(skill => AddToTable(skill, MagicSkills));
 
-    /** @type {HTMLTableSectionElement} */
-    const combat_skills = document.getElementById("skills-combat");
-    RemoveAllChildNodes(combat_skills);
-    character.skills_combat.forEach(skill => {
-        AddToTable(skill, combat_skills);
-    });
+    RemoveAllChildNodes(CombatSkills);
+    character.skills_combat.forEach(skill => AddToTable(skill, CombatSkills));
 
-    /** @type {HTMLTableSectionElement} */
-    const social_skills = document.getElementById("skills-social");
-    RemoveAllChildNodes(social_skills);
-    character.skills_social.forEach(skill => {
-        AddToTable(skill, social_skills);
-    });
+    RemoveAllChildNodes(SocialSkills);
+    character.skills_social.forEach(skill => AddToTable(skill, SocialSkills));
 
-    /** @type {HTMLTableSectionElement} */
-    const knowledge_skills = document.getElementById("skills-knowledge");
-    RemoveAllChildNodes(knowledge_skills);
-    character.skills_knowledge.forEach(skill => {
-        AddToTable(skill, knowledge_skills);
-    });
+    RemoveAllChildNodes(KnowledgeSkills);
+    character.skills_knowledge.forEach(skill => AddToTable(skill, KnowledgeSkills));
 }
 
-function UpdateSkill(character, target, oldName) {
+SkillsElement.addEventListener("change", (event) => {
+    let character = window.character;
+    let target = event.target;
+    let oldName = event.detail;
 
     //find category
     let category = null;
@@ -76,16 +61,7 @@ function UpdateSkill(character, target, oldName) {
     skill.rank = target.rank;
     skill.characteristic = target.stat;
 
-    SyncDisplay(skill, target);
-}
-
-SkillsElement.addEventListener("change", (event) => {
-    let character = window.character;
-    let target = event.target;
-    let oldName = event.detail;
-
-    UpdateSkill(character, target, oldName);
     SendCharacterUpdated();
 });
 
-document.addEventListener('character-loaded', AddAllSkills);
+document.addEventListener(CHARACTER_LOADED, AddAllSkills);
