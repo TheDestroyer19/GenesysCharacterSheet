@@ -1,5 +1,5 @@
 import {SendCharacterUpdated, RemoveAllChildNodes, CHARACTER_LOADED} from './common.js';
-import {Skill} from './genesys.js';
+import {Skill, CHARACTERISTIC} from './genesys.js';
 
 const SkillsElement = document.getElementById("skills");
 const GeneralSkills = document.getElementById("skills-general");
@@ -19,6 +19,7 @@ function AddToTable(skill, tbody) {
     skill_row.rank = skill.rank;
     skill_row.stat = skill.characteristic;
     tbody.appendChild(skill_row);
+    return skill_row;
 }
 
 export const AddAllSkills = () => {
@@ -65,3 +66,30 @@ SkillsElement.addEventListener("change", (event) => {
 });
 
 document.addEventListener(CHARACTER_LOADED, AddAllSkills);
+
+function new_skill(category, table) {
+    //find a unique name for the skill
+    let name = "Unnamed Skill ";
+    let i = 1;
+    while(category.find(s => s.name == name + i)) {
+        i += 1;
+    }
+    name = name + i;
+    let skill = new Skill(name, CHARACTERISTIC.Brawn, false, 0);
+    category.push(skill);
+    let element = AddToTable(skill, table);
+    element.setAttribute('open', true);
+
+    SendCharacterUpdated();
+}
+
+document.getElementById('new-skill-general')
+    .addEventListener('click', () => new_skill(character.skills_general, GeneralSkills));
+document.getElementById('new-skill-magic')
+    .addEventListener('click', () => new_skill(character.skills_magic, MagicSkills));
+document.getElementById('new-skill-combat')
+    .addEventListener('click', () => new_skill(character.skills_combat, CombatSkills));
+document.getElementById('new-skill-social')
+    .addEventListener('click', () => new_skill(character.skills_social, SocialSkills));
+document.getElementById('new-skill-knowledge')
+    .addEventListener('click', () => new_skill(character.skills_knowledge, KnowledgeSkills));

@@ -33,3 +33,17 @@ export function RemoveAllChildNodes(parent) {
         parent.removeChild(parent.firstChild);
     }
 }
+
+/**
+ * Sets or removes a boolean attribute
+ * @param {HTMLElement} element 
+ * @param {string} attribute 
+ * @param {boolean} value 
+ */
+export function setBoolAttribute(element, attribute, value) {
+    if (value) {
+        element.setAttribute(attribute, true);
+    } else {
+        element.removeAttribute(attribute);
+    }
+}

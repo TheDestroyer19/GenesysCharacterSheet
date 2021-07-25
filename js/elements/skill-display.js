@@ -1,4 +1,5 @@
-import {Characteristic} from "/js/genesys.js";
+import { setBoolAttribute } from "/js/common.js";
+import { Characteristic } from "/js/genesys.js";
 
 const STYLE_TEXT = `
 :host {
@@ -196,7 +197,7 @@ class SkillDisplay extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['rank', 'name', 'career', 'stat'];
+        return ['rank', 'name', 'career', 'stat', 'open'];
     }
 
     #send_change_event(oldName) {
@@ -242,7 +243,18 @@ class SkillDisplay extends HTMLElement {
                     }
                 }
                 break;
+            case 'open':
+                setBoolAttribute(this.#root, 'open', newValue);
+                break;
         };
+    }
+
+    get open() {
+        return this.hasAttribute('open');
+    }
+    set open(value) {
+        setBoolAttribute(this, 'open', value);
+        setBoolAttribute(this.#root, 'open', value);
     }
 
     get rank() {
