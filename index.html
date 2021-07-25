@@ -15,10 +15,12 @@
     <script type="module" src="./js/equipment.js"></script>
     <script type="module" src="./js/injury.js"></script>
     <script type="module" src="./js/ability.js"></script>
+    <script type="module" src="./js/elements/skill-display.js"></script>
   </head>
   <body>
     <header id="app-header" class="horizontal-row">
         <h1>Genesys HTML Character Sheet</h1>
+        <span style="flex-grow: 1;"></span>
         <span style="flex-grow: 1;"></span>
         <input type="file" class="inputfile" id="import-character" autocomplete="off" value="import"/>
         <label class="button" for="import-character">Import</label>
@@ -95,31 +97,19 @@
 
         <section id="skills">
             <h2>Skills</h2>
-            <template id="skill-template">
-                <tr class="skill">
-                    <td><span class="skill-name"></span> (<span class="skill-characteristic"></span>)</td>
-                    <td><input type="checkbox" class="career"/></td>
-                    <td><input type="checkbox" class="rank"/><input type="checkbox" class="rank"/><input type="checkbox" class="rank"/><input type="checkbox" class="rank"/><input type="checkbox" class="rank"/></td>
-                </tr>
-            </template>
-            <table class="left">
-                <thead><tr>
-                    <th>General Skills</th>
-                    <th>Career</th>
-                    <th class="th-rank">Rank</th>
-                </tr></thead>
-                <tbody id="skills-general"></tbody>
-                <thead><tr><th>Magic Skills</th><th>Career</th><th>Rank</th></tr></thead>
-                <tbody id="skills-magic"></tbody>
-            </table>
-            <table class="right">
-                <thead><tr><th>Combat Skills</th><th>Career</th><th class="th-rank">Rank</th></tr></thead>
-                <tbody id="skills-combat"></tbody>
-                <thead><tr><th>Social Skills</th><th>Career</th><th>Rank</th></tr></thead>
-                <tbody id="skills-social"></tbody>
-                <thead><tr><th>Knowledge Skills</th><th>Career</th><th>Rank</th></tr></thead>
-                <tbody id="skills-knowledge"></tbody>
-            </table>
+            <div class="left">
+                <h3>General Skills<span></span>Ranks</h3>
+                <div class="skill" id="skills-general"></div>
+                <h3>Magic Skills<span></span>Ranks</h3>
+                <div class="skill" id="skills-magic"></div>
+            </div>
+            <div class="right">
+                <h3>Combat Skills<span></span>Ranks</h3>
+                <div class="skill" id="skills-combat"></div>
+                <h3>Social Skills<span></span>Ranks</h3>
+                <div class="skill" id="skills-social"></div>
+                <h3>Knowledge Skills<span></span>Ranks</h3>
+                <div class="skill" id="skills-knowledge"></div>
         </section>
 
         <section id="favors">

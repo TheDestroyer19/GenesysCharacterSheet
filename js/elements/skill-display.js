@@ -9,45 +9,44 @@ summary {
     white-space: nowrap;
     display: flex;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0.2em;
 }
 
 #root {
     cursor: pointer;
     background: #dddddd;
-    border-radius: 0.35rem;
+    border-radius: 0.35em;
+
+    line-height: 1.15;
 }
 
 #career {
     display: inline-block;
-    width: 1rem;
-    height: 1rem;
+    width: 1.15em;
+    height: 1.15em;
 
     color: white;
     text-align: center;
     font-weight: bold;
-    line-height: 1rem;
 
-    background-color: orange;
-    border-radius: 0.35rem;
+    background-color: #007186;
+    border-radius: 0.35em;
 }
 #career.hidden {
-    color: transparent;
-    background-color: transparent;
+    visibility: hidden;
 }
 
 #stat {
     display: inline-block;
-    height: 1rem;
-    min-width: 1rem;
-    padding: 0 0.2rem;
+    height: 1.15em;
+    min-width: 1em;
+    padding: 0 0.2em;
 
     color: white;
-    line-height: 1rem;
     text-align: center;
 
     background-color: orange;
-    border-radius: 0.25rem;
+    border-radius: 0.35em;
 }
 
 #ranks {
@@ -66,22 +65,29 @@ summary {
     text-align: end;
 }
 
+input:not([type="checkbox"]), select {
+    min-width: 2rem;
+    justify-self: stretch;
+}
+
 .rank:first-child {
-    border-top-left-radius: 0.35rem;
-    border-bottom-left-radius: 0.35rem;
+    border-top-left-radius: 0.35em;
+    border-bottom-left-radius: 0.35em;
+    border-left: 0.1rem solid black;
 }
 .rank:last-child {
-    border-top-right-radius: 0.35rem;
-    border-bottom-right-radius: 0.35rem;
+    border-top-right-radius: 0.35em;
+    border-bottom-right-radius: 0.35em;
 }
 .rank {
     display: inline-block;
     box-sizing: border-box;
-    width: 1rem;
-    height: 1rem;
+    width: 1.15em;
+    height: 0.8em;
 
     background-color: white;
     border: 0.1rem solid black;
+    border-left: none;
 }
 .rank.filled {
     background-color: #06D8FF;
@@ -92,7 +98,7 @@ summary {
 const ELEMENT_HTML = `
 <details id="root">
     <summary>
-        <span id="career">C</span>
+        <span id="career" title="Career Skill">C</span>
         <span id="name"></span>
         <span id="stat"></span>
         <span style="flex-grow: 1"></span>
@@ -156,20 +162,21 @@ class SkillDisplay extends HTMLElement {
 
         //setup input event handlers
         this.#name_i.addEventListener('input', event => {
+            let oldName = this.name;
             this.name = event.target.value;
-            this.#send_change_event();
+            this.#send_change_event(oldName);
         });
         this.#career_i.addEventListener('input', event => {
-            this.career = event.target.value;
-            this.#send_change_event();
+            this.career = event.target.checked;
+            this.#send_change_event(this.name);
         });
         this.#stat_i.addEventListener('input', event => {
             this.stat = event.target.value;
-            this.#send_change_event();
+            this.#send_change_event(this.name);
         });
         this.#rank_i.addEventListener('input', event => {
             this.rank = event.target.value;
-            this.#send_change_event();
+            this.#send_change_event(this.name);
         });
 
         //call some methods to get display set up
@@ -185,8 +192,11 @@ class SkillDisplay extends HTMLElement {
         return ['rank', 'name', 'career', 'stat'];
     }
 
-    #send_change_event() {
-        var event = new CustomEvent('change', {});
+    #send_change_event(oldName) {
+        var event = new CustomEvent('change', {
+            bubbles: true,
+            detail: oldName,
+        });
         this.dispatchEvent(event);
     }
 
@@ -206,8 +216,13 @@ class SkillDisplay extends HTMLElement {
                 this.#name_i.value = this.name;
                 break;
             case 'stat':
-                this.#stat_h.textContent = Characteristic.Shorten(this.stat);
-                this.#stat_i.value = this.stat;
+                if (this.stat) {
+                    this.#stat_h.textContent = Characteristic.Shorten(this.stat);
+                    this.#stat_i.value = this.stat;
+                } else {
+                    this.#stat_h.textContent = "";
+                    this.#stat_i.value = "";
+                }
                 break;
             case 'rank':
                 this.#rank_i.value = this.rank;

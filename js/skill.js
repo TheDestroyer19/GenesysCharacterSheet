@@ -1,76 +1,66 @@
 import {SendCharacterUpdated, RemoveAllChildNodes} from './common.js';
-import {ShortenCharacteristic, Skill} from './genesys.js';
+import {Skill} from './genesys.js';
 const SkillsElement = document.getElementById("skills");
 
 /**
  * @param {Skill} skill
- * @param {HTMLTemplateElement} template 
  * @param {HTMLTableSectionElement} tbody 
  */
-const AddToTable = (skill, template, tbody) => {
-    /** @type {HTMLTableRowElement} */
-    let skill_row = template.content.cloneNode(true);
+function AddToTable(skill, tbody) {
+    let skill_row = document.createElement('skill-display');
     SyncDisplay(skill, skill_row);
     tbody.appendChild(skill_row);
 }
 
-const SyncDisplay = (skill, container) => {
-    container.querySelector(".skill-name").textContent = skill.name;
-    container.querySelector(".skill-characteristic").textContent = ShortenCharacteristic(skill.characteristic);
-    container.querySelector(".career").checked = skill.career;
-
-    for (const [key, checkbox] of container.querySelectorAll(".rank").entries()) {
-        checkbox.checked = key < skill.rank;
-    }
+function SyncDisplay(skill, container) {
+    container.career = skill.career;
+    container.name = skill.name;
+    container.rank = skill.rank;
+    container.stat = skill.characteristic;
 }
 
 export const AddAllSkills = () => {
     let character = window.character;
 
-    /** @type {HTMLTemplateElement} */
-    const skill_template = document.getElementById("skill-template");
-
     /** @type {HTMLTableSectionElement} */
     const general_skills = document.getElementById("skills-general");
     RemoveAllChildNodes(general_skills);
     character.skills_general.forEach(skill => {
-        AddToTable(skill, skill_template, general_skills);
+        AddToTable(skill, general_skills);
     });
 
     /** @type {HTMLTableSectionElement} */
     const magic_skills = document.getElementById("skills-magic");
     RemoveAllChildNodes(magic_skills);
     character.skills_magic.forEach(skill => {
-        AddToTable(skill, skill_template, magic_skills);
+        AddToTable(skill, magic_skills);
     });
 
     /** @type {HTMLTableSectionElement} */
     const combat_skills = document.getElementById("skills-combat");
     RemoveAllChildNodes(combat_skills);
     character.skills_combat.forEach(skill => {
-        AddToTable(skill, skill_template, combat_skills);
+        AddToTable(skill, combat_skills);
     });
 
     /** @type {HTMLTableSectionElement} */
     const social_skills = document.getElementById("skills-social");
     RemoveAllChildNodes(social_skills);
     character.skills_social.forEach(skill => {
-        AddToTable(skill, skill_template, social_skills);
+        AddToTable(skill, social_skills);
     });
 
     /** @type {HTMLTableSectionElement} */
     const knowledge_skills = document.getElementById("skills-knowledge");
     RemoveAllChildNodes(knowledge_skills);
     character.skills_knowledge.forEach(skill => {
-        AddToTable(skill, skill_template, knowledge_skills);
+        AddToTable(skill, knowledge_skills);
     });
 }
 
-function UpdateSkill(character, target) {
-    //go up to a parent with class skill
-    const container = target.closest(".skill");
-    const name = container.querySelector(".skill-name").textContent;
+function UpdateSkill(character, target, oldName) {
 
+    //find category
     let category = null;
     if (target.matches("#skills-general *")) category = character.skills_general;
     else if (target.matches("#skills-magic *")) category = character.skills_magic;
@@ -78,22 +68,23 @@ function UpdateSkill(character, target) {
     else if (target.matches("#skills-social *")) category = character.skills_social;
     else if (target.matches("#skills-knowledge *")) category = character.skills_knowledge;
 
-    let skill = category.find(s => s.name == name);
+    //find the skill we want
+    let skill = category.find(s => s.name == oldName);
 
-    if (target.matches(".career")) {
-        skill.career = target.checked;
-    } else if (target.matches(".rank")) {
-        skill.rank = container.querySelectorAll(".rank:checked").length;
-    }
+    skill.name = target.name;
+    skill.career = target.career;
+    skill.rank = target.rank;
+    skill.characteristic = target.stat;
 
-    SyncDisplay(skill, container);
+    SyncDisplay(skill, target);
 }
 
 SkillsElement.addEventListener("change", (event) => {
     let character = window.character;
     let target = event.target;
+    let oldName = event.detail;
 
-    UpdateSkill(character, target);
+    UpdateSkill(character, target, oldName);
     SendCharacterUpdated();
 });
 

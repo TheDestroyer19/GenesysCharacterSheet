@@ -72,16 +72,21 @@ textarea {
     grid-template-columns: 1fr 1fr;
     align-items: start;
 }
-#skills input[type="checkbox"] {
-    width: 12px;
-    height: 12px;
-}
-#skills .th-rank {
-    width: 62px;
+#skills skill-display {
+    font-size: small;
+    margin-bottom: 0.15rem;
 }
 
 #skills h2 {
     grid-column: span 2;
+}
+
+#skills h3 {
+    margin-bottom: 0.15rem;
+    display: flex;
+}
+#skills h3 span {
+    flex-grow: 1;
 }
 
 /* Favor styles*/
