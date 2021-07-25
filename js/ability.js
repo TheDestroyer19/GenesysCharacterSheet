@@ -42,9 +42,11 @@ function UpdateAbility(ability) {
 }
 
 document.getElementById('new-ability').addEventListener('click', () => {
-    if (!window.character.abilities) window.character.abilities = [];
     AbilityListEditor.add(new Ability("", "", ""));
     SendCharacterUpdated();
 });
 
-document.addEventListener(CHARACTER_LOADED, () => AbilityListEditor.regenerate());
+document.addEventListener(CHARACTER_LOADED, () => {
+    if (!window.character.abilities) window.character.abilities = [];
+    AbilityListEditor.regenerate();
+});
