@@ -1,6 +1,21 @@
 /* Shared Styles */
 
 body {
+  --cp-90: #ffeaa4;
+  --cp-70: #ffde70;
+  --cp-50: #ffc300;
+  --cp-30: #d9a600;
+  --cp-10: #a78000;
+  --ca1-90: #abd6ff;
+  --ca1-70: #7bbeff;
+  --ca1-50: #138bff;
+  --ca1-30: #00488d;
+  --ca1-10: #00376d;
+  --ca2-90: #ffc1a4;
+  --ca2-70: #ff9f70;
+  --ca2-50: #ff5300;
+  --ca2-30: #d94600;
+  --ca2-10: #a73600;
     background-color: whitesmoke;
 }
 
