@@ -1,8 +1,6 @@
-const FOCUSABLE_SELECTORS = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]';
+//const FOCUSABLE_SELECTORS = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]';
 
 const modalOverlay = document.querySelector("#modal-overlay");
-const modals = document.querySelectorAll(".modal");
-const closeBtns = document.querySelectorAll(".modal-close");
 
 export class Modal {
     constructor(
@@ -44,15 +42,7 @@ export class Modal {
     }
 
     Close() {
-        CloseModal();
+        this.element.classList.add("closed");
+        modalOverlay.classList.add("closed");
     }
 }
-
-function CloseModal() {
-    modals.forEach(modal => {
-        modal.classList.add("closed");
-    });
-    modalOverlay.classList.add("closed");
-}
-
-closeBtns.forEach(btn => btn.addEventListener("click", CloseModal));

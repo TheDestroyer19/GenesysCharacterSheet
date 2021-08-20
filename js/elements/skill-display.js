@@ -9,6 +9,7 @@ const STYLE_TEXT = `
 }
 
 summary {
+    cursor: default;
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -64,6 +65,7 @@ input:not([type="checkbox"]), select {
 }
 
 #ranks {
+    cursor: pointer;
     display: flex;
     align-items: center;
     border: 1px solid black;
