@@ -1,3 +1,27 @@
+@import '/css/normalize.css';
+
+body {
+    --cp-90: #ffeaa4;
+    --cp-70: #ffde70;
+    --cp-50: #ffc300;
+    --cp-30: #d9a600;
+    --cp-10: #a78000;
+    --ca1-90: #abd6ff;
+    --ca1-70: #7bbeff;
+    --ca1-50: #138bff;
+    --ca1-30: #00488d;
+    --ca1-10: #00376d;
+    --ca2-90: #ffc1a4;
+    --ca2-70: #ff9f70;
+    --ca2-50: #ff5300;
+    --ca2-30: #d94600;
+    --ca2-10: #a73600;
+    background-color: whitesmoke;
+}
+
+/* ******************************************************
+Common bits
+****************************************************** */
 html {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 0.5rem;
@@ -10,29 +34,16 @@ hr {
     margin-bottom: 0.125rem;
 }
 
-small {
-    font-size: x-small;
+h1,h2,h3 {
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
 }
-
-label {
-    font-size: small;
-}
-
 h1 {
     font-size: medium;
-    font-weight: bold;
-    text-align: center;
-    margin: 0;
 }
-h2 {
+h2,h3 {
     font-size: small;
-    font-weight: bold;
-    text-align: center;
-    margin: 0;
-}
-h3 {
-    font-size: small;
-    margin: 0;
 }
 ul {
     margin: 0;
@@ -40,49 +51,58 @@ ul {
     padding-left: 1.5em;
     list-style-position: outside;
 }
-table {
-    font-size: small;
-    /* table-layout: fixed; */
-    border-collapse: collapse;
-}
-tr > * {
-    text-align: center;
-}
-tr > *:first-child {
-    text-align: start;
-}
-tr > *:last-child {
-    text-align: end;
-}
-tbody tr {
-    border: 1px solid black;
-    border-left: none;
-    border-right: none;
-}
 
-/* ************************************************************************* */
-/* Input styling                                                             */
-/* ************************************************************************* */
-
-button, .button {
-    display:inline-block;
-    padding:0.35rem;
-    margin:0.1rem;
-    border: none;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-weight:400;
-    color:#000000;
-    background-color:#CCCCCC;
-    text-align:center;
-    position:relative;
-    cursor: pointer;
+/* ******************************************************
+Inputs
+****************************************************** */
+label{
+	margin:0;
+	padding:0px;
+	display:block;
 }
-button:hover, .button:hover {
-    background-color:#999999;
+input[type=text], 
+input[type=number],
+textarea, 
+select{
+    font: inherit;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	border:1px solid #BEBEBE;
+	padding: 2px;
+	margin:0px;
+    width: 100%;
+	outline: none;	
 }
-button:active, .button:active {
-    background-color:#7a7a7a;
+input[type=text]:focus, 
+input[type=number]:focus,
+textarea:focus, 
+select:focus{
+	-moz-box-shadow: 0 0 8px #88D5E9;
+	-webkit-box-shadow: 0 0 8px #88D5E9;
+	box-shadow: 0 0 8px #88D5E9;
+	border: 1px solid #88D5E9;
+}
+textarea {
+    resize: none;
+	height: 100px;
+}
+textarea.growable {
+    overflow-y: hidden;
+    min-height: 0;
+}
+@media only print {
+    button, .button {
+        display: none;
+    }
+    input[type=text],input[type=number] {
+        border: none;
+        -moz-appearance: textfield;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
 }
 
 .inputfile {
@@ -101,49 +121,51 @@ button:active, .button:active {
     background-color:#999999;
 }
 
-button.edit {
+
+/* ******************************************************
+Buttons
+****************************************************** */
+input[type=submit], input[type=button],
+button, .button {
+	background: var(--ca1-50);
+	padding: 2px 4px 2px 4px;
+	border: none;
+    width: fit-content;
+	color: #fff;
+}
+input[type=submit]:hover, input[type=button]:hover,
+button:hover, .button:hover {
+	background: var(--ca1-30);
+	box-shadow:none;
+	-moz-box-shadow:none;
+	-webkit-box-shadow:none;
+}
+.edit {
     font-size: small;
     padding: 0rem;
     margin: 0;
 }
 
-textarea {
-    box-sizing: border-box;
-    width: 100%;
-    resize: none;
+/* ******************************************************
+Tables
+****************************************************** */
+
+table {
+    font-size: small;
+    /* table-layout: fixed; */
+    border-collapse: collapse;
 }
-
-input {
-    box-sizing: border-box;
-    border: .1rem solid #ddd;
-    border-radius: 0.3rem;
+tr > * {
+    text-align: center;
 }
-
-select {
-    box-sizing: border-box;
-    min-width: 100%;
+tr > *:first-child {
+    text-align: start;
 }
-
-input[type=text] {
-    padding: 0.1rem;
+tr > *:last-child {
+    text-align: end;
 }
-
-input[type=number] {
-    width: 100%;
-}
-
-@media only print {
-    /* Buttons are always user interactions, so they should be hidden */
-    button, .button {
-        display: none;
-    }
-
-    input {
-        border: none;
-        -moz-appearance: textfield;
-    }
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-    }
+tbody tr {
+    border: 1px solid black;
+    border-left: none;
+    border-right: none;
 }
