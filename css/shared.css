@@ -92,9 +92,6 @@ textarea.growable {
     min-height: 0;
 }
 @media only print {
-    button, .button {
-        display: none;
-    }
     input[type=text],input[type=number] {
         border: none;
         -moz-appearance: textfield;
@@ -133,8 +130,14 @@ button, .button {
     width: fit-content;
 	color: #fff;
 }
-input[type=submit]:hover, input[type=button]:hover,
-button:hover, .button:hover {
+input[type=submit]:hover, 
+input[type=button]:hover,
+button:hover, 
+.button:hover,
+input[type=submit]:focus, 
+input[type=button]:focus,
+button:focus,
+.button:focus {
 	background: var(--ca1-30);
 	box-shadow:none;
 	-moz-box-shadow:none;
@@ -144,6 +147,11 @@ button:hover, .button:hover {
     font-size: small;
     padding: 0rem;
     margin: 0;
+}
+@media only print {
+    button, .button {
+        display: none;
+    }
 }
 
 /* ******************************************************
