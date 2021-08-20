@@ -135,3 +135,11 @@ textarea {
     background-color: black;
     opacity: 50%;
 }
+
+#motivations div {
+    display: flex;
+    flex-direction: column;
+}
+#motivations textarea {
+    flex-grow: 1;
+}
