@@ -86,6 +86,7 @@ input:not([type="checkbox"]), select {
     background-color: Var(--ca1-70);
 }
 `;
+
 const ELEMENT_HTML = `
 <details id="root">
     <summary>
@@ -117,6 +118,7 @@ const ELEMENT_HTML = `
         </select>
         <label for="rank-input">Rank</label>
         <input id="rank-input" type="number"></input>
+        <button class="button" id="btn-delete">Delete Skill</button>
     </div>
 </details>
 `;
@@ -131,6 +133,7 @@ class SkillDisplay extends HTMLElement {
     #stat_i;
     #ranks_h;
     #rank_i;
+    #delete_btn;
 
     constructor() {
         super();
@@ -146,7 +149,8 @@ class SkillDisplay extends HTMLElement {
         this.#stat_h = this.#root.querySelector('#stat');
         this.#stat_i = this.#root.querySelector('#stat-input');
         this.#ranks_h = this.#root.querySelectorAll('.rank');
-        this.#rank_i = this.#root.querySelector('#rank-input')
+        this.#rank_i = this.#root.querySelector('#rank-input');
+        this.#delete_btn = this.#root.querySelector('#btn-delete');
 
         const style = document.createElement('style');
         style.textContent = STYLE_TEXT;
@@ -169,6 +173,10 @@ class SkillDisplay extends HTMLElement {
             this.rank = event.target.value;
             this.#send_change_event(this.name);
         });
+        this.#delete_btn.addEventListener('click', event => {
+            this.#send_delete_event();
+            this.remove();
+        });
         for(const [key, box] of this.#ranks_h.entries()) {
             box.addEventListener('click', () => {
                 let old = this.rank;
@@ -178,6 +186,8 @@ class SkillDisplay extends HTMLElement {
                     this.rank -= 1;
                 }
                 this.#send_change_event(this.name);
+
+                //prevent openclosed from toggling
                 if (this.#root.hasAttribute('open')) {
                     this.#root.removeAttribute('open');
                 } else {
@@ -204,6 +214,14 @@ class SkillDisplay extends HTMLElement {
         var event = new CustomEvent('change', {
             bubbles: true,
             detail: oldName,
+        });
+        this.dispatchEvent(event);
+    }
+
+    #send_delete_event() {
+        var event = new CustomEvent('delete', {
+            bubbles: true,
+            detail: this.name
         });
         this.dispatchEvent(event);
     }
