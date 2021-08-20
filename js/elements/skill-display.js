@@ -2,6 +2,8 @@ import { setBoolAttribute } from "/js/common.js";
 import { Characteristic } from "/js/genesys.js";
 
 const STYLE_TEXT = `
+@import '/css/shared.css';
+
 :host {
     display: block;
 }
