@@ -34,7 +34,7 @@ summary {
 }
 
 #career {
-    background-color: #007186;
+    background-color: Var(--ca1-50);
 }
 #career.hidden {
     visibility: hidden;
@@ -42,7 +42,7 @@ summary {
 
 #stat {
     padding: 0 0.2em;
-    background-color: orange;
+    background-color: Var(--ca2-50);
 }
 
 #edit {
@@ -83,7 +83,7 @@ input:not([type="checkbox"]), select {
     border-right: none;
 }
 .rank.filled {
-    background-color: #06D8FF;
+    background-color: Var(--ca1-70);
 }
 `;
 const ELEMENT_HTML = `
