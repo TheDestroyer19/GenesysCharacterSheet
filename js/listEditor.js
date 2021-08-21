@@ -1,5 +1,5 @@
 import { RemoveAllChildNodes } from './common.js';
-import {Modal} from './modal.js';
+import {Modal} from './elements/modal.js';
 
 /**
  * @typedef {function} ModalOpenCallback
@@ -42,11 +42,9 @@ export class ListEditor {
         /** @private @type {!HTMLElement}*/
         this.container = document.getElementById(htmlContainerID);
         /** @private @type {!Modal} */
-        this.modal = new Modal(
-            document.getElementById(htmlModalID),
-            () => this.onModalSave(),
-            () => this.onModalDelete(),
-        );
+        this.modal = document.getElementById(htmlModalID);
+        this.modal.addEventListener('save', event => this.onModalSave());
+        this.modal.addEventListener('delete', event => this.onModalDelete());
         /** @private @type {?Object} */
         this.activeEntry = null;
         /** @private @type {?HTMLElement} */
