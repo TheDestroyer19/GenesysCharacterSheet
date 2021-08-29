@@ -10,11 +10,9 @@
     margin-left: -0.25rem;
     margin-right: -0.25rem;
 }
-#page1 {
+#page1, #page2, #page3 {
     margin: 0.25rem;
-}
-#page2 {
-    margin: 0.25rem;
+    flex-grow: 1;
 }
 
 /* ************************************************************************* */
@@ -115,8 +113,7 @@
     grid-template-columns: 2fr 1fr;
     grid-template-areas: 
         "mo cd"
-        "eq cd"
-        "nn ci"
+        "eq ci"
         "sa sa";
 }
 #motivations {
@@ -127,9 +124,6 @@
 }
 #character-description {
     grid-area: cd;
-}
-#notes {
-    grid-area: nn;
 }
 #critical-injuries {
     grid-area: ci;

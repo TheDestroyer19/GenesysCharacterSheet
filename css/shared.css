@@ -85,7 +85,7 @@ select:focus{
 }
 textarea {
     resize: none;
-	height: 100px;
+	height: 60px;
 }
 textarea.growable {
     overflow-y: hidden;

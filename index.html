@@ -26,253 +26,259 @@
         <button id="export-character">Export</button>
     </header>
 
-    <form autocomplete="off" action="javascript:void(0);" id="page1" class="sheet">
-        <header id="page1header">
-            <div>
-                <label for="name">Character Name</label><input id="name" type="text" />
-                <label for="player">Player Name</label><input id="player" type="text" />
-            </div>
-            <div>
-                <label for="archetype">Species/Archetype</label><input id="archetype" type="text" />
-                <label for="career">Career</label><input id="career" type="text" />
-            </div>
-            <div>
-                <label for="xp-available">Available XP</label><input id="xp-available" type="number" />
-                <label for="xp-total">Total XP</label><input id="xp-total" type="number" />
-            </div>
-        </header>
-        <section id="characteristics">
-            <div class="stat">
-                <input id="brawn" type=number />
-                <label for="brawn" id="brawn-label">Brawn</label>
-            </div>
-            <div class="stat">
-                <input id="agility" type=number />
-                <label for="agility" id="agility-label">Agility</label>
-            </div>
-            <div class="stat">
-                <input id="intellect" type=number />
-                <label for="intellect" id="intellect-label">Intellect</label>
-            </div>
-            <div class="stat">
-                <input id="cunning" type=number />
-                <label for="cunning" id="cunning-label">Cunning</label>
-            </div>
-            <div class="stat">
-                <input id="willpower" type=number />
-                <label for="willpower" id="willpower-label">Willpower</label>
-            </div>
-            <div class="stat">
-                <input id="presence" type=number />
-                <label for="presence" id="presence-label">Presence</label>
-            </div>
-            <div class="condition">
-                <span class="caption">Soak Value</span>
-                <input id="soak" type="number"/>
-                <label id="soak-lbl" for="soak" style="visibility: hidden;">Soak Value</label>
-            </div>
-            <div class="condition">
-                <span class="caption">Wounds</span>
-                <label for="wounds-threshold">Threshold</label>
-                <input id="wounds-threshold" type="number"/>
-                <label for="wounds-current">Current</label>
-                <input id="wounds-current" type="number" />
-            </div>
-            <div class="condition">
-                <span class="caption">Strain</span>
-                <label for="strain-threshold">Threshold</label>
-                <input id="strain-threshold" type="number" value="13" />
-                <label for="strain-current">Current</label>
-                <input id="strain-current" type="number" />
-            </div>
-            <div class="condition">
-                <span class="caption">Defense</span>
-                <label for="defense-ranged">Ranged</label>
-                <input id="defense-ranged" type="number" value="13" />
-                <label for="defense-melee">Melee</label>
-                <input id="defense-melee" type="number" />
-            </div>
-        </section>
+    <div id="pages">
 
-        <section id="skills">
-            <h2>Skills</h2>
-            <div class="left">
-                <h3>General Skills<button id="new-skill-general" class="edit">＋</button><span></span>Ranks</h3>
-                <div class="skill" id="skills-general"></div>
-                <h3>Magic Skills<button id="new-skill-magic" class="edit">＋</button><span></span>Ranks</h3>
-                <div class="skill" id="skills-magic"></div>
-            </div>
-            <div class="right">
-                <h3>Combat Skills<button id="new-skill-combat" class="edit">＋</button><span></span>Ranks</h3>
-                <div class="skill" id="skills-combat"></div>
-                <h3>Social Skills<button id="new-skill-social" class="edit">＋</button><span></span>Ranks</h3>
-                <div class="skill" id="skills-social"></div>
-                <h3>Knowledge Skills<button id="new-skill-knowledge" class="edit">＋</button><span></span>Ranks</h3>
-                <div class="skill" id="skills-knowledge"></div>
-        </section>
+        <form autocomplete="off" action="javascript:void(0);" id="page1" class="sheet">
+            <header id="page1header">
+                <div>
+                    <label for="name">Character Name</label><input id="name" type="text" />
+                    <label for="player">Player Name</label><input id="player" type="text" />
+                </div>
+                <div>
+                    <label for="archetype">Species/Archetype</label><input id="archetype" type="text" />
+                    <label for="career">Career</label><input id="career" type="text" />
+                </div>
+                <div>
+                    <label for="xp-available">Available XP</label><input id="xp-available" type="number" />
+                    <label for="xp-total">Total XP</label><input id="xp-total" type="number" />
+                </div>
+            </header>
+            <section id="characteristics">
+                <div class="stat">
+                    <input id="brawn" type=number />
+                    <label for="brawn" id="brawn-label">Brawn</label>
+                </div>
+                <div class="stat">
+                    <input id="agility" type=number />
+                    <label for="agility" id="agility-label">Agility</label>
+                </div>
+                <div class="stat">
+                    <input id="intellect" type=number />
+                    <label for="intellect" id="intellect-label">Intellect</label>
+                </div>
+                <div class="stat">
+                    <input id="cunning" type=number />
+                    <label for="cunning" id="cunning-label">Cunning</label>
+                </div>
+                <div class="stat">
+                    <input id="willpower" type=number />
+                    <label for="willpower" id="willpower-label">Willpower</label>
+                </div>
+                <div class="stat">
+                    <input id="presence" type=number />
+                    <label for="presence" id="presence-label">Presence</label>
+                </div>
+                <div class="condition">
+                    <span class="caption">Soak Value</span>
+                    <input id="soak" type="number"/>
+                    <label id="soak-lbl" for="soak" style="visibility: hidden;">Soak Value</label>
+                </div>
+                <div class="condition">
+                    <span class="caption">Wounds</span>
+                    <label for="wounds-threshold">Threshold</label>
+                    <input id="wounds-threshold" type="number"/>
+                    <label for="wounds-current">Current</label>
+                    <input id="wounds-current" type="number" />
+                </div>
+                <div class="condition">
+                    <span class="caption">Strain</span>
+                    <label for="strain-threshold">Threshold</label>
+                    <input id="strain-threshold" type="number" value="13" />
+                    <label for="strain-current">Current</label>
+                    <input id="strain-current" type="number" />
+                </div>
+                <div class="condition">
+                    <span class="caption">Defense</span>
+                    <label for="defense-ranged">Ranged</label>
+                    <input id="defense-ranged" type="number" value="13" />
+                    <label for="defense-melee">Melee</label>
+                    <input id="defense-melee" type="number" />
+                </div>
+            </section>
 
-        <section id="favors">
-            <template id="favor-template">
-                <li class="favor"><div>
-                    <span class="text"></span><div><button class="edit" title="Edit favor">🖉</button></div>
-                </div></li>
-            </template>
-            <h2>Favors</h2>
-            <div>
-                <h3 class="horizontal-row">Given<button id="give-favor" class="edit" title="Give Favor">＋</button></h3>
-                <hr>
-                <ul id="favors-given">
-                </ul>
-            </div>
-            <div>
-                <h3 class="horizontal-row">Owed<button id="owe-favor" class="edit" title="Add Owed Favor">＋</button></h3>
-                <hr>
-                <ul id="favors-owed">
-                </ul>
-            </div>
-        </section>
+            <section id="skills">
+                <h2>Skills</h2>
+                <div class="left">
+                    <h3>General Skills<button id="new-skill-general" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="skill" id="skills-general"></div>
+                    <h3>Magic Skills<button id="new-skill-magic" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="skill" id="skills-magic"></div>
+                </div>
+                <div class="right">
+                    <h3>Combat Skills<button id="new-skill-combat" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="skill" id="skills-combat"></div>
+                    <h3>Social Skills<button id="new-skill-social" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="skill" id="skills-social"></div>
+                    <h3>Knowledge Skills<button id="new-skill-knowledge" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="skill" id="skills-knowledge"></div>
+            </section>
 
-        <section id="weapons">
-            <h2>Weapons</h2>
-            <template id="weapon-template">
-                <tr class="weapon">
-                    <td class="name"></td>
-                    <td class="skill"></td>
-                    <td class="damage"></td>
-                    <td class="crit"></td>
-                    <td class="range"></td>
-                    <td class="special"></td>
-                    <td><button class="edit" title="Edit Weapon">🖉</button></td>
-                </tr>
-            </template>
-            <table>
-                <thead><tr>
-                    <th>Weapon</th>
-                    <th>Skill</th>
-                    <th>Damage</th>
-                    <th>Crit</th>
-                    <th>Range</th>
-                    <th>Special</th>
-                    <th><button id="new-weapon" class="edit" title="New Weapon">＋</button></th>
-                </tr></thead>
-                <tbody id="weapons-table">
-                </tbody>
-            </table>
-        </section>
-    </form>
+            <section id="favors">
+                <template id="favor-template">
+                    <li class="favor"><div>
+                        <span class="text"></span><div><button class="edit" title="Edit favor">🖉</button></div>
+                    </div></li>
+                </template>
+                <h2>Favors</h2>
+                <div>
+                    <h3 class="horizontal-row">Given<button id="give-favor" class="edit" title="Give Favor">＋</button></h3>
+                    <hr>
+                    <ul id="favors-given">
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="horizontal-row">Owed<button id="owe-favor" class="edit" title="Add Owed Favor">＋</button></h3>
+                    <hr>
+                    <ul id="favors-owed">
+                    </ul>
+                </div>
+            </section>
 
-    <form autocomplete="off" action="javascript:void(0);" id="page2" class="sheet">
-        <section id="motivations">
-            <h2>Motivations</h2>
-            <div>
-                <label for="motivation-strength"><b>Strength</b></label>
-                <textarea id="motivation-strength" class="growable"></textarea>
-            </div>
-            <div>
-                <label for="motivation-flaw"><b>Flaw</b></label>
-                <textarea id="motivation-flaw" class="growable"></textarea>
-            </div>
-            <div>
-                <label for="motivation-desire"><b>Desire</b></label>
-                <textarea id="motivation-desire" class="growable"></textarea>
-            </div>
-            <div>
-                <label for="motivation-fear"><b>Fear</b></label>
-                <textarea id="motivation-fear" class="growable"></textarea>
-            </div>
-        </section>
-
-        <section id="inventory">
-            <h2>Equipment Log</h2>
-            <template id="item-template">
-                <tr class="item">
-                    <td class="quantity"></td>
-                    <td class="name"></td>
-                    <td class="description"></td>
-                    <td><button class="edit" title="Edit Item">🖉</button></td>
-                </tr>
-            </template>
-            <table>
-                <thead>
-                    <tr>
-                        <th class="quantity">Qty</th>
-                        <th class="name">Item</th>
-                        <th class="description">Description</th>
-                        <td><button id="new-item" class="edit" title="Add Item">＋</button></td>
+            <section id="weapons">
+                <h2>Weapons</h2>
+                <template id="weapon-template">
+                    <tr class="weapon">
+                        <td class="name"></td>
+                        <td class="skill"></td>
+                        <td class="damage"></td>
+                        <td class="crit"></td>
+                        <td class="range"></td>
+                        <td class="special"></td>
+                        <td><button class="edit" title="Edit Weapon">🖉</button></td>
                     </tr>
-                </thead>
-                <tbody id="item-table">
-                </tbody>
-            </table>
-        </section>
+                </template>
+                <table>
+                    <thead><tr>
+                        <th>Weapon</th>
+                        <th>Skill</th>
+                        <th>Damage</th>
+                        <th>Crit</th>
+                        <th>Range</th>
+                        <th>Special</th>
+                        <th><button id="new-weapon" class="edit" title="New Weapon">＋</button></th>
+                    </tr></thead>
+                    <tbody id="weapons-table">
+                    </tbody>
+                </table>
+            </section>
+        </form>
 
-        <section id="character-description">
-            <h2>Character Description</h2>
-            <label for="bio-gender">Gender</label>
-            <input type="text" id="bio-gender" />
-            <label for="bio-age">Age</label>
-            <input type="text" id="bio-age" />
-            <label for="bio-height">Height</label>
-            <input type="text" id="bio-height" />
-            <label for="bio-build">Build</label>
-            <input type="text" id="bio-build" />
-            <label for="bio-hair">Hair</label>
-            <input type="text" id="bio-hair" />
-            <label for="bio-eyes">Eyes</label>
-            <input type="text" id="bio-eyes" />
-            <label for="bio-features">Notable Features</label>
-            <textarea id="bio-features"></textarea>
-            <div></div>
-        </section>
+        <form autocomplete="off" action="javascript:void(0);" id="page2" class="sheet">
+            <section id="motivations">
+                <h2>Motivations</h2>
+                <div>
+                    <label for="motivation-strength"><b>Strength</b></label>
+                    <textarea id="motivation-strength" class="growable"></textarea>
+                </div>
+                <div>
+                    <label for="motivation-flaw"><b>Flaw</b></label>
+                    <textarea id="motivation-flaw" class="growable"></textarea>
+                </div>
+                <div>
+                    <label for="motivation-desire"><b>Desire</b></label>
+                    <textarea id="motivation-desire" class="growable"></textarea>
+                </div>
+                <div>
+                    <label for="motivation-fear"><b>Fear</b></label>
+                    <textarea id="motivation-fear" class="growable"></textarea>
+                </div>
+            </section>
 
-        <section id="notes">
-            <h2>Notes</h2>
-            <textarea id="notes-input" class="growable"></textarea>
-        </section>
-
-        <section id="critical-injuries">
-            <h2>Critical Injuries</h2>
-            <template id="injury-template">
-                <tr>
-                    <td><input class="severity" type="checkbox"><input class="severity" type="checkbox"><input class="severity" type="checkbox"><input class="severity" type="checkbox"></td>
-                    <td class="result"></td>
-                    <td><button class="edit" title="Edit Injury">🖉</button></td>
-                </tr>
-            </template>
-            <table>
-                <thead>
-                    <tr><th>Severity</th><th>Result</th><th><button id="new-injury" class="edit" title="Add Injury">＋</button></th></tr>
-                </thead>
-                <tbody id="injury-table">
-                </tbody>
-            </table>
-        </section>
-
-        <section id="abilities">
-            <h2>Talents and Special Abilities</h2>
-            <template id="ability-template">
-                <tr>
-                    <td class="name"></td>
-                    <td class="source"></td>
-                    <td class="description"></td>
-                    <td><button class="edit" title="Edit Ability">🖉</button></td>
-                </tr>
-            </template>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Source</th>
-                        <th>Ability Summary</th>
-                        <th><button id="new-ability" class="edit" title="Add Injury">＋</button></th>
+            <section id="inventory">
+                <h2>Equipment Log</h2>
+                <template id="item-template">
+                    <tr class="item">
+                        <td class="quantity"></td>
+                        <td class="name"></td>
+                        <td class="description"></td>
+                        <td><button class="edit" title="Edit Item">🖉</button></td>
                     </tr>
-                </thead>
-                <tbody id="ability-table">
+                </template>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="quantity">Qty</th>
+                            <th class="name">Item</th>
+                            <th class="description">Description</th>
+                            <td><button id="new-item" class="edit" title="Add Item">＋</button></td>
+                        </tr>
+                    </thead>
+                    <tbody id="item-table">
+                    </tbody>
+                </table>
+            </section>
 
-                </tbody>
-            </table>
-        </section>
-    </form>
+            <section id="character-description">
+                <h2>Character Description</h2>
+                <label for="bio-gender">Gender</label>
+                <input type="text" id="bio-gender" />
+                <label for="bio-age">Age</label>
+                <input type="text" id="bio-age" />
+                <label for="bio-height">Height</label>
+                <input type="text" id="bio-height" />
+                <label for="bio-build">Build</label>
+                <input type="text" id="bio-build" />
+                <label for="bio-hair">Hair</label>
+                <input type="text" id="bio-hair" />
+                <label for="bio-eyes">Eyes</label>
+                <input type="text" id="bio-eyes" />
+                <label for="bio-features">Notable Features</label>
+                <textarea id="bio-features"></textarea>
+                <div></div>
+            </section>
+
+            <section id="critical-injuries">
+                <h2>Critical Injuries</h2>
+                <template id="injury-template">
+                    <tr>
+                        <td><input class="severity" type="checkbox"><input class="severity" type="checkbox"><input class="severity" type="checkbox"><input class="severity" type="checkbox"></td>
+                        <td class="result"></td>
+                        <td><button class="edit" title="Edit Injury">🖉</button></td>
+                    </tr>
+                </template>
+                <table>
+                    <thead>
+                        <tr><th>Severity</th><th>Result</th><th><button id="new-injury" class="edit" title="Add Injury">＋</button></th></tr>
+                    </thead>
+                    <tbody id="injury-table">
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="abilities">
+                <h2>Talents and Special Abilities</h2>
+                <template id="ability-template">
+                    <tr>
+                        <td class="name"></td>
+                        <td class="source"></td>
+                        <td class="description"></td>
+                        <td><button class="edit" title="Edit Ability">🖉</button></td>
+                    </tr>
+                </template>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Source</th>
+                            <th>Ability Summary</th>
+                            <th><button id="new-ability" class="edit" title="Add Injury">＋</button></th>
+                        </tr>
+                    </thead>
+                    <tbody id="ability-table">
+
+                    </tbody>
+                </table>
+            </section>
+        </form>
+        
+        <form autocomplete="off" action="javascript:void(0);" id="page3" class="sheet">
+
+            <section id="notes">
+                <h2>Notes</h2>
+                <textarea id="notes-input" class="growable"></textarea>
+            </section>
+        </form>
+    </div>
 
     <td19-modal id="modal-edit-given-favor" class="closed">
         <h1>Given Favor</h1>
