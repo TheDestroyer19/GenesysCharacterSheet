@@ -5,11 +5,11 @@ modalTemplate.innerHTML = `
 <style>
 @import '/css/shared.css';
 #wrapper {
+    box-sizing: border-box;
     z-index: 110;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0px;
+    left: 0px;
     width: 4in;
     max-width: 100%;
     background-color: white;
@@ -46,6 +46,7 @@ document.body.append(modalTemplate);
 
 export class Modal extends HTMLElement {
     #root;
+    #wrapper;
 
     constructor(
     ) {
@@ -53,27 +54,38 @@ export class Modal extends HTMLElement {
 
         let templateContent = modalTemplate.content;
 
+        //setup shadowroot
         let shadowRoot = this.attachShadow({mode: 'open'})
             .appendChild(templateContent.cloneNode(true));
 
         this.#root = this.shadowRoot.querySelector('#root');
+        this.#wrapper = this.shadowRoot.querySelector('#wrapper');
 
         //setup event handlers
         this.querySelectorAll(".modal-close").forEach(
             btn => btn.addEventListener("click", () => this.Close())
         );
-        //setup event handlers
         this.querySelectorAll(".modal-save").forEach(
             btn => btn.addEventListener("click", () => this.#Save())
         );
-        //setup event handlers
         this.querySelectorAll(".modal-delete").forEach(
             btn => btn.addEventListener("click", () => this.#Delete())
         );
+
     }
 
-    Open() {
+    Open(x, y) {
+        const one_rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
         this.#root.classList.remove("closed");
+
+        x -= this.#wrapper.clientWidth / 2;
+
+        x = Math.max(x, one_rem);
+        x = Math.min(x, window.innerWidth - this.#wrapper.clientWidth - one_rem);
+        y = Math.max(y, one_rem);
+        y = Math.min(y, window.innerHeight - this.#wrapper.clientHeight - one_rem);
+        this.#wrapper.style.transform = `translate3d(${x}px, ${y}px, 0px)`;
     }
 
     Close() {

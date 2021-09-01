@@ -1,4 +1,13 @@
 /* Shared Styles */
+#app-header {
+    box-sizing: border-box;
+    position: sticky;
+    top: 0.25rem;
+}
+
+#pages {
+    margin-top: 0.25rem;
+}
 
 label {
     font-size: small;
@@ -8,8 +17,10 @@ textarea {
     font-size: small;
 }
 
-.sheet {
-    width: 7in;
+@media screen { 
+    .sheet {
+        width: 7in;
+    }   
 }
 
 .horizontal-row {

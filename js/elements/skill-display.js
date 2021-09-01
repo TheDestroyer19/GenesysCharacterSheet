@@ -88,6 +88,8 @@ input:not([type="checkbox"]), select {
 }
 .rank.filled {
     background-color: Var(--ca1-70);
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
 }
 `;
 

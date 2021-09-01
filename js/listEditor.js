@@ -75,13 +75,13 @@ export class ListEditor {
         let element = this.template.content.firstElementChild.cloneNode(true);
         this.updateDisplayCallback(entry, element);
 
-        let edit = () => {
+        let edit = (event) => {
             this.activeEntry = entry;
             this.activeElement = element;
 
             this.modalOpenCallback(entry);
 
-            this.modal.Open();
+            this.modal.Open(event.clientX, event.clientY);
         };
 
         element.querySelector('.edit').addEventListener('click', edit);

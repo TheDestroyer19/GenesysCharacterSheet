@@ -1,18 +1,19 @@
 /* ************************************************************************* */
 /* Top level layout                                                          */
 /* ************************************************************************* */
-#pages {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    margin-top: 0.25rem;
-    margin-left: -0.25rem;
-    margin-right: -0.25rem;
-}
-#page1, #page2, #page3 {
-    margin: 0.25rem;
-    flex-grow: 1;
+@media screen {
+    #pages {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        margin-left: -0.25rem;
+        margin-right: -0.25rem;
+    }
+    #page1, #page2, #page3 {
+        margin: 0.25rem;
+        flex-grow: 1;
+    }
 }
 
 /* ************************************************************************* */
