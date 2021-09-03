@@ -217,8 +217,8 @@
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: 1fr;
-    column-gap: 0.25rem;
-    row-gap: 0.25rem;
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
 }
 
 /* ************************************************************************* */
