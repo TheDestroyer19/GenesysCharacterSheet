@@ -95,6 +95,11 @@ textarea {
     flex-grow: 1;
 }
 
+/* Ability styles*/
+#ability-table td:nth-child(3) {
+    text-align: start;
+}
+
 /* Favor styles*/
 #favors {
     display: flex;
