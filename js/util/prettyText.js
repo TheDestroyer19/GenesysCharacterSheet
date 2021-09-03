@@ -1,6 +1,6 @@
 import { RemoveAllChildNodes } from "../common.js";
 
-const CODE_REGEX = /(\[{2}[^\[\]]*\]{2})/;
+const CODE_REGEX = /(\[{2}[^\[\]]*\]{2}|\n)/;
 
 /**
  * Takes escaped symbols and converts them into their custom element form
@@ -27,6 +27,7 @@ export function ConvertSymbols(sourceText, container) {
             case "[[threat]]": tag = 'icon-threat'; break;
             case "[[failure]]": tag = 'icon-failure'; break;
             case "[[despair]]": tag = 'icon-despair'; break;
+            case "\n": tag = "br"; break;
             default: 
                 container.appendChild(document.createTextNode(seg));
                 continue segLoop;
