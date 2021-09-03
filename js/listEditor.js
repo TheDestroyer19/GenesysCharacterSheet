@@ -79,9 +79,9 @@ export class ListEditor {
             this.activeEntry = entry;
             this.activeElement = element;
 
-            this.modalOpenCallback(entry);
-
             this.modal.Open(event.clientX, event.clientY);
+
+            this.modalOpenCallback(entry);
         };
 
         element.querySelector('.edit').addEventListener('click', edit);

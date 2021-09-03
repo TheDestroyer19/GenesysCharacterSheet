@@ -7,6 +7,12 @@ export function SendRecalcSize(target) {
     target.dispatchEvent(event);
 };
 
+export function attachResize(target) {
+    target.addEventListener('input', e => resize(e.target));
+    target.addEventListener('recalc-size', e => resize(e.target));
+    resize(target);
+}
+
 function resize(target) {
     target.style['min-height'] = "0px";
     let scrollheight = target.scrollHeight;
@@ -14,7 +20,4 @@ function resize(target) {
 }
 
 document.querySelectorAll('.growable')
-    .forEach(e => {
-        e.addEventListener('input', e => resize(e.target));
-        e.addEventListener('recalc-size', e => resize(e.target));
-    });
+    .forEach(attachResize);

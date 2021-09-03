@@ -1,4 +1,5 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
+import { SendRecalcSize } from "./growabletextarea.js";
 import { Ability } from './genesys.js';
 import { ListEditor } from "./listEditor.js";
 import { ConvertSymbols } from "./util/prettyText.js";
@@ -27,12 +28,14 @@ function UpdateDisplay(ability, element) {
     element.querySelector('.name').textContent = ability.name;
     element.querySelector('.source').textContent = ability.source;
     ConvertSymbols(ability.description, element.querySelector('.description'));
+
 }
 
 function UpdateModal(ability) {
     AbilityNameInput.value = ability.name;
     AbilitySourceInput.value = ability.source;
     AbilityDescriptionInput.value = ability.description;
+    SendRecalcSize(AbilityDescriptionInput);
 }
 
 function UpdateAbility(ability) {
