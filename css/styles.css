@@ -32,7 +32,7 @@ textarea {
 #skills, #favors, #weapons, .modal, header,
 #condition div, #characteristics div, #app-header,
 #motivations, #inventory, #character-description,
-#notes, #critical-injuries, #abilities {
+#notes, #critical-injuries, #abilities, #symbols {
     background: white;
     border: 0.2rem solid orange;
     border-radius: 0.75rem;

@@ -15,6 +15,7 @@
     <script type="module" src="./js/injury.js"></script>
     <script type="module" src="./js/ability.js"></script>
     <script type="module" src="./js/elements/skill-display.js"></script>
+    <script type="module" src="./js/elements/dice-simbols.js"></script>
   </head>
   <body>
     <header id="app-header" class="horizontal-row">
@@ -276,6 +277,30 @@
             <section id="notes">
                 <h2>Notes</h2>
                 <textarea id="notes-input" class="growable"></textarea>
+            </section>
+
+            <section id="symbols">
+                <h2>Codes and Symbols</h2>
+                <table>
+                    <thead>
+                        <tr><th colspan="2">Name</th><th>Text code</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><die-boost></die-boost></td><td>Boost Die</td><td>[[boost]]</td></tr>
+                        <tr><td><die-ability></die-ability></td><td>Ability Die</td><td>[[ability]]</td></tr>
+                        <tr><td><die-proficiency></die-proficiency></td><td>Proficiency Die</td><td>[[proficiency]]</td></tr>
+                        <tr><td><die-setback></die-setback></td><td>Setback Die</td><td>[[setback]]</td></tr>
+                        <tr><td><die-difficulty></die-difficulty></td><td>Difficulty Die</td><td>[[difficulty]]</td></tr>
+                        <tr><td><die-challenge></die-challenge></td><td>Challenge Die</td><td>[[challenge]]</td></tr>
+
+                        <tr><td><icon-advantage></icon-advantage></td><td>Advantage</td><td>[[advantage]]</td></tr>
+                        <tr><td><icon-success></icon-success></td><td>Success</td><td>[[success]]</td></tr>
+                        <tr><td><icon-triumph></icon-triumph></td><td>Triumph</td><td>[[triumph]]</td></tr>
+                        <tr><td><icon-threat></icon-threat></td><td>Threat</td><td>[[threat]]</td></tr>
+                        <tr><td><icon-failure></icon-failure></td><td>Failure</td><td>[[failure]]</td></tr>
+                        <tr><td><icon-despair></icon-despair></td><td>Despair</td><td>[[despair]]</td></tr>
+                    </tbody>
+                </table>
             </section>
         </form>
     </div>
