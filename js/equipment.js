@@ -38,8 +38,8 @@ function UpdateDisplay(item, element) {
     element.querySelector(".quantity").textContent = item.quantity;
 }
 
-NewItem.addEventListener('click', () => {
-    ItemListEditor.add(new Item("", 1, ""));
+NewItem.addEventListener('click', event => {
+    ItemListEditor.add(event, new Item("", 1, ""));
     SendCharacterUpdated();
 });
 

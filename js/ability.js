@@ -41,8 +41,8 @@ function UpdateAbility(ability) {
     SendCharacterUpdated();
 }
 
-document.getElementById('new-ability').addEventListener('click', () => {
-    AbilityListEditor.add(new Ability("", "", ""));
+document.getElementById('new-ability').addEventListener('click', event => {
+    AbilityListEditor.add(event, new Ability("", "", ""));
     SendCharacterUpdated();
 });
 

@@ -70,7 +70,7 @@ export class ListEditor {
      * @private
      * @param {Object} entry the entry to generate display for
      */
-    addDisplay(entry, editNow = false) {
+    addDisplay(entry, editNow = false, event = null) {
         /** @type {HTMLElement} */
         let element = this.template.content.firstElementChild.cloneNode(true);
         this.updateDisplayCallback(entry, element);
@@ -88,16 +88,16 @@ export class ListEditor {
 
         this.container.appendChild(element);
 
-        if (editNow) edit();
+        if (editNow) edit(event);
     }
 
     /**
      * Adds a new entry to the list this editor controls, and opens it for editing
      * @param {Object} entry the entry being added
      */
-    add(entry) {
+    add(event, entry) {
         this.getDataArray().push(entry);
-        this.addDisplay(entry, true);
+        this.addDisplay(entry, true, event);
     }
 
     /**

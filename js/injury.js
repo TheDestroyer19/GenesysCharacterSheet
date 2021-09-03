@@ -50,8 +50,8 @@ InjuryModal.addEventListener('change', () => {
     }
 });
 
-document.getElementById('new-injury').addEventListener('click', () => {
-    CriticalInjuryListEditor.add(new CriticalInjury(1, ''));
+document.getElementById('new-injury').addEventListener('click', event => {
+    CriticalInjuryListEditor.add(event, new CriticalInjury(1, ''));
     SendCharacterUpdated();
 });
 

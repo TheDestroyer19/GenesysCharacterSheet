@@ -16,8 +16,8 @@ const GivenFavorListEditor = new ListEditor(
     () => SendCharacterUpdated(),
 );
 
-document.getElementById("give-favor").addEventListener('click', () => {
-    GivenFavorListEditor.add(new Favor(""));
+document.getElementById("give-favor").addEventListener('click', event => {
+    GivenFavorListEditor.add(event, new Favor(""));
     SendCharacterUpdated();
 });
 
@@ -32,8 +32,8 @@ const OwedFavorListEditor = new ListEditor(
     () => SendCharacterUpdated(),
 );
 
-document.getElementById("owe-favor").addEventListener('click', () => {
-    OwedFavorListEditor.add(new Favor(""));
+document.getElementById("owe-favor").addEventListener('click', event => {
+    OwedFavorListEditor.add(event, new Favor(""));
     SendCharacterUpdated();
 });
 
