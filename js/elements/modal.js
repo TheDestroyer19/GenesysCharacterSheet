@@ -13,9 +13,9 @@ modalTemplate.innerHTML = `
     width: 4in;
     max-width: 100%;
     background-color: white;
-    display: grid;
+    /*display: grid;
     column-gap: 0.25rem;
-    row-gap: 0.25rem;
+    row-gap: 0.25rem;*/
 
     border: 0.2rem solid var(--cp-30);
     border-radius: 0.75rem;
@@ -24,29 +24,38 @@ modalTemplate.innerHTML = `
 .closed {
     display: none;
 }
-#overlay {
-    z-index: 100;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    opacity: 50%;
+#titlebar {
+    /* neg margin and rem stuff is to grow target area to edges of modal */
+    width: calc(4in + 1rem);
+    padding: 0.5rem;
+    margin: -0.5rem;
+    margin-bottom: 0;
+    cursor: move;
 }
 </style>
 <div id="root" class="closed">
-    <div id="overlay"></div>
     <div id="wrapper">
+        <div id="titlebar"><slot name="title"></slot></div>
         <slot>Default text</slot>
     </div>
 </div>
 `;
 document.body.append(modalTemplate);
 
+function setElementPos(x, y, target) {
+    const one_rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    x = Math.max(x, one_rem);
+    x = Math.min(x, window.innerWidth - target.clientWidth - one_rem);
+    y = Math.max(y, one_rem);
+    y = Math.min(y, window.innerHeight - target.clientHeight - one_rem);
+
+    target.style.transform = `translate3d(${x}px, ${y}px, 0px)`;
+}
+
 export class Modal extends HTMLElement {
     #root;
     #wrapper;
+    #title;
 
     constructor(
     ) {
@@ -60,6 +69,7 @@ export class Modal extends HTMLElement {
 
         this.#root = this.shadowRoot.querySelector('#root');
         this.#wrapper = this.shadowRoot.querySelector('#wrapper');
+        this.#title = this.shadowRoot.querySelector('#titlebar');
 
         //setup event handlers
         this.querySelectorAll(".modal-close").forEach(
@@ -71,21 +81,15 @@ export class Modal extends HTMLElement {
         this.querySelectorAll(".modal-delete").forEach(
             btn => btn.addEventListener("click", () => this.#Delete())
         );
-
+        this.#title.addEventListener('mousedown', e => this.#onDragDown(e), false);
     }
 
     Open(x, y) {
-        const one_rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
 
         this.#root.classList.remove("closed");
 
         x -= this.#wrapper.clientWidth / 2;
-
-        x = Math.max(x, one_rem);
-        x = Math.min(x, window.innerWidth - this.#wrapper.clientWidth - one_rem);
-        y = Math.max(y, one_rem);
-        y = Math.min(y, window.innerHeight - this.#wrapper.clientHeight - one_rem);
-        this.#wrapper.style.transform = `translate3d(${x}px, ${y}px, 0px)`;
+        setElementPos(x, y, this.#wrapper);
     }
 
     Close() {
@@ -103,6 +107,47 @@ export class Modal extends HTMLElement {
         this.dispatchEvent(event);
         this.Close();
     }
+
+    #onDragDown(event) {
+        let stuff = this.#wrapper.style.transform.match(/\((\d+)px, (\d+)px/);
+        let x = stuff[1];
+        let y = stuff[2];
+        dragging = this.#wrapper;
+        dragX = event.clientX - x;
+        dragY = event.clientY - y;
+        window.addEventListener('mousemove', onDragMove, true);
+    }
 }
 
 customElements.define('td19-modal', Modal);
+
+let dragging = undefined;
+let dragX = 0;
+let dragY = 0;
+
+function onDragUp(event) {
+    if (dragging) {
+        console.log("Drag ended");
+        window.removeEventListener('mousemove', onDragMove, true);
+        dragging = undefined;
+        dragX = 0;
+        dragY = 0;
+    }
+}
+
+function onDragMove(event) {
+    if (dragging) {
+        if (window.getSelection) {
+            if (window.getSelection().empty) {  // Chrome
+              window.getSelection().empty();
+            } else if (window.getSelection().removeAllRanges) {  // Firefox
+              window.getSelection().removeAllRanges();
+            }
+          } else if (document.selection) {  // IE?
+            document.selection.empty();
+          }
+        setElementPos(event.clientX - dragX, event.clientY - dragY, dragging);
+    }
+}
+
+window.addEventListener('mouseup', e => onDragUp(e), false);
