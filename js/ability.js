@@ -1,6 +1,7 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
 import { Ability } from './genesys.js';
 import { ListEditor } from "./listEditor.js";
+import { ConvertSymbols } from "./util/prettyText.js";
 
 const AbilityNameInput = document.getElementById('edit-ability-name');
 const AbilitySourceInput = document.getElementById('edit-ability-source');
@@ -25,7 +26,7 @@ const AbilityListEditor = new ListEditor(
 function UpdateDisplay(ability, element) {
     element.querySelector('.name').textContent = ability.name;
     element.querySelector('.source').textContent = ability.source;
-    element.querySelector('.description').textContent = ability.description;
+    ConvertSymbols(ability.description, element.querySelector('.description'));
 }
 
 function UpdateModal(ability) {

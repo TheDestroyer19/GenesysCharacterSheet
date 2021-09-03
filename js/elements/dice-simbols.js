@@ -67,17 +67,16 @@ class SymbolElement extends HTMLElement {
     constructor(className, title) {
         super();
 
-        this.attachShadow({mode: 'open'});
+        let shadow = this.attachShadow({mode: 'open'});
         
         const style = document.createElement('style');
         style.textContent = STYLE_TEXT;
-        this.shadowRoot.appendChild(style);
+        shadow.appendChild(style);
 
         const inner = document.createElement('span');
         inner.classList.add(className);
-        this.shadowRoot.appendChild(inner);
-
-        this.title = title;
+        inner.title = title;
+        shadow.appendChild(inner);
     }
 }
 
