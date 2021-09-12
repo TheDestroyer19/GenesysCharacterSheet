@@ -1,7 +1,7 @@
 import { setBoolAttribute } from "/js/common.js";
 import { Characteristic } from "/js/genesys.js";
 
-const STYLE_TEXT = `
+const STYLE_TEXT = /*css*/`
 @import '/css/shared.css';
 
 :host {
@@ -93,7 +93,7 @@ input:not([type="checkbox"]), select {
 }
 `;
 
-const ELEMENT_HTML = `
+const ELEMENT_HTML = /*html*/`
 <details id="root">
     <summary>
         <span id="career" title="Career Skill">C</span>
@@ -110,9 +110,9 @@ const ELEMENT_HTML = `
     </summary>
     <div id="edit">
         <label for="name-input">Name</label>
-        <input id="name-input"></input>
+        <input id="name-input">
         <label for="career-input">Career</label>
-        <div><input id="career-input" type="checkbox"></input></div>
+        <div><input id="career-input" type="checkbox"></div>
         <label for="stat-input">Characteristic</label>
         <select id="stat-input">
             <option>Brawn</option>
@@ -123,7 +123,7 @@ const ELEMENT_HTML = `
             <option>Presence</option>
         </select>
         <label for="rank-input">Rank</label>
-        <input id="rank-input" type="number"></input>
+        <input id="rank-input" type="number">
         <button class="button" id="btn-delete">Delete Skill</button>
     </div>
 </details>
