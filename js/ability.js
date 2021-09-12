@@ -25,8 +25,8 @@ const AbilityListEditor = new ListEditor(
  * @param {HTMLElement} element 
  */
 function UpdateDisplay(ability, element) {
-    element.querySelector('.name').textContent = ability.name;
-    element.querySelector('.source').textContent = ability.source;
+    ConvertSymbols(ability.name, element.querySelector('.name'));
+    ConvertSymbols(ability.source, element.querySelector('.source'));
     ConvertSymbols(ability.description, element.querySelector('.description'));
 
 }
