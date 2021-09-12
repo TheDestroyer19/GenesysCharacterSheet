@@ -57,8 +57,7 @@ export class Modal extends HTMLElement {
     #wrapper;
     #title;
 
-    constructor(
-    ) {
+    constructor( ) {
         super();
 
         let templateContent = modalTemplate.content;
@@ -71,6 +70,9 @@ export class Modal extends HTMLElement {
         this.#wrapper = this.shadowRoot.querySelector('#wrapper');
         this.#title = this.shadowRoot.querySelector('#titlebar');
 
+    }
+
+    connectedCallback() {
         //setup event handlers
         this.querySelectorAll(".modal-close").forEach(
             btn => btn.addEventListener("click", () => this.Close())
@@ -82,6 +84,14 @@ export class Modal extends HTMLElement {
             btn => btn.addEventListener("click", () => this.#Delete())
         );
         this.#title.addEventListener('mousedown', e => this.#onDragDown(e), false);
+    }
+
+    Toggle(x, y) {
+        if (this.#root.classList.contains("closed")) {
+            this.Open(x, y);
+        } else {
+            this.Close();
+        }
     }
 
     Open(x, y) {
@@ -127,7 +137,6 @@ let dragY = 0;
 
 function onDragUp(event) {
     if (dragging) {
-        console.log("Drag ended");
         window.removeEventListener('mousemove', onDragMove, true);
         dragging = undefined;
         dragX = 0;

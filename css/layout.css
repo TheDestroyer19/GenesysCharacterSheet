@@ -213,13 +213,13 @@
 }
 
 /* Page 3 ****************************************************************** */
-#page3 {
+/*#page3 {
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: 1fr;
     column-gap: 0.5rem;
     row-gap: 0.5rem;
-}
+}*/
 
 /* ************************************************************************* */
 /* Modals that need layout                                                   */

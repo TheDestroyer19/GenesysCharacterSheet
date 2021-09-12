@@ -152,6 +152,8 @@ document.getElementById('import-character').addEventListener('change', UploadCha
 
 document.getElementById('export-character').addEventListener('click', DownloadCharacter);
 
+document.getElementById('toggle-symbols-modal').addEventListener('click', e => document.getElementById('symbols').Toggle(e.clientX, e.clientY));
+
 document.addEventListener("DOMContentLoaded", (event) => {
     let character = GetFromLocalStorage();
     window.character = character;
