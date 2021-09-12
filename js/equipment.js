@@ -1,6 +1,7 @@
 import {CHARACTER_LOADED, CHARACTER_UPDATED, RemoveAllChildNodes, SendCharacterUpdated} from './common.js';
 import {Item} from './genesys.js';
 import { ListEditor } from './listEditor.js';
+import { ConvertSymbols } from './util/prettyText.js';
 
 const ItemName = document.getElementById('edit-item-name');
 const ItemDescription = document.getElementById('edit-item-description');
@@ -33,8 +34,8 @@ function UpdateItem(item) {
 }
 
 function UpdateDisplay(item, element) {
-    element.querySelector(".name").textContent = item.name;
-    element.querySelector(".description").textContent = item.description;
+    ConvertSymbols(item.name, element.querySelector(".name"));
+    ConvertSymbols(item.description, element.querySelector(".description"));
     element.querySelector(".quantity").textContent = item.quantity;
 }
 
