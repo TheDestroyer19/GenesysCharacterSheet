@@ -226,17 +226,23 @@
 /* ************************************************************************* */
 
 /* Weapon Modal Layout ***************************************************** */
-#modal-edit-weapon {
+#modal-edit-weapon-body {
+    display: grid;
     grid-template-columns: auto auto;
     column-gap: 0.25rem;
+    row-gap: 0.25rem;
     align-items: center;
 }
-#modal-edit-weapon h1, #modal-edit-weapon .horizontal-row {
+#modal-edit-weapon .horizontal-row {
     grid-column: span 2;
 }
-#modal-edit-weapon label {
+#modal-edit-weapon-body>label {
     grid-column: 1;
     text-align: end;
+}
+#modal-edit-weapon .right {
+    grid-column: 2;
+    text-align: start;
 }
 #modal-edit-item {
     grid-template-columns: auto auto;

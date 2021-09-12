@@ -302,27 +302,30 @@
 
     <td19-modal id="modal-edit-weapon">
         <h1 slot="title">Weapon</h1>
-        <label for="edit-weapon-name">Name:</label>
-        <input type="text" id="edit-weapon-name" />
-        <label for="edit-weapon-skill">Skill:</label>
-        <input type="text" id="edit-weapon-skill" />
-        <label for="edit-weapon-damage">Damage:</label>
-        <input type="number" id="edit-weapon-damage" />
-        <label for="edit-weapon-critical">Critical:</label>
-        <input type="number" id="edit-weapon-critical" />
-        <label for="edit-weapon-range">Range:</label>
-        <select id="edit-weapon-range">
-            <option>Engaged</option>
-            <option>Short</option>
-            <option>Medium</option>
-            <option>Long</option>
-            <option>Extreme</option>
-        </select>
-        <label for="edit-weapon-special">Special:</label>
-        <input type="text" id="edit-weapon-special" />
-        <div class="horizontal-row">
-            <button class="modal-delete">Delete</button>
-            <button class="modal-save">Save</button>
+        <div id="modal-edit-weapon-body">
+            <label for="edit-weapon-name">Name:</label>
+            <input type="text" id="edit-weapon-name" />
+            <label for="edit-weapon-skill">Skill:</label>
+            <input type="text" id="edit-weapon-skill" />
+            <label for="edit-weapon-damage">Damage:</label>
+            <input type="text" id="edit-weapon-damage" />
+            <label class="right"><input type="checkbox" id="edit-weapon-uses-brawn"> Add Brawn</label>
+            <label for="edit-weapon-critical">Critical:</label>
+            <input type="number" id="edit-weapon-critical" />
+            <label for="edit-weapon-range">Range:</label>
+            <select id="edit-weapon-range">
+                <option>Engaged</option>
+                <option>Short</option>
+                <option>Medium</option>
+                <option>Long</option>
+                <option>Extreme</option>
+            </select>
+            <label for="edit-weapon-special">Special:</label>
+            <input type="text" id="edit-weapon-special" />
+            <div class="horizontal-row">
+                <button class="modal-delete">Delete</button>
+                <button class="modal-save">Save</button>
+            </div>
         </div>
     </td19-modal>
 

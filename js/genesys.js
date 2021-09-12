@@ -110,15 +110,17 @@ export class Weapon {
      * 
      * @param {string} name 
      * @param {COMBAT_SKILL_NAME} skill 
-     * @param {string} damage 
+     * @param {number} damage 
+     * @param {bool} uses_brawn true if brawn score should be added to damage
      * @param {number} crit 
      * @param {RANGE} range 
      * @param {string} special 
      */
-    constructor(name, skill, damage, crit, range, special) {
+    constructor(name, skill, damage, uses_brawn, crit, range, special) {
         this.name = name;
         this.skill = skill;
         this.damage = damage;
+        this.uses_brawn = uses_brawn;
         this.crit = crit;
         this.range = range;
         this.special = special;
