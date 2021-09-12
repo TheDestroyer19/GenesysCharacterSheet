@@ -131,3 +131,10 @@ textarea {
 #motivations textarea {
     flex-grow: 1;
 }
+
+/* Random tools styling */
+@media print {
+    #symbols {
+        display: none;
+    }
+}
