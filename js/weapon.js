@@ -50,7 +50,7 @@ function UpdateModal(weapon) {
 function UpdateWeapon(weapon) {
     weapon.name = WeaponNameInput.value;
     weapon.skill = WeaponSkillInput.value;
-    weapon.damage = parseInt(WeaponDamageInput.value);
+    weapon.damage = WeaponDamageInput.value;
     weapon.crit = parseInt(WeaponCriticalInput.value);
     weapon.range = WeaponRangeInput.value;
     weapon.special = WeaponSpecialInput.value;

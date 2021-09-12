@@ -110,7 +110,7 @@ export class Weapon {
      * 
      * @param {string} name 
      * @param {COMBAT_SKILL_NAME} skill 
-     * @param {number} damage 
+     * @param {string} damage 
      * @param {number} crit 
      * @param {RANGE} range 
      * @param {string} special 
