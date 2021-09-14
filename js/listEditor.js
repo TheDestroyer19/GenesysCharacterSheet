@@ -24,6 +24,9 @@ import {Modal} from './elements/modal.js';
  * Note: the element has already been removed from display and the managed array
  */
 
+/**
+ * Utility to manage editing a list
+ */
 export class ListEditor {
 
     constructor(
