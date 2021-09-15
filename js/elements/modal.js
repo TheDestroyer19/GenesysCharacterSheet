@@ -1,7 +1,7 @@
 //const FOCUSABLE_SELECTORS = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]';
 const modalTemplate = document.createElement('template');
 modalTemplate.id = 'modal-template';
-modalTemplate.innerHTML = `
+modalTemplate.innerHTML = /* HTML */`
 <style>
 @import '/css/shared.css';
 #wrapper {
@@ -21,7 +21,7 @@ modalTemplate.innerHTML = `
     border-radius: 0.75rem;
     padding: 0.5rem;
 }
-.closed {
+:host(:not([open])) {
     display: none;
 }
 #titlebar {
@@ -33,7 +33,7 @@ modalTemplate.innerHTML = `
     cursor: move;
 }
 </style>
-<div id="root" class="closed">
+<div id="root">
     <div id="wrapper">
         <div id="titlebar"><slot name="title"></slot></div>
         <slot>Default text</slot>
@@ -56,6 +56,9 @@ export class Modal extends HTMLElement {
     #root;
     #wrapper;
     #title;
+    #onClose;
+    #onSave;
+    #onDelete
 
     constructor( ) {
         super();
@@ -69,25 +72,65 @@ export class Modal extends HTMLElement {
         this.#root = this.shadowRoot.querySelector('#root');
         this.#wrapper = this.shadowRoot.querySelector('#wrapper');
         this.#title = this.shadowRoot.querySelector('#titlebar');
-
-    }
-
-    connectedCallback() {
-        //setup event handlers
-        this.querySelectorAll(".modal-close").forEach(
-            btn => btn.addEventListener("click", () => this.Close())
-        );
-        this.querySelectorAll(".modal-save").forEach(
-            btn => btn.addEventListener("click", () => this.#Save())
-        );
-        this.querySelectorAll(".modal-delete").forEach(
-            btn => btn.addEventListener("click", () => this.#Delete())
-        );
+        this.#onClose = () => this.Close();
+        this.#onSave = () => this.#Save();
+        this.#onDelete = () => this.#Delete();
         this.#title.addEventListener('mousedown', e => this.#onDragDown(e), false);
     }
 
+    connectedCallback() {
+        if (!this.isConnected) return;
+        //setup event handlers
+        this.querySelectorAll(".modal-close").forEach(
+            btn => btn.addEventListener("click", this.#onClose)
+        );
+        this.querySelectorAll(".modal-save").forEach(
+            btn => btn.addEventListener("click", this.#onSave)
+        );
+        this.querySelectorAll(".modal-delete").forEach(
+            btn => btn.addEventListener("click", this.#onDelete)
+        );
+    }
+
+    disconnectedCallback() {
+        //remove event handlers
+        this.querySelectorAll(".modal-close").forEach(
+            btn => btn.removeEventListener("click", this.#onClose)
+        );
+        this.querySelectorAll(".modal-save").forEach(
+            btn => btn.removeEventListener("click", this.#onSave)
+        );
+        this.querySelectorAll(".modal-delete").forEach(
+            btn => btn.removeEventListener("click", this.#onDelete)
+        );
+    }
+
+    get open() {
+        return this.hasAttribute('open');
+    }
+
+    set open(isOpen) {
+        if (isOpen) {
+            this.setAttribute('open', "");
+        } else {
+            this.removeAttribute('open');
+        }
+    }
+
+    get discardOnClose() {
+        return this.hasAttribute('discard-on-close');
+    }
+
+    set discardOnClose(shouldDiscard) {
+        if (shouldDiscard) {
+            this.setAttribute('discard-on-close', "");
+        } else {
+            this.removeAttribute('discard-on-close');
+        }
+    }
+
     Toggle(x, y) {
-        if (this.#root.classList.contains("closed")) {
+        if (this.hasAttribute('open')) {
             this.Open(x, y);
         } else {
             this.Close();
@@ -95,15 +138,17 @@ export class Modal extends HTMLElement {
     }
 
     Open(x, y) {
-
-        this.#root.classList.remove("closed");
+        this.setAttribute('open', "");
 
         x -= this.#wrapper.clientWidth / 2;
         setElementPos(x, y, this.#wrapper);
     }
 
     Close() {
-        this.#root.classList.add("closed");
+        this.removeAttribute('open');
+        if (this.discardOnClose) {
+            this.parentElement.removeChild(this);
+        }
     }
 
     #Save() {
