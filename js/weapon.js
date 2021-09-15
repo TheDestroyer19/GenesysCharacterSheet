@@ -1,6 +1,6 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from './common.js';
 import {COMBAT_SKILL_NAME, RANGE, Weapon} from './genesys.js';
-import { ListEditor } from './listEditor.js';
+import { OldListEditor } from './listEditor.js';
 
 const WeaponNameInput = document.getElementById("edit-weapon-name");
 const WeaponSkillInput = document.getElementById("edit-weapon-skill");
@@ -12,7 +12,7 @@ const WeaponSpecialInput = document.getElementById("edit-weapon-special");
 
 const NewWeapon = document.getElementById('new-weapon');
 
-const WeaponListEditor = new ListEditor(
+const WeaponListEditor = new OldListEditor(
     () => window.character.weapons,
     "weapon-template",
     'weapons-table',

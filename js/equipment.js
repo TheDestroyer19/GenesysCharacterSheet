@@ -1,6 +1,6 @@
 import {CHARACTER_LOADED, CHARACTER_UPDATED, RemoveAllChildNodes, SendCharacterUpdated} from './common.js';
 import {Item} from './genesys.js';
-import { ListEditor } from './listEditor.js';
+import { OldListEditor } from './listEditor.js';
 import { ConvertSymbols } from './util/prettyText.js';
 
 const ItemName = document.getElementById('edit-item-name');
@@ -9,7 +9,7 @@ const ItemQuantity = document.getElementById('edit-item-quantity');
 
 const NewItem = document.getElementById('new-item');
 
-const ItemListEditor = new ListEditor(
+const ItemListEditor = new OldListEditor(
     () => window.character.inventory,
     "item-template",
     "item-table",

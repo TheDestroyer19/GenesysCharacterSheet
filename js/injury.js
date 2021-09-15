@@ -1,11 +1,11 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
 import { CriticalInjury } from "./genesys.js";
-import { ListEditor } from "./listEditor.js";
+import { OldListEditor } from "./listEditor.js";
 
 const InjuryModal = document.getElementById('modal-edit-injury');
 const InjuryResultInput = document.getElementById('edit-injury-result');
 
-const CriticalInjuryListEditor = new ListEditor(
+const CriticalInjuryListEditor = new OldListEditor(
     () => window.character.critical_injuries,
     "injury-template",
     'injury-table',

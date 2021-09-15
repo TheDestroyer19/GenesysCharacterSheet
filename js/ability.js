@@ -1,14 +1,14 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
 import { SendRecalcSize } from "./growabletextarea.js";
 import { Ability } from './genesys.js';
-import { ListEditor } from "./listEditor.js";
+import { OldListEditor } from "./listEditor.js";
 import { ConvertSymbols } from "./util/prettyText.js";
 
 const AbilityNameInput = document.getElementById('edit-ability-name');
 const AbilitySourceInput = document.getElementById('edit-ability-source');
 const AbilityDescriptionInput = document.getElementById('edit-ability-description');
 
-const AbilityListEditor = new ListEditor(
+const AbilityListEditor = new OldListEditor(
     () => window.character.abilities,
     "ability-template",
     'ability-table',

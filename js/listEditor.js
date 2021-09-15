@@ -27,7 +27,7 @@ import {Modal} from './elements/modal.js';
 /**
  * Utility to manage editing a list
  */
-export class ListEditor {
+export class OldListEditor {
 
     constructor(
         getDataArray,

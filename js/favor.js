@@ -1,11 +1,11 @@
 import {Favor} from './genesys.js';
 import { CHARACTER_LOADED, RemoveAllChildNodes, SendCharacterUpdated } from './common.js';
-import { ListEditor } from './listEditor.js';
+import { OldListEditor } from './listEditor.js';
 
 const FavorOwedInput = document.getElementById("edit-owed-favor");
 const FavorGivenInput = document.getElementById("edit-given-favor");
 
-const GivenFavorListEditor = new ListEditor(
+const GivenFavorListEditor = new OldListEditor(
     () => window.character.favors_given,
     'favor-template',
     'favors-given',
@@ -21,7 +21,7 @@ document.getElementById("give-favor").addEventListener('click', event => {
     SendCharacterUpdated();
 });
 
-const OwedFavorListEditor = new ListEditor(
+const OwedFavorListEditor = new OldListEditor(
     () => window.character.favors_owed,
     "favor-template",
     'favors-owed',
