@@ -40,6 +40,9 @@ export class ListEditor {
         deleteEntryCallback,
     ) {
         this.getDataArray = getDataArray;
+
+
+
         /** @private @type {!HTMLTemplateElement}*/
         this.template = document.getElementById(htmlTemplateID);
         /** @private @type {!HTMLElement}*/

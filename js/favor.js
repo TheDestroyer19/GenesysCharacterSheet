@@ -7,7 +7,7 @@ const FavorGivenInput = document.getElementById("edit-given-favor");
 
 const GivenFavorListEditor = new ListEditor(
     () => window.character.favors_given,
-    document.getElementById(),
+    'favor-template',
     'favors-given',
     'modal-edit-given-favor',
     (favor) => FavorGivenInput.value = favor.text,
