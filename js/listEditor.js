@@ -24,6 +24,53 @@ import {Modal} from './elements/modal.js';
  * Note: the element has already been removed from display and the managed array
  */
 
+export class ListEditor {
+    /** @type {Array} */
+    #content;
+    /** @type {HTMLElement} */
+    #container;
+
+    constructor(contentArray, containerElement) {
+        this.#content = contentArray;
+
+        this.#container = containerElement
+
+        this.onChange = () => console.error(`ListEditor for ${this.#container.id} needs onChange set`);
+
+        this.createDisplay = (item) => {
+            console.error(`ListEditor for ${this.#container.id} needs createDisplay set`);
+            let element = document.createElement('span');
+            element.textContent = JSON.stringify(item);
+            return element;
+        }
+    }
+
+    add(item) {
+        let element = this.createDisplay(item);
+        this.#content.push(item);
+        this.#container.appendChild(element);
+        this.onChange();
+    }
+
+    remove(item) {
+        let idx = this.#content.indexOf(item);
+        if (idx > -1) {
+            this.#content.splice(idx, 1);
+            this.#container.children.item(idx).remove();
+        }
+        this.onChange();
+    }
+
+    replaceArray(newContentArray) {
+        RemoveAllChildNodes(this.#container);
+        this.#content = newContentArray;
+        this.#content.forEach(item => {
+            let element = this.createDisplay(item);
+            this.#container.appendChild(element);
+        });
+    }
+}
+
 /**
  * Utility to manage editing a list
  */
