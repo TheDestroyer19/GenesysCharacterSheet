@@ -243,28 +243,16 @@
             </section>
 
             <section id="abilities">
-                <h2>Talents and Special Abilities</h2>
+                <div class="horizontal-row">
+                    <button id="new-ability" class="edit" title="Add Injury">＋</button>
+                    <h2>Talents and Special Abilities</h2>
+                    <div><!-- for alignment --></div>
+                </div>
                 <template id="ability-template">
-                    <tr>
-                        <td class="name"></td>
-                        <td class="source"></td>
-                        <td class="description"></td>
-                        <td><button class="edit" title="Edit Ability">🖉</button></td>
-                    </tr>
+                    <ability-display><button class="edit" title="Edit Ability">🖉</button></ability-display>
                 </template>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Source</th>
-                            <th>Ability Summary</th>
-                            <th><button id="new-ability" class="edit" title="Add Injury">＋</button></th>
-                        </tr>
-                    </thead>
-                    <tbody id="ability-table">
-
-                    </tbody>
-                </table>
+                <div id="ability-table"></div>
+                <equipment-display></equipment-display>
             </section>
         </form>
         

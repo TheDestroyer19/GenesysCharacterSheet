@@ -2,11 +2,13 @@ import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
 import { SendRecalcSize } from "./growabletextarea.js";
 import { Ability } from './genesys.js';
 import { OldListEditor } from "./listEditor.js";
-import { ConvertSymbols } from "./util/prettyText.js";
+import * as _display from './elements/ability-display.js';
 
 const AbilityNameInput = document.getElementById('edit-ability-name');
 const AbilitySourceInput = document.getElementById('edit-ability-source');
 const AbilityDescriptionInput = document.getElementById('edit-ability-description');
+
+
 
 const AbilityListEditor = new OldListEditor(
     () => window.character.abilities,
@@ -25,9 +27,12 @@ const AbilityListEditor = new OldListEditor(
  * @param {HTMLElement} element 
  */
 function UpdateDisplay(ability, element) {
-    ConvertSymbols(ability.name, element.querySelector('.name'));
-    ConvertSymbols(ability.source, element.querySelector('.source'));
-    ConvertSymbols(ability.description, element.querySelector('.description'));
+    element.name = ability.name;
+    element.source = ability.source;
+    element.description = ability.description;
+    //ConvertSymbols(ability.name, element.querySelector('.name'));
+    //ConvertSymbols(ability.source, element.querySelector('.source'));
+    //ConvertSymbols(ability.description, element.querySelector('.description'));
 
 }
 

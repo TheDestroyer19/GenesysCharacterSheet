@@ -34,7 +34,7 @@ textarea {
 #motivations, #inventory, #character-description,
 #notes, #critical-injuries, #abilities {
     background: white;
-    border: 0.2rem solid orange;
+    border: 0.2rem solid var(--cp-50);
     border-radius: 0.75rem;
     padding: 0.25rem;
 }
