@@ -53,9 +53,10 @@ function BuildCreateDisplay(listEditor, modalTemplate) {
             let textarea = modal.querySelector('textarea');
             textarea.value = favor.text;
             //hookup listener to input to update favor
-            textarea.addEventListener('onchange', event => {
+            textarea.addEventListener('change', event => {
                 favor.text = textarea.value;
                 ConvertSymbols(favor.text, element.querySelector(".text"));
+                SendCharacterUpdated();
             });
     
             //display the modal

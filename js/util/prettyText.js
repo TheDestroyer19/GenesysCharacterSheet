@@ -10,6 +10,8 @@ const CODE_REGEX = /(\[{2}[^\[\]]*\]{2}|\n)/;
 export function ConvertSymbols(sourceText, container) {
     RemoveAllChildNodes(container);
 
+    if (sourceText == null) return;
+
     const segments = sourceText.split(CODE_REGEX);
 
     segLoop: for (const seg of segments) {

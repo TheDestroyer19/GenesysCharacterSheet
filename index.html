@@ -248,11 +248,7 @@
                     <h2>Talents and Special Abilities</h2>
                     <div><!-- for alignment --></div>
                 </div>
-                <template id="ability-template">
-                    <ability-display><button class="edit" title="Edit Ability">🖉</button></ability-display>
-                </template>
                 <div id="ability-table"></div>
-                <equipment-display></equipment-display>
             </section>
         </form>
         
@@ -319,18 +315,6 @@
         </label>
         <label for="edit-injury-result">Result</label>
         <textarea id="edit-injury-result"></textarea>
-        <div class="horizontal-row">
-            <button class="modal-delete">Delete</button>
-            <button class="modal-save">Save</button>
-        </div>
-    </td19-modal>
-
-    <td19-modal id="modal-edit-ability">
-        <h1 slot="title">Ability</h1>
-        <label>Name <input id="edit-ability-name"></label>
-        <label>Source <input id="edit-ability-source"></label>
-        <label for="edit-ability-description">Description</label>
-        <textarea id="edit-ability-description" class="growable"></textarea>
         <div class="horizontal-row">
             <button class="modal-delete">Delete</button>
             <button class="modal-save">Save</button>

@@ -17,7 +17,7 @@ const ELEMENT_HTML = /* HTML */ `
 }
 #controls {
     grid-area: ctrl;
-    border-right: 0.25rem solid var(--ca1-50);
+    border-right: 0.2rem solid var(--ca1-50);
     display: flex;
     flex-direction: column;
 }
@@ -52,13 +52,17 @@ Once per session when your character uses one of their g-mods to modify a check,
 </div>
 `;
 
-class AbilityDisplay extends HTMLElement {
+export class AbilityDisplay extends HTMLElement {
+    #state;
+
     constructor() {
         super();
 
         this.attachShadow({mode: 'open'});
 
         this.shadowRoot.innerHTML = ELEMENT_HTML;
+
+        this.#state = {};
 
     }
 
@@ -69,47 +73,17 @@ class AbilityDisplay extends HTMLElement {
     connectedCallback() {
         if (!this.isConnected) return;
 
-        ConvertSymbols(this.name, this.shadowRoot.querySelector('#name'));
-        ConvertSymbols(this.source, this.shadowRoot.querySelector('#source'));
-        ConvertSymbols(this.description, this.shadowRoot.querySelector('#body'));
+        ConvertSymbols(this.#state.name, this.shadowRoot.querySelector('#name'));
+        ConvertSymbols(this.#state.source, this.shadowRoot.querySelector('#source'));
+        ConvertSymbols(this.#state.description, this.shadowRoot.querySelector('#body'));
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
+        this.#state[name] = newValue;
         switch (name) {
             case 'name': ConvertSymbols(newValue, this.shadowRoot.querySelector('#name')); break;
             case 'source': ConvertSymbols(newValue, this.shadowRoot.querySelector('#source')); break;
             case 'description': ConvertSymbols(newValue, this.shadowRoot.querySelector('#body')); break;
-        }
-    }
-
-    get name() {
-        return this.getAttribute('name');
-    }
-    set name(value) {
-        if (value) {
-            this.setAttribute('name', value);
-        } else {
-            this.removeAttribute('name');
-        }
-    }
-    get source() {
-        return this.getAttribute('source');
-    }
-    set source(value) {
-        if (value) {
-            this.setAttribute('source', value);
-        } else {
-            this.removeAttribute('source');
-        }
-    }
-    get description() {
-        return this.getAttribute('description');
-    }
-    set description(value) {
-        if (value) {
-            this.setAttribute('description', value);
-        } else {
-            this.removeAttribute('description');
         }
     }
 }
