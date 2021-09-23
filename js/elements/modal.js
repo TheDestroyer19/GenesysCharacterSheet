@@ -130,7 +130,7 @@ export class Modal extends HTMLElement {
     }
 
     Toggle(x, y) {
-        if (this.hasAttribute('open')) {
+        if (!this.hasAttribute('open')) {
             this.Open(x, y);
         } else {
             this.Close();
