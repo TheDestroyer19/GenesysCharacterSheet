@@ -29,7 +29,7 @@ textarea {
     justify-content: space-between;
 }
 
-#skills, #favors, #weapons, .modal, header,
+#skills, #favors, #weapons, .modal, #page1header,
 #condition div, #characteristics div, #app-header,
 #motivations, #inventory, #character-description,
 #notes, #critical-injuries, #abilities {
@@ -86,13 +86,16 @@ textarea {
     grid-column: span 2;
 }
 
-#skills h3 {
+#skills .sh {
+    font-weight: bold;
+    font-size: small;
     margin-bottom: 0.15rem;
     display: flex;
     gap: 0.2em;
 }
-#skills h3 span {
+#skills .sh span {
     flex-grow: 1;
+    text-align: right;
 }
 
 /* Favor styles*/

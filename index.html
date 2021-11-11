@@ -29,9 +29,9 @@
     </header>
 
     <div id="pages">
-
-        <form autocomplete="off" action="javascript:void(0);" id="page1" class="sheet">
-            <header id="page1header">
+        <div id="page1" class="sheet">
+            <section id="page1header">
+                <h2 class="sr-only">Character Summary</h2>
                 <div>
                     <label for="name">Character Name</label><input id="name" type="text" />
                     <label for="player">Player Name</label><input id="player" type="text" />
@@ -44,8 +44,9 @@
                     <label for="xp-available">Available XP</label><input id="xp-available" type="number" />
                     <label for="xp-total">Total XP</label><input id="xp-total" type="number" />
                 </div>
-            </header>
+            </section>
             <section id="characteristics">
+                <h2 class="sr-only">Characteristics</h2>
                 <div class="stat">
                     <input id="brawn" type=number />
                     <label for="brawn" id="brawn-label">Brawn</label>
@@ -101,17 +102,17 @@
             <section id="skills">
                 <h2>Skills</h2>
                 <div class="left">
-                    <h3>General Skills<button id="new-skill-general" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="sh"><h3>General Skills</h3><span>Ranks</span><button id="new-skill-general" class="edit">＋</button></div>
                     <div class="skill" id="skills-general"></div>
-                    <h3>Magic Skills<button id="new-skill-magic" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="sh"><h3>Magic Skills</h3><span>Ranks</span><button id="new-skill-magic" class="edit">＋</button></div>
                     <div class="skill" id="skills-magic"></div>
                 </div>
                 <div class="right">
-                    <h3>Combat Skills<button id="new-skill-combat" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="sh"><h3>Combat Skills</h3><span>Ranks</span><button id="new-skill-combat" class="edit">＋</button></div>
                     <div class="skill" id="skills-combat"></div>
-                    <h3>Social Skills<button id="new-skill-social" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="sh"><h3>Social Skills</h3><span>Ranks</span><button id="new-skill-social" class="edit">＋</button></div>
                     <div class="skill" id="skills-social"></div>
-                    <h3>Knowledge Skills<button id="new-skill-knowledge" class="edit">＋</button><span></span>Ranks</h3>
+                    <div class="sh"><h3>Knowledge Skills</h3><span>Ranks</span><button id="new-skill-knowledge" class="edit">＋</button></div>
                     <div class="skill" id="skills-knowledge"></div>
             </section>
 
@@ -158,9 +159,9 @@
                     </tbody>
                 </table>
             </section>
-        </form>
+        </div>
 
-        <form autocomplete="off" action="javascript:void(0);" id="page2" class="sheet">
+        <div id="page2" class="sheet">
             <section id="motivations">
                 <h2>Motivations</h2>
                 <div>
@@ -250,15 +251,15 @@
                 </div>
                 <div id="ability-table"></div>
             </section>
-        </form>
+        </div>
         
-        <form autocomplete="off" action="javascript:void(0);" id="page3" class="sheet">
+        <div id="page3" class="sheet">
 
             <section id="notes">
                 <h2>Notes</h2>
                 <textarea id="notes-input" class="growable"></textarea>
             </section>
-        </form>
+        </div>
     </div>
 
     <td19-modal id="modal-edit-weapon">
