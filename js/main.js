@@ -3,12 +3,12 @@ import {CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
 
 const default_character = {
     header: {
-        name: "Akio",
-        player: "Chris Clegg",
-        archetype: "G-Mod",
-        career: "Investigator",
-        xpAvailable: 0,
-        xpTotal: 110,
+        name: "",
+        player: "",
+        archetype: "",
+        career: "",
+        xpAvailable: 100,
+        xpTotal: 100,
     },
     characteristics: {
         Brawn: 2,
@@ -35,11 +35,11 @@ const default_character = {
         new Skill("Athletics", CHARACTERISTIC.Brawn, false, 0),
         new Skill("Computer - Hacking", CHARACTERISTIC.Intellect, false, 0),
         new Skill("Computer - Sysops", CHARACTERISTIC.Intellect, false, 0),
-        new Skill("Cool", CHARACTERISTIC.Presence, true, 1),
-        new Skill("Coordination", CHARACTERISTIC.Agility, false, 2),
-        new Skill("Discipline", CHARACTERISTIC.Willpower, false, 3),
-        new Skill("Driving", CHARACTERISTIC.Agility, false, 4),
-        new Skill("Mechanics", CHARACTERISTIC.Intellect, false, 5),
+        new Skill("Cool", CHARACTERISTIC.Presence, false, 0),
+        new Skill("Coordination", CHARACTERISTIC.Agility, false, 0),
+        new Skill("Discipline", CHARACTERISTIC.Willpower, false, 0),
+        new Skill("Driving", CHARACTERISTIC.Agility, false, 0),
+        new Skill("Mechanics", CHARACTERISTIC.Intellect, false, 0),
         new Skill("Medicine", CHARACTERISTIC.Intellect, false, 0),
         new Skill("Operating", CHARACTERISTIC.Intellect, false, 0),
         new Skill("Perception", CHARACTERISTIC.Cunning, false, 0),
@@ -73,17 +73,12 @@ const default_character = {
         new Skill("The Net", CHARACTERISTIC.Intellect, false, 0),
     ],
     favors_owed: [
-        new Favor("Doctor joe is a good secret keeper")
     ],
     favors_given: [
-        new Favor("Andrew needed a job, so I helped him out"),
-        new Favor("a very very very long favor whose text definitely wraps at least one, but preferrabley two or three times"),
     ],
     inventory: [
-        new Item("Forensic Kit", 1, ""),
     ],
     weapons: [
-        new Weapon("Fletcher Pistol", COMBAT_SKILL_NAME.RangedLight, 4, 2, RANGE.Medium, "Pierce 2, Vicious 2"),
     ],
 }
 
