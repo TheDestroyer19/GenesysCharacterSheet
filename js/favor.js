@@ -66,7 +66,7 @@ function BuildCreateDisplay(listEditor, modalTemplate) {
     };
 }
 
-const GivenFavorListEditor = new ListEditor([], document.getElementById('favors-given'));
+const GivenFavorListEditor = new ListEditor(document.getElementById('favors-given'));
 GivenFavorListEditor.onChange = () => SendCharacterUpdated();
 GivenFavorListEditor.createDisplay = BuildCreateDisplay(GivenFavorListEditor, GivenFavorModalTemplate);
 
@@ -74,7 +74,7 @@ document.getElementById("give-favor").addEventListener('click', event => {
     GivenFavorListEditor.add(event, new Favor("I helped someone out, they owe me now"));
 });
 
-const OwedFavorListEditor = new ListEditor([], document.getElementById('favors-owed'));
+const OwedFavorListEditor = new ListEditor(document.getElementById('favors-owed'));
 OwedFavorListEditor.onChange = () => SendCharacterUpdated();
 OwedFavorListEditor.createDisplay = BuildCreateDisplay(OwedFavorListEditor, OwedFavorModalTemplate);
 

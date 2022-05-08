@@ -30,8 +30,8 @@ export class ListEditor {
     /** @type {HTMLElement} */
     #container;
 
-    constructor(contentArray, containerElement) {
-        this.#content = contentArray;
+    constructor(containerElement) {
+        this.#content = [];
 
         this.#container = containerElement
 
@@ -45,11 +45,17 @@ export class ListEditor {
         }
     }
 
+    /**
+     * Adds a new item to the list (both js and display)
+     * @param {*} item The new item to be added to the list
+     * @returns the element that displays the item
+     */
     add(item) {
         let element = this.createDisplay(item);
         this.#content.push(item);
         this.#container.appendChild(element);
         this.onChange();
+        return element;
     }
 
     remove(item) {

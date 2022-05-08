@@ -41,7 +41,7 @@ h2 {
 }
 </style>
 <div id="controls">
-    <slot></slot>
+    <button class="edit" title="Edit">🖉</button>
 </div>
 <div id="head">
     <h1 id="title">Title</h1>
@@ -54,6 +54,8 @@ h2 {
 export class NotesDisplay extends HTMLElement {
     #state;
 
+    onEdit;
+
     constructor() {
         super();
 
@@ -61,8 +63,13 @@ export class NotesDisplay extends HTMLElement {
 
         this.shadowRoot.innerHTML = ELEMENT_HTML;
 
-        this.#state = {};
+        this.shadowRoot.querySelector('.edit').addEventListener('click', event => {
+            event.cancelBubble = true;
+            this.edit(event);
+        });
 
+        this.#state = {};
+        this.onEdit = event => console.warn("Notes-Display needs onEdit set");
     }
 
     static get observedAttributes() {
@@ -82,6 +89,10 @@ export class NotesDisplay extends HTMLElement {
             case 'title': ConvertSymbols(newValue, this.shadowRoot.querySelector('#title')); break;
             case 'body': ConvertSymbols(newValue, this.shadowRoot.querySelector('#body')); break;
         }
+    }
+
+    edit(event) {
+        this.onEdit(event);
     }
 }
 customElements.define('notes-display', NotesDisplay);

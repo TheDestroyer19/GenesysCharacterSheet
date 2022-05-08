@@ -1,12 +1,12 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
 import { attachResize } from "./growabletextarea.js";
-import { ListEditor, OldListEditor } from "./listEditor.js";
+import { ListEditor } from "./listEditor.js";
 import { NotesDisplay } from './elements/notes-display.js';
 
 const NotesTemplate = document.createElement('template');
 NotesTemplate.id = 'notes-template';
 NotesTemplate.innerHTML = /* HTML */ `
-<notes-display><button class="edit" title="Edit Note">🖉</button></notes-display>
+<notes-display></notes-display>
 `;
 document.body.append(NotesTemplate);
 
@@ -26,14 +26,14 @@ ModalTemplate.innerHTML = /* HTML */ `
 `;
 document.body.append(ModalTemplate);
 
-const listEditor = new ListEditor([], document.getElementById('notes-table'));
+const listEditor = new ListEditor(document.getElementById('notes-table'));
 listEditor.onChange = () => SendCharacterUpdated();
 listEditor.createDisplay = (note) => {
-    let element = NotesTemplate.content.firstElementChild.cloneNode(true);
+    let element = document.createElement('notes-display');
     element.setAttribute('title', note.title);
     element.setAttribute('body', note.body);
 
-    element.querySelector('.edit').addEventListener('click', event => {
+    element.onEdit = event => {
         //create modal
         let modal = ModalTemplate.content.firstElementChild.cloneNode(true);
         document.body.append(modal);
@@ -57,13 +57,12 @@ listEditor.createDisplay = (note) => {
         //display
         modal.Open(event.clientX, event.clientY);
         attachResize(modal.querySelector('#body'));
-    });
+    };
     return element;
 };
 
 document.getElementById('new-note').addEventListener('click', event => {
-    listEditor.add({ title: "New Note", body: ""});
-    SendCharacterUpdated();
+    listEditor.add({ title: "New Note", body: ""}).edit(event);
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {

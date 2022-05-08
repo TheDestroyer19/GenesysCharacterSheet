@@ -28,7 +28,7 @@ ModalTemplate.innerHTML = /* HTML */ `
 `;
 document.body.append(ModalTemplate);
 
-const listEditor = new ListEditor([], document.getElementById('ability-table'));
+const listEditor = new ListEditor(document.getElementById('ability-table'));
 listEditor.onChange = () => SendCharacterUpdated();
 listEditor.createDisplay = (ability) => {
     let element = AbilityTemplate.content.firstElementChild.cloneNode(true);
