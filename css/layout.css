@@ -54,13 +54,13 @@
     justify-content: space-between;
 }
 
-#page1header div {
+/* #page1header div {
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 0.25rem;
     row-gap: 0.25rem;
     align-items: center;
-}
+} */
 
 #page1header label {
     text-align: end;

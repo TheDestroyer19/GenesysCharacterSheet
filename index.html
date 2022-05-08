@@ -22,7 +22,6 @@
     <header id="app-header" class="horizontal-row">
         <h1>Genesys HTML Character Sheet</h1>
         <span style="flex-grow: 1;"></span>
-        <span style="flex-grow: 1;"></span>
         <input type="file" class="inputfile" id="import-character" autocomplete="off" value="import"/>
         <button class="button" id="toggle-symbols-modal">Symbols</button>
         <label class="button" for="import-character">Import</label>
@@ -34,45 +33,27 @@
             <section id="page1header">
                 <h2 class="sr-only">Character Summary</h2>
                 <div>
-                    <label for="name">Character Name</label><input id="name" type="text" />
-                    <label for="player">Player Name</label><input id="player" type="text" />
+                    <label>Character Name <input id="name" type="text" /></label>
+                    <label>Player Name <input id="player" type="text" /></label>
                 </div>
                 <div>
-                    <label for="archetype">Species/Archetype</label><input id="archetype" type="text" />
-                    <label for="career">Career</label><input id="career" type="text" />
+                    <label>Species/Archetype <input id="archetype" type="text" /></label>
+                    <label>Career <input id="career" type="text" /></label>
                 </div>
                 <div>
-                    <label for="xp-available">Available XP</label><input id="xp-available" type="number" />
-                    <label for="xp-total">Total XP</label><input id="xp-total" type="number" />
+                    <label>Available XP <input id="xp-available" type="number" /></label>
+                    <label>Total XP <input id="xp-total" type="number" /></label>
                 </div>
             </section>
             <section id="characteristics">
                 <h2 class="sr-only">Characteristics</h2>
                 <div class="horizontal-row">
-                    <div class="stat">
-                        <label for="brawn" class="caption" id="brawn-label">Brawn</label>
-                        <input id="brawn" type=number />
-                    </div>
-                    <div class="stat">
-                        <label for="agility" class="caption" id="agility-label">Agility</label>
-                        <input id="agility" type=number />
-                    </div>
-                    <div class="stat">
-                        <label for="intellect" class="caption" id="intellect-label">Intellect</label>
-                        <input id="intellect" type=number />
-                    </div>
-                    <div class="stat">
-                        <label for="cunning" class="caption" id="cunning-label">Cunning</label>
-                        <input id="cunning" type=number />
-                    </div>
-                    <div class="stat">
-                        <label for="willpower" class="caption" id="willpower-label">Willpower</label>
-                        <input id="willpower" type=number />
-                    </div>
-                    <div class="stat">
-                        <label for="presence" class="caption" id="presence-label">Presence</label>
-                        <input id="presence" type=number />
-                    </div>
+                    <label class="stat">Brawn<input id="brawn" type=number /></label>
+                    <label class="stat">Agility<input id="agility" type=number /></label>
+                    <label class="stat">Intellect<input id="intellect" type=number /></label>
+                    <label class="stat">Cunning<input id="cunning" type=number /></label>
+                    <label class="stat">Willpower<input id="willpower" type=number /></label>
+                    <label class="stat">Presence<input id="presence" type=number /></label>
                 </div>
                 <div class="horizontal-row">
                     <div class="condition">
