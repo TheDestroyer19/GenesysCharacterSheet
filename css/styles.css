@@ -2,11 +2,16 @@
 #app-header {
     box-sizing: border-box;
     position: sticky;
-    top: 0.25rem;
+    top: 0.5rem;
+}
+
+#app-footer {
+    min-height: 10rem;
 }
 
 #pages {
     margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
 }
 
 label {
@@ -32,7 +37,7 @@ textarea {
 #skills, #favors, #weapons, .modal, #page1header,
 #condition div, #characteristics div, #app-header,
 #motivations, #inventory, #character-description,
-#notes, #critical-injuries, #abilities {
+#notes, #critical-injuries, #abilities, #app-footer {
     background: white;
     border: 0.2rem solid var(--cp-50);
     border-radius: 0.75rem;
