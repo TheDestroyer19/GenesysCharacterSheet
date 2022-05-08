@@ -63,7 +63,7 @@ function UpdateWeapon(weapon) {
 }
 
 NewWeapon.addEventListener('click', event => {
-    WeaponListEditor.add(event, new Weapon("Unnamed weapon", COMBAT_SKILL_NAME.Melee, 0, 0, RANGE.Engaged, ""));
+    WeaponListEditor.add(event, new Weapon("Unnamed weapon", COMBAT_SKILL_NAME.Melee, 0, false, 0, RANGE.Engaged, ""));
     SendCharacterUpdated();
 });
 

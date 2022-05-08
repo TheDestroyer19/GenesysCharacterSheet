@@ -141,24 +141,22 @@
                 <h2>Weapons</h2>
                 <template id="weapon-template">
                     <tr class="weapon">
-                        <td class="name"></td>
+                        <td><button class="edit" title="Edit Weapon">🖉</button> <span class="name"></span></td>
                         <td class="skill"></td>
                         <td class="damage"></td>
                         <td class="crit"></td>
                         <td class="range"></td>
                         <td class="special"></td>
-                        <td><button class="edit" title="Edit Weapon">🖉</button></td>
                     </tr>
                 </template>
                 <table>
                     <thead><tr>
-                        <th>Weapon</th>
+                        <th><button id="new-weapon" class="edit" title="New Weapon">＋</button> Weapon</th>
                         <th>Skill</th>
                         <th>Damage</th>
                         <th>Crit</th>
                         <th>Range</th>
                         <th>Special</th>
-                        <th><button id="new-weapon" class="edit" title="New Weapon">＋</button></th>
                     </tr></thead>
                     <tbody id="weapons-table">
                     </tbody>
