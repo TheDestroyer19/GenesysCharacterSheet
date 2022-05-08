@@ -30,8 +30,12 @@ textarea {
     justify-content: space-between;
 }
 
+.caption {
+    font-size: medium;
+}
+
 #skills, #favors, #weapons, .modal, #page1header,
-#condition div, #characteristics div, #app-header,
+.condition, .stat, #app-header,
 #motivations, #inventory, #character-description,
 #notes, #critical-injuries, #abilities, #app-footer {
     background: white;
@@ -50,9 +54,6 @@ textarea {
 
 /* Condition Styles */
 
-.condition .caption {
-    font-size: medium;
-}
 .condition input {
     text-align: center;
 }
@@ -62,7 +63,7 @@ textarea {
 
 /* Characteristic Styles */
 
-#characteristics > .stat {
+.stat {
     text-align: center;
 }
 

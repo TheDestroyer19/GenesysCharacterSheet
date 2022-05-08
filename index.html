@@ -48,55 +48,59 @@
             </section>
             <section id="characteristics">
                 <h2 class="sr-only">Characteristics</h2>
-                <div class="stat">
-                    <input id="brawn" type=number />
-                    <label for="brawn" id="brawn-label">Brawn</label>
+                <div class="horizontal-row">
+                    <div class="stat">
+                        <label for="brawn" class="caption" id="brawn-label">Brawn</label>
+                        <input id="brawn" type=number />
+                    </div>
+                    <div class="stat">
+                        <label for="agility" class="caption" id="agility-label">Agility</label>
+                        <input id="agility" type=number />
+                    </div>
+                    <div class="stat">
+                        <label for="intellect" class="caption" id="intellect-label">Intellect</label>
+                        <input id="intellect" type=number />
+                    </div>
+                    <div class="stat">
+                        <label for="cunning" class="caption" id="cunning-label">Cunning</label>
+                        <input id="cunning" type=number />
+                    </div>
+                    <div class="stat">
+                        <label for="willpower" class="caption" id="willpower-label">Willpower</label>
+                        <input id="willpower" type=number />
+                    </div>
+                    <div class="stat">
+                        <label for="presence" class="caption" id="presence-label">Presence</label>
+                        <input id="presence" type=number />
+                    </div>
                 </div>
-                <div class="stat">
-                    <input id="agility" type=number />
-                    <label for="agility" id="agility-label">Agility</label>
-                </div>
-                <div class="stat">
-                    <input id="intellect" type=number />
-                    <label for="intellect" id="intellect-label">Intellect</label>
-                </div>
-                <div class="stat">
-                    <input id="cunning" type=number />
-                    <label for="cunning" id="cunning-label">Cunning</label>
-                </div>
-                <div class="stat">
-                    <input id="willpower" type=number />
-                    <label for="willpower" id="willpower-label">Willpower</label>
-                </div>
-                <div class="stat">
-                    <input id="presence" type=number />
-                    <label for="presence" id="presence-label">Presence</label>
-                </div>
-                <div class="condition">
-                    <span class="caption">Soak Value</span>
-                    <input id="soak" type="number"/>
-                    <label id="soak-lbl" for="soak" style="visibility: hidden;">Soak Value</label>
-                </div>
-                <div class="condition">
-                    <span class="caption">Wounds</span>
-                    <label for="wounds-threshold">Threshold</label>
-                    <input id="wounds-threshold" type="number"/>
-                    <label for="wounds-current">Current</label>
-                    <input id="wounds-current" type="number" />
-                </div>
-                <div class="condition">
-                    <span class="caption">Strain</span>
-                    <label for="strain-threshold">Threshold</label>
-                    <input id="strain-threshold" type="number" value="13" />
-                    <label for="strain-current">Current</label>
-                    <input id="strain-current" type="number" />
-                </div>
-                <div class="condition">
-                    <span class="caption">Defense</span>
-                    <label for="defense-ranged">Ranged</label>
-                    <input id="defense-ranged" type="number" value="13" />
-                    <label for="defense-melee">Melee</label>
-                    <input id="defense-melee" type="number" />
+                <div class="horizontal-row">
+                    <div class="condition">
+                        <span class="caption">Soak Value</span>
+                        <input id="soak" type="number"/>
+                        <label id="soak-lbl" for="soak" style="visibility: hidden;">Soak Value</label>
+                    </div>
+                    <div class="condition">
+                        <span class="caption">Wounds</span>
+                        <label for="wounds-threshold">Threshold</label>
+                        <input id="wounds-threshold" type="number"/>
+                        <label for="wounds-current">Current</label>
+                        <input id="wounds-current" type="number" />
+                    </div>
+                    <div class="condition">
+                        <span class="caption">Strain</span>
+                        <label for="strain-threshold">Threshold</label>
+                        <input id="strain-threshold" type="number" value="13" />
+                        <label for="strain-current">Current</label>
+                        <input id="strain-current" type="number" />
+                    </div>
+                    <div class="condition">
+                        <span class="caption">Defense</span>
+                        <label for="defense-ranged">Ranged</label>
+                        <input id="defense-ranged" type="number" value="13" />
+                        <label for="defense-melee">Melee</label>
+                        <input id="defense-melee" type="number" />
+                    </div>
                 </div>
             </section>
 
