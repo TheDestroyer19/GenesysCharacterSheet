@@ -175,23 +175,3 @@ document.addEventListener(CHARACTER_LOADED, () => {
     desire.value = motivations.desire;
     SendRecalcSize(desire);
 });
-
-// ========================================================================= //
-// NOTES =================================================================== //
-// ========================================================================= //
-
-document.getElementById('notes-input').addEventListener('change', (event) => {
-    window.character.notes = event.target.value;
-    SendCharacterUpdated();
-});
-
-document.addEventListener(CHARACTER_LOADED, () => {
-    let value = window.character.notes;
-    const notes = document.getElementById('notes-input');
-    if (value) {
-        notes.value = value;
-    } else {
-        notes.value = "";
-    }
-    SendRecalcSize(notes);
-})

@@ -31,6 +31,9 @@ const default_character = {
         flaw: "",
         desire: "",
     },
+    notes: [
+
+    ],
     skills_general: [
         new Skill("Athletics", CHARACTERISTIC.Brawn, false, 0),
         new Skill("Computer - Hacking", CHARACTERISTIC.Intellect, false, 0),
