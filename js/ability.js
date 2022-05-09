@@ -13,10 +13,6 @@ ModalTemplate.innerHTML = /* HTML */ `
     <label>Source <input id="source"></label>
     <label for="description">Description</label>
     <textarea id="description" class="growable"></textarea>
-    <div class="horizontal-row">
-        <button class="modal-delete">Delete</button>
-        <button class="modal-close">Close</button>
-    </div>
 </td19-modal>
 `;
 document.body.append(ModalTemplate);

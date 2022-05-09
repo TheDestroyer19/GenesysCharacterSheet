@@ -1,7 +1,7 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
 import { attachResize } from "./growabletextarea.js";
 import { ListEditor } from "./listEditor.js";
-import { NotesDisplay } from './elements/notes-display.js';
+import { } from './elements/notes-display.js';
 
 const NotesTemplate = document.createElement('template');
 NotesTemplate.id = 'notes-template';
@@ -18,10 +18,6 @@ ModalTemplate.innerHTML = /* HTML */ `
     <label>Title <input id="title"></label>
     <label for="body">Body</label>
     <textarea id="body" class="growable"></textarea>
-    <div class="horizontal-row">
-        <button class="modal-delete">Delete</button>
-        <button class="modal-close">Close</button>
-    </div>
 </td19-modal>
 `;
 document.body.append(ModalTemplate);

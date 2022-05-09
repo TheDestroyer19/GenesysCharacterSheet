@@ -228,11 +228,11 @@
             </section>
 
             <section id="abilities">
-                <div class="horizontal-row">
+                <h2 class="horizontal-row">
                     <button id="new-ability" class="edit" title="Add Injury">＋</button>
-                    <h2>Talents and Special Abilities</h2>
-                    <div><!-- for alignment --></div>
-                </div>
+                    Talents and Special Abilities
+                    <span><!-- for alignment --></span>
+                </h2>
                 <div id="ability-table"></div>
             </section>
         </div>
@@ -240,11 +240,11 @@
         <div id="page3" class="sheet">
 
             <section id="notes">
-                <div class="horizontal-row">
+                <h2 class="horizontal-row">
                     <button id="new-note" class="edit" title="Add Note">＋</button>
-                    <h2>Notes</h2>
-                    <div><!-- for alignment --></div>
-                </div>
+                    Notes
+                    <span><!-- for alignment --></span>
+                </h2>
                 <div id="notes-table"></div>
             </section>
         </div>
@@ -276,7 +276,7 @@
             </select>
             <label for="edit-weapon-special">Special:</label>
             <input type="text" id="edit-weapon-special" />
-            <div class="horizontal-row">
+            <div class="horizontal-row" slot="footer">
                 <button class="modal-delete">Delete</button>
                 <button class="modal-save">Save</button>
             </div>
@@ -291,7 +291,7 @@
         <input type="number" id="edit-item-quantity" />
         <label for="edit-item-description">Description:</label>
         <textarea class="growable" id="edit-item-description"></textarea>
-        <div class="horizontal-row">
+        <div class="horizontal-row" slot="footer">
             <button class="modal-delete">Delete</button>
             <button class="modal-save">Save</button>
         </div>
@@ -308,7 +308,7 @@
         </label>
         <label for="edit-injury-result">Result</label>
         <textarea id="edit-injury-result"></textarea>
-        <div class="horizontal-row">
+        <div class="horizontal-row" slot="footer">
             <button class="modal-delete">Delete</button>
             <button class="modal-save">Save</button>
         </div>
@@ -337,7 +337,7 @@
             </tbody>
         </table>
 
-        <button class="modal-close">Close</button>
+        <button slot="footer" class="modal-close">Close</button>
     </td19-modal>
   </body>
 </html>

@@ -18,10 +18,6 @@ GivenFavorModalTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Given Favor</h1>
     <textarea></textarea>
-    <div class="horizontal-row">
-        <button class="modal-delete">Delete</button>
-        <button class="modal-close">Close</button>
-    </div>
 </td19-modal>
 `;
 document.body.append(GivenFavorModalTemplate);
@@ -32,10 +28,6 @@ OwedFavorModalTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Owed Favor</h1>
     <textarea></textarea>
-    <div class="horizontal-row">
-        <button class="modal-delete">Delete</button>
-        <button class="modal-close">Close</button>
-    </div>
 </td19-modal>
 `;
 document.body.append(OwedFavorModalTemplate);

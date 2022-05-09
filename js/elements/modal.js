@@ -32,11 +32,22 @@ modalTemplate.innerHTML = /* HTML */`
     margin-bottom: 0;
     cursor: move;
 }
+.horizontal-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 </style>
 <div id="root">
     <div id="wrapper">
         <div id="titlebar"><slot name="title"></slot></div>
         <slot>Default text</slot>
+        <slot name="footer">
+            <div class="horizontal-row">
+                <button class="modal-delete">Delete</button>
+                <button class="modal-close">Close</button>
+            </div>
+        </slot>
     </div>
 </div>
 `;
@@ -81,26 +92,26 @@ export class Modal extends HTMLElement {
     connectedCallback() {
         if (!this.isConnected) return;
         //setup event handlers
-        this.querySelectorAll(".modal-close").forEach(
+        this.shadowRoot.querySelectorAll(".modal-close").forEach(
             btn => btn.addEventListener("click", this.#onClose)
         );
-        this.querySelectorAll(".modal-save").forEach(
+        this.shadowRoot.querySelectorAll(".modal-save").forEach(
             btn => btn.addEventListener("click", this.#onSave)
         );
-        this.querySelectorAll(".modal-delete").forEach(
+        this.shadowRoot.querySelectorAll(".modal-delete").forEach(
             btn => btn.addEventListener("click", this.#onDelete)
         );
     }
 
     disconnectedCallback() {
         //remove event handlers
-        this.querySelectorAll(".modal-close").forEach(
+        this.shadowRoot.querySelectorAll(".modal-close").forEach(
             btn => btn.removeEventListener("click", this.#onClose)
         );
-        this.querySelectorAll(".modal-save").forEach(
+        this.shadowRoot.querySelectorAll(".modal-save").forEach(
             btn => btn.removeEventListener("click", this.#onSave)
         );
-        this.querySelectorAll(".modal-delete").forEach(
+        this.shadowRoot.querySelectorAll(".modal-delete").forEach(
             btn => btn.removeEventListener("click", this.#onDelete)
         );
     }
