@@ -7,7 +7,7 @@ import { AbilityDisplay } from './elements/ability-display.js';
 const AbilityTemplate = document.createElement('template');
 AbilityTemplate.id = 'ability-template';
 AbilityTemplate.innerHTML = /* HTML */ `
-<ability-display><button class="edit" title="Edit Ability">🖉</button></ability-display>
+<ability-display></ability-display>
 `;
 document.body.append(AbilityTemplate);
 
@@ -36,7 +36,7 @@ listEditor.createDisplay = (ability) => {
     element.setAttribute('source', ability.source);
     element.setAttribute('description', ability.description);
 
-    element.querySelector('.edit').addEventListener('click', event => {
+    element.onEdit = event => {
         //create modal
         let modal = ModalTemplate.content.firstElementChild.cloneNode(true);
         document.body.append(modal);
@@ -67,7 +67,7 @@ listEditor.createDisplay = (ability) => {
         //display
         modal.Open(event.clientX, event.clientY);
         attachResize(modal.querySelector('#description'));
-    });
+    };
     return element;
 };
 

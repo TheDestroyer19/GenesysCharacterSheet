@@ -1,34 +1,18 @@
 import { ConvertSymbols } from "../util/prettyText.js";
+import { } from "./list-controls.js";
 
 const ELEMENT_HTML = /* HTML */ `
 <style>
 @import '/css/shared.css';
 
 :host {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 0.25rem;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-        "ctrl head"
-        "ctrl body";
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
-}
-#controls {
-    grid-area: ctrl;
-    border-right: 0.2rem solid var(--ca1-50);
-    display: flex;
-    flex-direction: column;
-}
-#head {
-    grid-area: head;
-}
-#body {
-    grid-area: body;
     font-size: small;
 }
-
 h1, h2 {
     display: inline;
     font-size: small;
@@ -40,15 +24,16 @@ h2 {
     font-weight: normal;
 }
 </style>
-<div id="controls">
-    <slot></slot>
-</div>
-<div id="head">
-    <h1 id="name">Name</h1>
-    <h2 id="source">Source</h2>
-</div>
-<div id="body">
-Once per session when your character uses one of their g-mods to modify a check, you may spend a Story Point to add equal to your character's ranks in Resilience to the results (in addition to any other affects the g-mod has)
+<list-controls></list-controls>
+<div>
+    <div>
+        <button id="edit" class="edit" title="Edit">🖉</button>
+        <h1 id="name">Name</h1>
+        <h2 id="source">Source</h2>
+    </div>
+    <div id="body">
+        "body"
+    </div>
 </div>
 `;
 
@@ -62,7 +47,14 @@ export class AbilityDisplay extends HTMLElement {
 
         this.shadowRoot.innerHTML = ELEMENT_HTML;
 
+        this.shadowRoot.getElementById('edit').addEventListener('click', event => {
+            event.preventDefault();
+            event.target.blur();
+            this.#edit(event);
+        });
+        
         this.#state = {};
+        this.onEdit = event => console.warn("Ability-Display needs onEdit set");
 
     }
 
@@ -85,6 +77,10 @@ export class AbilityDisplay extends HTMLElement {
             case 'source': ConvertSymbols(newValue, this.shadowRoot.querySelector('#source')); break;
             case 'description': ConvertSymbols(newValue, this.shadowRoot.querySelector('#body')); break;
         }
+    }
+
+    #edit(event) {
+        this.onEdit(event);
     }
 }
 customElements.define('ability-display', AbilityDisplay);
