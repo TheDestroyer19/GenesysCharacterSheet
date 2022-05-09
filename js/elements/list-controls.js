@@ -3,8 +3,10 @@ const ELEMENT_HTML = /* HTML */ `
     @import '/css/shared.css';
     :host {
         display: flex;
+        box-sizing: border-box;
         flex-direction: column;
         align-items: stretch;
+        width: .95rem;
 
         border-right: 0.2rem solid var(--ca1-50);
     }
