@@ -1,8 +1,8 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
 import { attachResize } from "./growabletextarea.js";
 import { Ability } from './genesys.js';
-import { ListEditor, OldListEditor } from "./listEditor.js";
-import { AbilityDisplay } from './elements/ability-display.js';
+import { ListEditor } from "./listEditor.js";
+import { } from './elements/ability-display.js';
 
 const ModalTemplate = document.createElement('template');
 ModalTemplate.id = 'ability-modal-template';
@@ -66,7 +66,6 @@ listEditor.createDisplay = (ability) => {
 
 document.getElementById('new-ability').addEventListener('click', event => {
     listEditor.add(new Ability("Unnamed Ability", "unknown", "some strange ability"));
-    SendCharacterUpdated();
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
