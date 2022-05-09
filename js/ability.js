@@ -4,13 +4,6 @@ import { Ability } from './genesys.js';
 import { ListEditor, OldListEditor } from "./listEditor.js";
 import { AbilityDisplay } from './elements/ability-display.js';
 
-const AbilityTemplate = document.createElement('template');
-AbilityTemplate.id = 'ability-template';
-AbilityTemplate.innerHTML = /* HTML */ `
-<ability-display></ability-display>
-`;
-document.body.append(AbilityTemplate);
-
 const ModalTemplate = document.createElement('template');
 ModalTemplate.id = 'ability-modal-template';
 ModalTemplate.innerHTML = /* HTML */ `
@@ -31,7 +24,7 @@ document.body.append(ModalTemplate);
 const listEditor = new ListEditor(document.getElementById('ability-table'));
 listEditor.onChange = () => SendCharacterUpdated();
 listEditor.createDisplay = (ability) => {
-    let element = AbilityTemplate.content.firstElementChild.cloneNode(true);
+    let element = document.createElement('ability-display');
     element.setAttribute('name', ability.name);
     element.setAttribute('source', ability.source);
     element.setAttribute('description', ability.description);
