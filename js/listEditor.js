@@ -52,6 +52,8 @@ export class ListEditor {
      */
     add(item) {
         let element = this.createDisplay(item);
+        element.addEventListener('list-move-up', event => this.moveUp(item));
+        element.addEventListener('list-move-down', event => this.moveDown(item));
         this.#content.push(item);
         this.#container.appendChild(element);
         this.onChange();
@@ -62,7 +64,7 @@ export class ListEditor {
         let idx = this.#content.indexOf(item);
         if (idx > -1) {
             this.#content.splice(idx, 1);
-            this.#container.children.item(idx).remove();
+            this.#container.children[idx].remove();
         }
         this.onChange();
     }
@@ -72,8 +74,33 @@ export class ListEditor {
         this.#content = newContentArray;
         this.#content.forEach(item => {
             let element = this.createDisplay(item);
+            element.addEventListener('list-move-up', event => this.#moveUp(item));
+            element.addEventListener('list-move-down', event => this.#moveDown(item));
             this.#container.appendChild(element);
         });
+    }
+
+    #moveUp(item) {
+        let idx = this.#content.indexOf(item);
+        if (idx > 0) {
+            this.#content[idx] = this.#content[idx-1];
+            this.#content[idx-1] = item;
+            let element = this.#container.children[idx];
+            element.remove();
+            this.#container.insertBefore(element, this.#container.children[idx-1]);
+        }
+        this.onChange();
+    }
+
+    #moveDown(item) {
+        let idx = this.#content.indexOf(item);
+        if (idx > -1 && idx < this.#content.length - 1) {
+            this.#content[idx] = this.#content[idx+1];
+            this.#content[idx+1] = item;
+            let element = this.#container.children[idx+1];
+            element.remove();
+            this.#container.insertBefore(element, this.#container.children[idx]);
+        }
     }
 }
 

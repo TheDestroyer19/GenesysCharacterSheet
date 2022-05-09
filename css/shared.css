@@ -16,6 +16,7 @@ body {
     --ca2-50: #ff5300;
     --ca2-30: #d94600;
     --ca2-10: #a73600;
+    --cg-70: #dddddd;
     background-color: whitesmoke;
 }
 
@@ -154,9 +155,12 @@ button:focus,
 	-webkit-box-shadow:none;
 }
 .edit {
-    font-size: small;
-    padding: 0rem;
+    display: inline-block;
+    padding: 0;
     margin: 0;
+    width: 1.15em;
+    height: 1.15em;
+    text-align: center;
 }
 @media only print {
     button, .button {

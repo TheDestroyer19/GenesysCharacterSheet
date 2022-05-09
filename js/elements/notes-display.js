@@ -1,34 +1,18 @@
 import { ConvertSymbols } from "../util/prettyText.js";
+import { } from "./list-controls.js";
 
 const ELEMENT_HTML = /* HTML */ `
 <style>
 @import '/css/shared.css';
 
 :host {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 0.25rem;
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-        "ctrl head"
-        "ctrl body";
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
-}
-#controls {
-    grid-area: ctrl;
-    border-right: 0.2rem solid var(--ca1-50);
-    display: flex;
-    flex-direction: column;
-}
-#head {
-    grid-area: head;
-}
-#body {
-    grid-area: body;
     font-size: small;
 }
-
 h1, h2 {
     display: inline;
     font-size: small;
@@ -40,14 +24,15 @@ h2 {
     font-weight: normal;
 }
 </style>
-<div id="controls">
-    <button class="edit" title="Edit">🖉</button>
-</div>
-<div id="head">
-    <h1 id="title">Title</h1>
-</div>
-<div id="body">
-    Body
+<list-controls></list-controls>
+<div>
+    <div>
+        <button id="edit" class="edit" title="Edit">🖉</button>
+        <h1 id="title">Title</h1>
+    </div>
+    <div id="body">
+        Body
+    </div>
 </div>
 `;
 
@@ -63,9 +48,10 @@ export class NotesDisplay extends HTMLElement {
 
         this.shadowRoot.innerHTML = ELEMENT_HTML;
 
-        this.shadowRoot.querySelector('.edit').addEventListener('click', event => {
-            event.cancelBubble = true;
-            this.edit(event);
+        this.shadowRoot.getElementById('edit').addEventListener('click', event => {
+            event.preventDefault();
+            event.target.blur();
+            this.#edit(event);
         });
 
         this.#state = {};
@@ -91,7 +77,7 @@ export class NotesDisplay extends HTMLElement {
         }
     }
 
-    edit(event) {
+    #edit(event) {
         this.onEdit(event);
     }
 }
