@@ -61,7 +61,7 @@ listEditor.createDisplay = (ability) => {
 };
 
 document.getElementById('new-ability').addEventListener('click', event => {
-    listEditor.add(new Ability("Unnamed Ability", "unknown", "some strange ability"));
+    listEditor.add(new Ability("Unnamed Ability", "unknown", "some strange ability")).onEdit(event);
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
