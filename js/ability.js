@@ -1,8 +1,7 @@
-import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
-import { attachResize } from "./growabletextarea.js";
+import { CHARACTER_LOADED } from "./common.js";
 import { Ability } from './genesys.js';
-import { ListEditor } from "./listEditor.js";
-import { } from './elements/ability-display.js';
+import { NewSimpleListEditor } from "./listEditor.js";
+import { AbilityDisplay } from './elements/ability-display.js';
 
 const ModalTemplate = document.createElement('template');
 ModalTemplate.id = 'ability-modal-template';
@@ -17,48 +16,11 @@ ModalTemplate.innerHTML = /* HTML */ `
 `;
 document.body.append(ModalTemplate);
 
-const listEditor = new ListEditor(document.getElementById('ability-table'));
-listEditor.onChange = () => SendCharacterUpdated();
-listEditor.createDisplay = (ability) => {
-    let element = document.createElement('ability-display');
-    element.setAttribute('name', ability.name);
-    element.setAttribute('source', ability.source);
-    element.setAttribute('description', ability.description);
-
-    element.onEdit = event => {
-        //create modal
-        let modal = ModalTemplate.content.firstElementChild.cloneNode(true);
-        document.body.append(modal);
-        //fill in details
-        let name = modal.querySelector('#name');
-        let source = modal.querySelector('#source');
-        let description = modal.querySelector('#description');
-        name.value = ability.name;
-        source.value = ability.source;
-        description.value = ability.description;
-        //hookup listeners
-        modal.addEventListener('delete', () => listEditor.remove(ability));
-        name.addEventListener('change', event => {
-            ability.name = name.value;
-            element.setAttribute('name', name.value);
-            SendCharacterUpdated();
-        });
-        modal.querySelector('#source').addEventListener('change', event => {
-            ability.source = event.target.value;
-            element.setAttribute('source', event.target.value);
-            SendCharacterUpdated();
-        });
-        modal.querySelector('#description').addEventListener('change', event => {
-            ability.description = event.target.value;
-            element.setAttribute('description', event.target.value);
-            SendCharacterUpdated();
-        });
-        //display
-        modal.Open(event.clientX, event.clientY);
-        attachResize(modal.querySelector('#description'));
-    };
-    return element;
-};
+const listEditor = NewSimpleListEditor(
+    document.getElementById('ability-table'),
+    AbilityDisplay,
+    ModalTemplate,
+);
 
 document.getElementById('new-ability').addEventListener('click', event => {
     listEditor.add(new Ability("Unnamed Ability", "unknown", "some strange ability")).onEdit(event);

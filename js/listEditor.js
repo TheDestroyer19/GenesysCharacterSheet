@@ -1,4 +1,6 @@
-import { RemoveAllChildNodes } from './common.js';
+import { RemoveAllChildNodes, SendCharacterUpdated } from './common.js';
+import { attachResize } from "./growabletextarea.js";
+
 import {Modal} from './elements/modal.js';
 
 /**
@@ -23,6 +25,53 @@ import {Modal} from './elements/modal.js';
  * @param {Object} entry - the entry that is being deleted
  * Note: the element has already been removed from display and the managed array
  */
+
+/**
+ * 
+ * @param {Element} tableElement 
+ * @param {any} displayClass 
+ * @param {HTMLTemplateElement} modalTemplate 
+ * @returns 
+ */
+export function NewSimpleListEditor(tableElement, displayClass, modalTemplate) {
+    let listEditor = new ListEditor(tableElement);
+    listEditor.onChange = () => SendCharacterUpdated();
+    listEditor.createDisplay = (ability) => {
+        let element = document.createElement(displayClass.tag);
+
+        let fields = displayClass.observedAttributes; 
+
+        fields.forEach(field => {
+            element.setAttribute(field, ability[field]);
+        });
+
+        element.onEdit = event => {
+            //create modal
+            /** @type { Element} */
+            let modal  = modalTemplate.content.firstElementChild.cloneNode(true);
+            document.body.append(modal);
+            //fill in details
+            fields.forEach(field => {
+                let inputField = modal.querySelector('#' + field);
+                inputField.value = ability[field];
+                if (inputField.classList.contains('growable')) {
+                    attachResize(inputField);
+                }
+                inputField.addEventListener('change', event => {
+                    ability[field] = inputField.value;
+                    element.setAttribute(field, inputField.value);
+                    SendCharacterUpdated();
+                });
+            });
+            //hookup listeners
+            modal.addEventListener('delete', () => listEditor.remove(ability));
+            //display
+            modal.Open(event.clientX, event.clientY);
+        };
+        return element;
+    };   
+    return listEditor;
+}
 
 export class ListEditor {
     /** @type {Array} */

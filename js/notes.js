@@ -1,7 +1,6 @@
-import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
-import { attachResize } from "./growabletextarea.js";
-import { ListEditor } from "./listEditor.js";
-import { } from './elements/notes-display.js';
+import { CHARACTER_LOADED } from "./common.js";
+import { NewSimpleListEditor } from "./listEditor.js";
+import { NotesDisplay } from './elements/notes-display.js';
 
 const NotesTemplate = document.createElement('template');
 NotesTemplate.id = 'notes-template';
@@ -22,40 +21,11 @@ ModalTemplate.innerHTML = /* HTML */ `
 `;
 document.body.append(ModalTemplate);
 
-const listEditor = new ListEditor(document.getElementById('notes-table'));
-listEditor.onChange = () => SendCharacterUpdated();
-listEditor.createDisplay = (note) => {
-    let element = document.createElement('notes-display');
-    element.setAttribute('title', note.title);
-    element.setAttribute('body', note.body);
-
-    element.onEdit = event => {
-        //create modal
-        let modal = ModalTemplate.content.firstElementChild.cloneNode(true);
-        document.body.append(modal);
-        //fill in details
-        let title = modal.querySelector('#title');
-        let body = modal.querySelector('#body');
-        title.value = note.title;
-        body.value = note.body;
-        //hookup listeners
-        modal.addEventListener('delete', () => listEditor.remove(note));
-        title.addEventListener('change', event => {
-            note.title = title.value;
-            element.setAttribute('title', title.value);
-            SendCharacterUpdated();
-        });
-        body.addEventListener('change', event => {
-            note.body = body.value;
-            element.setAttribute('body', body.value);
-            SendCharacterUpdated();
-        });
-        //display
-        modal.Open(event.clientX, event.clientY);
-        attachResize(modal.querySelector('#body'));
-    };
-    return element;
-};
+const listEditor = NewSimpleListEditor(
+    document.getElementById('notes-table'),
+    NotesDisplay,
+    ModalTemplate
+);
 
 document.getElementById('new-note').addEventListener('click', event => {
     listEditor.add({ title: "New Note", body: ""}).onEdit(event);

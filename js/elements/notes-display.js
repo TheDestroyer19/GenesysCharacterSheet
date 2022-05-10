@@ -62,6 +62,10 @@ export class NotesDisplay extends HTMLElement {
         return ['title', 'body'];
     }
 
+    static get tag() {
+        return 'notes-display';
+    }
+
     connectedCallback() {
         if (!this.isConnected) return;
 
@@ -81,4 +85,4 @@ export class NotesDisplay extends HTMLElement {
         this.onEdit(event);
     }
 }
-customElements.define('notes-display', NotesDisplay);
+customElements.define(NotesDisplay.tag, NotesDisplay);

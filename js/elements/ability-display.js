@@ -62,6 +62,10 @@ export class AbilityDisplay extends HTMLElement {
         return ['name', 'source', 'description'];
     }
 
+    static get tag() {
+        return "ability-display";
+    }
+
     connectedCallback() {
         if (!this.isConnected) return;
 
@@ -83,4 +87,4 @@ export class AbilityDisplay extends HTMLElement {
         this.onEdit(event);
     }
 }
-customElements.define('ability-display', AbilityDisplay);
+customElements.define(AbilityDisplay.tag, AbilityDisplay);
