@@ -77,7 +77,7 @@ export class Modal extends HTMLElement {
         let templateContent = modalTemplate.content;
 
         //setup shadowroot
-        let shadowRoot = this.attachShadow({mode: 'open'})
+        this.attachShadow({mode: 'open'})
             .appendChild(templateContent.cloneNode(true));
 
         this.#root = this.shadowRoot.querySelector('#root');
@@ -87,32 +87,30 @@ export class Modal extends HTMLElement {
         this.#onSave = () => this.#Save();
         this.#onDelete = () => this.#Delete();
         this.#title.addEventListener('mousedown', e => this.#onDragDown(e), false);
+
+        this.shadowRoot.querySelectorAll('slot').forEach(slot => {
+            slot.addEventListener('slotchange', event => {
+                let children = event.target.assignedElements();
+                children.forEach(child => this.#attachEvents(child));
+            });
+        });
     }
 
     connectedCallback() {
         if (!this.isConnected) return;
-        //setup event handlers
-        this.shadowRoot.querySelectorAll(".modal-close").forEach(
-            btn => btn.addEventListener("click", this.#onClose)
-        );
-        this.shadowRoot.querySelectorAll(".modal-save").forEach(
-            btn => btn.addEventListener("click", this.#onSave)
-        );
-        this.shadowRoot.querySelectorAll(".modal-delete").forEach(
-            btn => btn.addEventListener("click", this.#onDelete)
-        );
+        this.#attachEvents(this.shadowRoot);
     }
 
-    disconnectedCallback() {
-        //remove event handlers
-        this.shadowRoot.querySelectorAll(".modal-close").forEach(
-            btn => btn.removeEventListener("click", this.#onClose)
+    #attachEvents(element) {
+        //setup event handlers
+        element.querySelectorAll(".modal-close").forEach(
+            btn => btn.addEventListener("click", this.#onClose)
         );
-        this.shadowRoot.querySelectorAll(".modal-save").forEach(
-            btn => btn.removeEventListener("click", this.#onSave)
+        element.querySelectorAll(".modal-save").forEach(
+            btn => btn.addEventListener("click", this.#onSave)
         );
-        this.shadowRoot.querySelectorAll(".modal-delete").forEach(
-            btn => btn.removeEventListener("click", this.#onDelete)
+        element.querySelectorAll(".modal-delete").forEach(
+            btn => btn.addEventListener("click", this.#onDelete)
         );
     }
 
@@ -163,13 +161,13 @@ export class Modal extends HTMLElement {
     }
 
     #Save() {
-        let event = new CustomEvent('save');
+        let event = new CustomEvent('save', { bubbles: true, composed: true});
         this.dispatchEvent(event);
         this.Close();
     }
 
     #Delete() {
-        let event = new CustomEvent('delete');
+        let event = new CustomEvent('delete', { bubbles: true, composed: true});
         this.dispatchEvent(event);
         this.Close();
     }
