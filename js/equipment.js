@@ -1,4 +1,4 @@
-import {CHARACTER_LOADED, SendCharacterUpdated} from './common.js';
+import {CHARACTER_LOADED, RemoveAllChildNodes, SendCharacterUpdated} from './common.js';
 import {Item} from './genesys.js';
 import { NewSimpleListEditor, OldListEditor } from './listEditor.js';
 import { ConvertSymbols } from './util/prettyText.js';
@@ -88,10 +88,10 @@ export class ItemDisplay extends HTMLElement {
     }
 
     #updateQuantity(newValue) {
+        let container = this.shadowRoot.querySelector('#quantity');
+        RemoveAllChildNodes(container);
         if (newValue > 1) {
-            ConvertSymbols(newValue + "x", this.shadowRoot.querySelector('#quantity'));
-        } else {
-            this.shadowRoot.querySelector("#quantity").innerHTML = "";
+            container.appendChild(document.createTextNode(newValue + "x"));
         }
     }
 }
