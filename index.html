@@ -167,27 +167,12 @@
             </section>
 
             <section id="inventory">
-                <h2>Equipment Log</h2>
-                <template id="item-template">
-                    <tr class="item">
-                        <td class="quantity"></td>
-                        <td class="name"></td>
-                        <td class="description"></td>
-                        <td><button class="edit" title="Edit Item">🖉</button></td>
-                    </tr>
-                </template>
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="quantity">Qty</th>
-                            <th class="name">Item</th>
-                            <th class="description">Description</th>
-                            <td><button id="new-item" class="edit" title="Add Item">＋</button></td>
-                        </tr>
-                    </thead>
-                    <tbody id="item-table">
-                    </tbody>
-                </table>
+                <h2 class="horizontal-row">
+                    <button id="new-item" class="edit" title="Add Item">＋</button>
+                    Equipment Log
+                    <span><!-- for alignment --></span>
+                </h2>
+                <div id="item-table"></div>
             </section>
 
             <section id="character-description">
@@ -280,20 +265,6 @@
                 <button class="modal-delete">Delete</button>
                 <button class="modal-save">Save</button>
             </div>
-        </div>
-    </td19-modal>
-
-    <td19-modal id="modal-edit-item">
-        <h1 slot="title">Item</h1>
-        <label for="edit-item-name">Name:</label>
-        <input type="text" id="edit-item-name" />
-        <label for="edit-item-quantity">Quantity:</label>
-        <input type="number" id="edit-item-quantity" />
-        <label for="edit-item-description">Description:</label>
-        <textarea class="growable" id="edit-item-description"></textarea>
-        <div class="horizontal-row" slot="footer">
-            <button class="modal-delete">Delete</button>
-            <button class="modal-save">Save</button>
         </div>
     </td19-modal>
 
