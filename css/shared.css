@@ -16,8 +16,9 @@ body {
     --ca2-50: #ff5300;
     --ca2-30: #d94600;
     --ca2-10: #a73600;
+    --cg-90: #f5f5f5;
     --cg-70: #dddddd;
-    background-color: whitesmoke;
+    background-color: var(--cg-70);
 }
 
 /* ******************************************************

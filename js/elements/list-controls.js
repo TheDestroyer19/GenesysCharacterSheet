@@ -10,9 +10,27 @@ const ELEMENT_HTML = /* HTML */ `
 
         border-right: 0.2rem solid var(--ca1-50);
     }
+    button.edit {
+        height: auto;
+        max-height: 1.15em;
+        width: 1.15em;
+        flex-grow: 1;
+    }
+    button > div {
+        background: #fff;
+        width: 60%;
+        height: 60%;
+        margin: auto auto;
+    }
+    div.up {
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    div.down {
+        clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+    }
 </style>
-<button id="up" class="edit" title="Move up">▲</button>
-<button id="down" class="edit" title="Move down">▼</button>
+<button id="up" class="edit" title="Move up"><div class="up"></div></button>
+<button id="down" class="edit" title="Move down"><div class="down"></div></button>
 `;
 
 export class ListControls extends HTMLElement {
