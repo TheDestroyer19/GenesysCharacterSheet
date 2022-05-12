@@ -195,21 +195,12 @@
             </section>
 
             <section id="critical-injuries">
-                <h2>Critical Injuries</h2>
-                <template id="injury-template">
-                    <tr>
-                        <td><input class="severity" type="checkbox"><input class="severity" type="checkbox"><input class="severity" type="checkbox"><input class="severity" type="checkbox"></td>
-                        <td class="result"></td>
-                        <td><button class="edit" title="Edit Injury">🖉</button></td>
-                    </tr>
-                </template>
-                <table>
-                    <thead>
-                        <tr><th>Severity</th><th>Result</th><th><button id="new-injury" class="edit" title="Add Injury">＋</button></th></tr>
-                    </thead>
-                    <tbody id="injury-table">
-                    </tbody>
-                </table>
+                <h2 class="horizontal-row">
+                    <button id="new-injury" class="edit" title="Add Injury">＋</button>
+                    Critical Injuries
+                    <span><!-- for alignment --></span>
+                </h2>
+                <div id="injury-table"></div>
             </section>
 
             <section id="abilities">
@@ -262,23 +253,6 @@
             <label for="edit-weapon-special">Special:</label>
             <input type="text" id="edit-weapon-special" />
         </div>
-        <div class="horizontal-row" slot="footer">
-            <button class="modal-delete">Delete</button>
-            <button class="modal-save">Save</button>
-        </div>
-    </td19-modal>
-
-    <td19-modal id="modal-edit-injury">
-        <h1 slot="title">Critical Injury</h1>
-        <label>
-            Severity
-            <input type="checkbox" class="severity">
-            <input type="checkbox" class="severity">
-            <input type="checkbox" class="severity">
-            <input type="checkbox" class="severity">
-        </label>
-        <label for="edit-injury-result">Result</label>
-        <textarea id="edit-injury-result"></textarea>
         <div class="horizontal-row" slot="footer">
             <button class="modal-delete">Delete</button>
             <button class="modal-save">Save</button>
