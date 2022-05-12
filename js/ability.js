@@ -18,20 +18,15 @@ export class AbilityDisplay extends HTMLElement {
         :host {
             display: flex;
             flex-direction: row;
-            gap: 0.25rem;
-            margin-top: 0.25rem;
-            margin-bottom: 0.25rem;
-            font-size: small;
-        }
-        h1, h2 {
-            display: inline;
-            font-size: small;
+            gap: 0.25em;
+            margin-top: 0.25em;
+            margin-bottom: 0.25em;
         }
         h1 {
-            font-weight: bold;
+            display: inline;
         }
-        h2 {
-            font-weight: normal;
+        #body, #source {
+            font-size: small;
         }
         </style>
         <list-controls></list-controls>
@@ -39,7 +34,7 @@ export class AbilityDisplay extends HTMLElement {
             <div>
                 <button id="edit" class="edit" title="Edit">🖉</button>
                 <h1 id="name">Name</h1>
-                <h2 id="source">Source</h2>
+                <span id="source">Source</span>
             </div>
             <div id="body">
                 "body"

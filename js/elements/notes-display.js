@@ -8,20 +8,15 @@ const ELEMENT_HTML = /* HTML */ `
 :host {
     display: flex;
     flex-direction: row;
-    gap: 0.25rem;
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-    font-size: small;
-}
-h1, h2 {
-    display: inline;
-    font-size: small;
+    gap: 0.25em;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
 }
 h1 {
-    font-weight: bold;
+    display: inline;
 }
-h2 {
-    font-weight: normal;
+#body {
+    font-size: small;
 }
 </style>
 <list-controls></list-controls>
