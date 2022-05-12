@@ -41,10 +41,10 @@ h1,h2,h3 {
     text-align: center;
     margin: 0;
 }
-h1 {
+h1, h2 {
     font-size: medium;
 }
-h2,h3 {
+h3 {
     font-size: small;
 }
 ul {

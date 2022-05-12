@@ -18,27 +18,22 @@ export class ItemDisplay extends HTMLElement {
         :host {
             display: flex;
             flex-direction: row;
-            gap: 0.25rem;
-            margin-top: 0.25rem;
-            margin-bottom: 0.25rem;
-            font-size: small;
+            gap: 0.25em;
+            margin-top: 0.25em;
+            margin-bottom: 0.25em;
         }
-        h1, h2 {
-            display: inline;
+        #description {
             font-size: small;
         }
         h1 {
-            font-weight: bold;
-        }
-        h2 {
-            font-weight: normal;
+            display: inline;
         }
         </style>
         <list-controls></list-controls>
         <div>
             <div>
                 <button id="edit" class="edit" title="Edit">🖉</button>
-                <h2 id="quantity">1x</h2>
+                <span id="quantity"></span>
                 <h1 id="name">Name</h1>
             </div>
             <div id="description">

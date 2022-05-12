@@ -6,9 +6,9 @@ const ELEMENT_HTML = /* HTML */ `
         box-sizing: border-box;
         flex-direction: column;
         align-items: stretch;
-        width: .95rem;
+        width: 1.15em;
 
-        border-right: 0.2rem solid var(--ca1-50);
+        border-right: 0.2em solid var(--ca1-50);
     }
     button.edit {
         height: auto;
