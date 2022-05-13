@@ -33,7 +33,7 @@ textarea {
 #skills, #favors, #weapons, .modal, #page1header,
 .condition, .stat, #app-header,
 #motivations, #inventory, #character-description,
-#notes, #critical-injuries, #abilities, #app-footer {
+#notes, #critical-injuries, #abilities, #obligations, #app-footer {
     background: white;
     border: 0.2rem solid var(--cp-50);
     border-radius: 0.75rem;
@@ -134,4 +134,12 @@ textarea {
 
         page-break-after: always;
     }
+}
+
+/* obligations styling*/
+#obligation-total {
+    width: 3.5em;
+}
+#obligations label {
+    font-size: small;
 }

@@ -46,6 +46,9 @@
 #abilities {
     grid-area: sa;
 }
+#obligations {
+    grid-area: ob;
+}
 #page1 {
     display: grid;
     grid-template-columns: auto auto;
@@ -67,7 +70,8 @@
     grid-template-rows: auto auto 1fr;
     grid-template-areas: 
         "mo ff"
-        "eq ff"
+        "ob ff"
+        "eq eq"
         "sa sa";
 }
 

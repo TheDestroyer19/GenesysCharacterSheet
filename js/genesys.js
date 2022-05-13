@@ -166,3 +166,17 @@ export class Ability {
         this.description = description;
     }
 }
+
+/**
+ * @typedef {Object} Mechanic
+ * @property {string} type
+ * @property {number} value
+ * @property {string} description
+ */
+export class Mechanic {
+    constructor(type, value, description) {
+        this.type = type;
+        this.value = value;
+        this.description = description;
+    }
+}

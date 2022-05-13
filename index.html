@@ -15,6 +15,7 @@
     <script type="module" src="./js/injury.js"></script>
     <script type="module" src="./js/ability.js"></script>
     <script type="module" src="./js/notes.js"></script>
+    <script type="module" src="./js/mechanics.js"></script>
     <script type="module" src="./js/elements/skill-display.js"></script>
     <script type="module" src="./js/elements/dice-simbols.js"></script>
   </head>
@@ -185,6 +186,15 @@
                     <label for="motivation-fear"><b>Fear</b></label>
                     <textarea id="motivation-fear" class="growable"></textarea>
                 </div>
+            </section>
+
+            <section id="obligations">
+                <h2 class="horizontal-row">
+                    <button id="new-obligation" class="edit" title="Add Ability">＋</button>
+                    Obligations
+                    <label>Total <input id="obligation-total" type="number" /></label>
+                </h2>
+                <div id="obligation-table"></div>
             </section>
 
             <section id="favors">
