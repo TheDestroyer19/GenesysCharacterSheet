@@ -127,8 +127,10 @@ textarea {
 
 @media print {
     .sheet {
-
         page-break-after: always;
+    }
+    .sheet:last-child {
+        page-break-after: avoid;
     }
 }
 

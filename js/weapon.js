@@ -39,7 +39,7 @@ export class WeaponDisplay extends HTMLElement {
             border-radius: 0.35em;
             padding: 0 0.2em;
         }
-        #media print {
+        @media print {
             .block {
                 border: 0.2em solid var(--bg);
             }
