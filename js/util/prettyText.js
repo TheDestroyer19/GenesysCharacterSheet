@@ -1,6 +1,6 @@
 import { RemoveAllChildNodes } from "../common.js";
 
-const CODE_REGEX = /(\[{2}[^\[\]]*\]{2}|\n)/;
+const CODE_REGEX = /(\[{2}[^\[\]]*\]{2}|\n|\(http\S+\))/;
 
 /**
  * Takes escaped symbols and converts them into their custom element form
@@ -15,6 +15,17 @@ export function ConvertSymbols(sourceText, container) {
     const segments = sourceText.split(CODE_REGEX);
 
     segLoop: for (const seg of segments) {
+        if (seg.startsWith('(')) {
+            let a = document.createElement('a');
+            let href = seg.slice(1, -1);
+            console.log(href);
+            a.href = href;
+            a.target = '_blank';
+            a.appendChild(document.createTextNode(href));
+            container.appendChild(a);
+            continue segLoop;
+        }
+
         let tag = "";
         switch (seg) {
             case "[[boost]]": tag = 'die-boost'; break;
