@@ -163,7 +163,7 @@ button:focus,
     height: 1.15em;
     text-align: center;
 }
-@media only print {
+@media print {
     .edit {
         display: none !important;
     }

@@ -63,7 +63,7 @@ GivenFavorListEditor.onChange = () => SendCharacterUpdated();
 GivenFavorListEditor.createDisplay = BuildCreateDisplay(GivenFavorListEditor, GivenFavorModalTemplate);
 
 document.getElementById("give-favor").addEventListener('click', event => {
-    GivenFavorListEditor.add(event, new Favor("I helped someone out, they owe me now"));
+    GivenFavorListEditor.add(new Favor("I helped someone out, they owe me now"));
 });
 
 const OwedFavorListEditor = new ListEditor(document.getElementById('favors-owed'));
@@ -71,7 +71,7 @@ OwedFavorListEditor.onChange = () => SendCharacterUpdated();
 OwedFavorListEditor.createDisplay = BuildCreateDisplay(OwedFavorListEditor, OwedFavorModalTemplate);
 
 document.getElementById("owe-favor").addEventListener('click', event => {
-    OwedFavorListEditor.add(event, new Favor("Someone saved my bacon, now I owe them"));
+    OwedFavorListEditor.add(new Favor("Someone saved my bacon, now I owe them"));
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {

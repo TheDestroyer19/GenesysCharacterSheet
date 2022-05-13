@@ -128,3 +128,10 @@ textarea {
 #motivations textarea {
     flex-grow: 1;
 }
+
+@media print {
+    .sheet {
+
+        page-break-after: always;
+    }
+}

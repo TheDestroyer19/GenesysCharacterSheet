@@ -24,9 +24,6 @@ export class InjuryDisplay extends HTMLElement {
             margin-top: 0.25em;
             margin-bottom: 0.25em;
         }
-        #result {
-            font-size: small;
-        }
         </style>
         <list-controls></list-controls>
         <button id="edit" class="edit" title="Edit">🖉</button>
