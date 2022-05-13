@@ -177,3 +177,21 @@ document.addEventListener(CHARACTER_LOADED, () => {
     desire.value = motivations.desire;
     SendRecalcSize(desire);
 });
+
+
+
+// ========================================================================= //
+// MISCELANIOUS ============================================================ //
+// ========================================================================= //
+
+document.getElementById("obligation-total").addEventListener('change', event => {
+    window.character.ObligationTotal = event.target.value;
+    SendCharacterUpdated();
+});
+
+document.addEventListener(CHARACTER_LOADED, () => {
+    let obligation_total = window.character.ObligationTotal;
+    if (obligation_total) {
+        document.getElementById('obligation-total').value = obligation_total;
+    }
+})
