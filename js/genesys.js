@@ -156,12 +156,14 @@ export class CriticalInjury {
 /**
  * @typedef {Object} Ability
  * @property {string} name
+ * @property {number} rank
  * @property {string} source
  * @property {string} description
  */
 export class Ability {
-    constructor(name, source, description) {
+    constructor(name, rank, source, description) {
         this.name = name;
+        this.rank = rank;
         this.source = source;
         this.description = description;
     }
