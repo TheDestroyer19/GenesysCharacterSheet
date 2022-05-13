@@ -43,18 +43,6 @@ export const CHARACTERISTIC = {
  * @readonly
  * @enum {string}
  */
-export const COMBAT_SKILL_NAME = {
-    Brawl: "Brawl",
-    Melee: "Melee",
-    RangedLight: "Ranged - Light",
-    RangedHeavy: "Ranged - Heavy",
-    Gunnery: "Gunnery",
-};
-
-/**
- * @readonly
- * @enum {string}
- */
 export const RANGE = {
     Engaged: "Engaged",
     Short: "Short",
@@ -99,25 +87,31 @@ export class Favor {
 /**
  * @typedef {Object} Weapon
  * @property {string} name 
- * @property {COMBAT_SKILL_NAME} skill 
+ * @property {string} skill 
  * @property {number} damage 
  * @property {bool} uses_brawn
  * @property {number} crit 
  * @property {RANGE} range 
  * @property {string} special 
+ * @property {number} encumberance
+ * @property {number} hard_points
+ * @property {string} description
  */
 export class Weapon {
     /**
      * 
      * @param {string} name 
-     * @param {COMBAT_SKILL_NAME} skill 
+     * @param {string} skill 
      * @param {number} damage 
      * @param {bool} uses_brawn true if brawn score should be added to damage
      * @param {number} crit 
      * @param {RANGE} range 
      * @param {string} special 
+     * @param {number} encumberance
+     * @param {number} hard_points
+     * @param {string} description
      */
-    constructor(name, skill, damage, uses_brawn, crit, range, special) {
+    constructor(name, skill, damage, uses_brawn, crit, range, special, encumberance, hard_points, description) {
         this.name = name;
         this.skill = skill;
         this.damage = damage;
@@ -125,6 +119,9 @@ export class Weapon {
         this.crit = crit;
         this.range = range;
         this.special = special;
+        this.encumberance = encumberance;
+        this.hard_points = hard_points;
+        this.description = description;
     }
 }
 

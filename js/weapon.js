@@ -1,5 +1,5 @@
 import { CHARACTER_LOADED } from './common.js';
-import {COMBAT_SKILL_NAME, RANGE, Weapon} from './genesys.js';
+import { RANGE, Weapon} from './genesys.js';
 import { NewSimpleListEditor } from './listEditor.js';
 import { ConvertSymbols } from './util/prettyText.js';
 
@@ -25,10 +25,12 @@ export class WeaponDisplay extends HTMLElement {
             display: inline;
         }
         .block {
+            box-sizing: border-box;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-evenly;
             flex-direction: column;
             min-width: 2.5em;
+            flex-shrink: 0;
 
             color: white;
             text-align: center;
@@ -36,20 +38,29 @@ export class WeaponDisplay extends HTMLElement {
 
             border-radius: 0.35em;
             padding: 0 0.2em;
-            background-color: Var(--ca2-50);
         }
-        .block > span {
+        #media print {
+            .block {
+                border: 0.2em solid var(--bg);
+            }
+        }
+        .block > span:last-child {
             font-size: x-small;
+        }
+        .a2 {
+            --bg: Var(--ca2-50);
+            background-color: Var(--bg);
+        }
+        .a1 {
+            --bg: Var(--ca1-30);
+            background-color: Var(--bg);
         }
         .grow {
             flex-grow: 1;
         }
-        #damage, #crit {
+        #damage, #crit, #encumberance, #hard_points {
             font-size: 1.5rem;
             line-height: 1.05;
-        }
-        #range {
-            font-size: Medium;
         }
         #skill {
             display: inline-block;
@@ -62,9 +73,8 @@ export class WeaponDisplay extends HTMLElement {
 
             border-radius: 0.35em;
             padding: 0 0.2em;
-            background-color: Var(--ca2-50);
         }
-        #skill, #special {
+        #skill, #special, #description {
             font-size: small;
         }
         </style>
@@ -73,23 +83,31 @@ export class WeaponDisplay extends HTMLElement {
             <div>
                 <button id="edit" class="edit" title="Edit">🖉</button>
                 <h1 id="name"></h1>
-                <span id="skill"></span>
+                <span id="skill" class="a1"></span>
+                <span id="special"></span>
             </div>
-            <div>
-            <span id="special"></span>
+            <div id="description">
             </div>
         </div>
-        <div class="block">
+        <div class="block a1">
             <span id="range"></span>
             <span>Range</span>
         </div>
-        <div class="block">
+        <div class="block a2">
             <span id="damage"></span>
             <span>Damage</span>
         </div>
-        <div class="block">
+        <div class="block a2">
             <span id="crit"></span>
             <span>Crit</span>
+        </div>
+        <div class="block a1">
+            <span id="encumberance"></span>
+            <span>Encum</span>
+        </div>
+        <div class="block a1">
+            <span id="hard_points"></span>
+            <span>HP</span>
         </div>
         `;
 
@@ -104,7 +122,9 @@ export class WeaponDisplay extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['name', 'skill', 'damage', 'uses_brawn', 'crit', 'range', 'special'];
+        return ['name', 'skill', 'damage', 
+            'uses_brawn', 'crit', 'range', 'special', 
+            'encumberance', 'hard_points', 'description'];
     }
 
     static get tag() {
@@ -114,23 +134,24 @@ export class WeaponDisplay extends HTMLElement {
     connectedCallback() {
         if (!this.isConnected) return;
 
-        ConvertSymbols(this.#state.name, this.shadowRoot.querySelector('#name'));
-        ConvertSymbols(this.#state.skill, this.shadowRoot.querySelector('#skill'));
-        ConvertSymbols(this.#state.special, this.shadowRoot.querySelector('#special'));
-        this.#updateDamageText();
-        this.#updateRangeText();
-        this.#updateCritText();
+        this.constructor.observedAttributes.forEach(name => {
+            this.attributeChangedCallback(name, "", this.#state[name]);
+        });
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         this.#state[name] = newValue;
+        let shadow = this.shadowRoot;
         switch (name) {
-            case 'name': ConvertSymbols(newValue, this.shadowRoot.querySelector('#name')); break;
-            case 'skill': ConvertSymbols(newValue, this.shadowRoot.querySelector('#skill')); break;
-            case 'range': this.#updateRangeText; break;
-            case 'special': ConvertSymbols(newValue, this.shadowRoot.querySelector('#special')); break;
+            case 'name': ConvertSymbols(newValue, shadow.querySelector('#name')); break;
+            case 'skill': ConvertSymbols(newValue, shadow.querySelector('#skill')); break;
+            case 'range': shadow.querySelector('#range').innerHTML = this.#state.range;; break;
+            case 'special': ConvertSymbols(newValue, shadow.querySelector('#special')); break;
             case 'uses_brawn': case 'damage': this.#updateDamageText(); break;
-            case 'Crit': this.#updateCritText(); break;
+            case 'crit': shadow.querySelector('#crit').innerHTML = this.#state.crit; break;
+            case 'encumberance': shadow.querySelector('#encumberance').innerHTML = this.#state.encumberance;
+            case 'hard_points': shadow.querySelector('#hard_points').innerHTML = this.#state.hard_points;
+            case 'description': ConvertSymbols(newValue, shadow.querySelector('#description')); break;
         }
     }
 
@@ -138,14 +159,6 @@ export class WeaponDisplay extends HTMLElement {
         let uses_brawn = this.#state.uses_brawn == 'true';
         let damageText = uses_brawn ? "Brawn + " : "";
         this.shadowRoot.querySelector('#damage').innerHTML = damageText + this.#state.damage;
-    }
-
-    #updateCritText() {
-        this.shadowRoot.querySelector('#crit').innerHTML = this.#state.crit;
-    }
-
-    #updateRangeText() {
-        this.shadowRoot.querySelector('#range').innerHTML = this.#state.range;
     }
 
     #edit(event) {
@@ -172,7 +185,11 @@ ModalTemplate.innerHTML = /* HTML */ `
         <option>Long</option>
         <option>Extreme</option>
     </select></label>
+    <label>Encumberance<input type="number" id="encumberance" /></label>
+    <label>Hard Points<input type="number" id="hard_points" /></label>
     <label>Special<input type="text" id="special" /></label>
+    <label for="description">description</label>
+    <textarea id="description" class="growable"></textarea>
 </div>
 </td19-modal>
 `;
@@ -185,7 +202,7 @@ const listEditor = NewSimpleListEditor(
 )
 
 document.getElementById('new-weapon').addEventListener('click', event => {
-    listEditor.add(new Weapon("Unnamed weapon", COMBAT_SKILL_NAME.Melee, 0, false, 0, RANGE.Engaged, "")).onEdit(event);
+    listEditor.add(new Weapon("Unnamed weapon", "Melee", 0, false, 0, RANGE.Engaged, "", 0, 0, "")).onEdit(event);
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {

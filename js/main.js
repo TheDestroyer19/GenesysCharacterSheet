@@ -1,4 +1,4 @@
-import {CHARACTERISTIC, Skill, COMBAT_SKILL_NAME} from './genesys.js';
+import {CHARACTERISTIC, Skill } from './genesys.js';
 import {CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
 
 const default_character = {
@@ -59,11 +59,11 @@ const default_character = {
 
     ],
     skills_combat: [
-        new Skill(COMBAT_SKILL_NAME.Brawl, CHARACTERISTIC.Brawn, false, 0),
-        new Skill(COMBAT_SKILL_NAME.Melee, CHARACTERISTIC.Brawn, false, 0),
-        new Skill(COMBAT_SKILL_NAME.RangedLight, CHARACTERISTIC.Agility, false, 0),
-        new Skill(COMBAT_SKILL_NAME.RangedHeavy, CHARACTERISTIC.Agility, false, 0),
-        new Skill(COMBAT_SKILL_NAME.Gunnery, CHARACTERISTIC.Agility, false, 0),
+        new Skill("Brawl", CHARACTERISTIC.Brawn, false, 0),
+        new Skill("Melee", CHARACTERISTIC.Brawn, false, 0),
+        new Skill("Ranged - Light", CHARACTERISTIC.Agility, false, 0),
+        new Skill("Ranged - Heavy", CHARACTERISTIC.Agility, false, 0),
+        new Skill("Gunnery", CHARACTERISTIC.Agility, false, 0),
     ],
     skills_social: [
         new Skill("Charm", CHARACTERISTIC.Presence, false, 0),
