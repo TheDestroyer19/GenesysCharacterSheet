@@ -126,29 +126,12 @@
             </section>
 
             <section id="weapons">
-                <h2>Weapons</h2>
-                <template id="weapon-template">
-                    <tr class="weapon">
-                        <td><button class="edit" title="Edit Weapon">🖉</button> <span class="name"></span></td>
-                        <td class="skill"></td>
-                        <td class="damage"></td>
-                        <td class="crit"></td>
-                        <td class="range"></td>
-                        <td class="special"></td>
-                    </tr>
-                </template>
-                <table>
-                    <thead><tr>
-                        <th><button id="new-weapon" class="edit" title="New Weapon">＋</button> Weapon</th>
-                        <th>Skill</th>
-                        <th>Damage</th>
-                        <th>Crit</th>
-                        <th>Range</th>
-                        <th>Special</th>
-                    </tr></thead>
-                    <tbody id="weapons-table">
-                    </tbody>
-                </table>
+                <h2 class="horizontal-row">
+                    <button id="new-weapon" class="edit" title="New Weapon">＋</button>
+                    Weapons
+                    <span><!--for alignment--></span>
+                </h2>
+                <div id="weapons-table"></div>
             </section>
         </div>
 
@@ -233,35 +216,6 @@
             </footer>
         </div>
     </div>
-
-    <td19-modal id="modal-edit-weapon">
-        <h1 slot="title">Weapon</h1>
-        <div id="modal-edit-weapon-body">
-            <label for="edit-weapon-name">Name:</label>
-            <input type="text" id="edit-weapon-name" />
-            <label for="edit-weapon-skill">Skill:</label>
-            <input type="text" id="edit-weapon-skill" />
-            <label for="edit-weapon-damage">Damage:</label>
-            <input type="number" id="edit-weapon-damage" />
-            <label class="right"><input type="checkbox" id="edit-weapon-uses-brawn"> Add Brawn</label>
-            <label for="edit-weapon-critical">Critical:</label>
-            <input type="number" id="edit-weapon-critical" />
-            <label for="edit-weapon-range">Range:</label>
-            <select id="edit-weapon-range">
-                <option>Engaged</option>
-                <option>Short</option>
-                <option>Medium</option>
-                <option>Long</option>
-                <option>Extreme</option>
-            </select>
-            <label for="edit-weapon-special">Special:</label>
-            <input type="text" id="edit-weapon-special" />
-        </div>
-        <div class="horizontal-row" slot="footer">
-            <button class="modal-delete">Delete</button>
-            <button class="modal-save">Save</button>
-        </div>
-    </td19-modal>
 
     <td19-modal id="symbols">
         <h1 slot="title">Codes and Symbols</h1>

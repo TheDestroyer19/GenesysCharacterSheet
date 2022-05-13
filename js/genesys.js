@@ -101,6 +101,7 @@ export class Favor {
  * @property {string} name 
  * @property {COMBAT_SKILL_NAME} skill 
  * @property {number} damage 
+ * @property {bool} uses_brawn
  * @property {number} crit 
  * @property {RANGE} range 
  * @property {string} special 
