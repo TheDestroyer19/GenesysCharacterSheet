@@ -101,7 +101,6 @@ export class AbilityDisplay extends HTMLElement {
         let element = this.shadowRoot.querySelector('#rank');
         RemoveAllChildNodes(element);
         let value = parseInt(newValue);
-        console.log(newValue);
         if (value > 0) {
             element.appendChild(document.createTextNode('Rank ' + newValue));
             element.classList.remove('hidden');

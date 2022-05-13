@@ -51,6 +51,7 @@ document.getElementById('characteristics').addEventListener("change", (event) =>
         case "cunning": stats.Cunning = value; break;
         case "willpower": stats.Willpower = value; break;
         case "presence": stats.Presence = value; break;
+        case "force-rank": stats.ForceRank = value; break;
         // Conditions
         case "soak": stats.Soak = value; break;
         case "wounds-threshold": stats.WoundsThreshold = value; break;
@@ -74,6 +75,7 @@ document.addEventListener("character-loaded", () => {
     document.getElementById("cunning").value = characteristics.Cunning;
     document.getElementById("willpower").value = characteristics.Willpower;
     document.getElementById("presence").value = characteristics.Presence;
+    document.getElementById("force-rank").value = characteristics.ForceRank;
 
     document.getElementById("soak").value = characteristics.Soak;
     document.getElementById("wounds-threshold").value = characteristics.WoundsThreshold;
