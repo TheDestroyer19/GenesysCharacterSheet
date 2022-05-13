@@ -1,4 +1,4 @@
-import {CHARACTERISTIC, Skill, COMBAT_SKILL_NAME, Favor, Weapon, RANGE, Item} from './genesys.js';
+import {CHARACTERISTIC, Skill, COMBAT_SKILL_NAME} from './genesys.js';
 import {CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
 
 const default_character = {
@@ -7,6 +7,7 @@ const default_character = {
         player: "",
         archetype: "",
         career: "",
+        specializations: "",
         xpAvailable: 100,
         xpTotal: 100,
     },
@@ -17,6 +18,7 @@ const default_character = {
         Cunning: 2,
         Willpower: 2,
         Presence: 2,
+        ForceRank: 0,
         Soak: 10,
         WoundsThreshold: 10,
         WoundsCurrent: 0,

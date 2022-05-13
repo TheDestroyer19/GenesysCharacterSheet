@@ -15,6 +15,7 @@ document.getElementById("page1header").addEventListener('change', (event) => {
         case "player": header.player = target.value; break;
         case "archetype": header.archetype = target.value; break;
         case "career": header.career = target.value; break;
+        case "specializations": header.specializations = target.value; break;
         case "xp-available": header.xpAvailable = parseInt(target.value); break;
         case "xp-total": header.xpTotal = parseInt(target.value); break;
         default: return;
@@ -29,6 +30,7 @@ document.addEventListener(CHARACTER_LOADED, () => {
     document.getElementById("player").value = header.player;
     document.getElementById("archetype").value = header.archetype;
     document.getElementById("career").value = header.career;
+    document.getElementById("specializations").value = header.specializations;
     document.getElementById("xp-available").value = header.xpAvailable;
     document.getElementById("xp-total").value = header.xpTotal;
 });
