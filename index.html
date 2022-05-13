@@ -102,20 +102,32 @@
                     <div class="skill" id="skills-knowledge"></div>
             </section>
 
-            <section id="favors">
-                <h2>Favors</h2>
-                <div>
-                    <h3 class="horizontal-row">Given<button id="give-favor" class="edit" title="Give Favor">＋</button></h3>
-                    <hr>
-                    <ul id="favors-given">
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="horizontal-row">Owed<button id="owe-favor" class="edit" title="Add Owed Favor">＋</button></h3>
-                    <hr>
-                    <ul id="favors-owed">
-                    </ul>
-                </div>
+            <section id="character-description">
+                <h2>Character Description</h2>
+                <label for="bio-gender">Gender</label>
+                <input type="text" id="bio-gender" />
+                <label for="bio-age">Age</label>
+                <input type="text" id="bio-age" />
+                <label for="bio-height">Height</label>
+                <input type="text" id="bio-height" />
+                <label for="bio-build">Build</label>
+                <input type="text" id="bio-build" />
+                <label for="bio-hair">Hair</label>
+                <input type="text" id="bio-hair" />
+                <label for="bio-eyes">Eyes</label>
+                <input type="text" id="bio-eyes" />
+                <label for="bio-features">Notable Features</label>
+                <textarea id="bio-features"></textarea>
+                <div></div>
+            </section>
+
+            <section id="critical-injuries">
+                <h2 class="horizontal-row">
+                    <button id="new-injury" class="edit" title="Add Injury">＋</button>
+                    Critical Injuries
+                    <span><!-- for alignment --></span>
+                </h2>
+                <div id="injury-table"></div>
             </section>
 
             <section id="weapons">
@@ -146,6 +158,15 @@
         </div>
 
         <div id="page2" class="sheet">
+            <section id="inventory">
+                <h2 class="horizontal-row">
+                    <button id="new-item" class="edit" title="Add Item">＋</button>
+                    Equipment Log
+                    <span><!-- for alignment --></span>
+                </h2>
+                <div id="item-table"></div>
+            </section>
+
             <section id="motivations">
                 <h2>Motivations</h2>
                 <div>
@@ -166,41 +187,20 @@
                 </div>
             </section>
 
-            <section id="inventory">
-                <h2 class="horizontal-row">
-                    <button id="new-item" class="edit" title="Add Item">＋</button>
-                    Equipment Log
-                    <span><!-- for alignment --></span>
-                </h2>
-                <div id="item-table"></div>
-            </section>
-
-            <section id="character-description">
-                <h2>Character Description</h2>
-                <label for="bio-gender">Gender</label>
-                <input type="text" id="bio-gender" />
-                <label for="bio-age">Age</label>
-                <input type="text" id="bio-age" />
-                <label for="bio-height">Height</label>
-                <input type="text" id="bio-height" />
-                <label for="bio-build">Build</label>
-                <input type="text" id="bio-build" />
-                <label for="bio-hair">Hair</label>
-                <input type="text" id="bio-hair" />
-                <label for="bio-eyes">Eyes</label>
-                <input type="text" id="bio-eyes" />
-                <label for="bio-features">Notable Features</label>
-                <textarea id="bio-features"></textarea>
-                <div></div>
-            </section>
-
-            <section id="critical-injuries">
-                <h2 class="horizontal-row">
-                    <button id="new-injury" class="edit" title="Add Injury">＋</button>
-                    Critical Injuries
-                    <span><!-- for alignment --></span>
-                </h2>
-                <div id="injury-table"></div>
+            <section id="favors">
+                <h2>Favors</h2>
+                <div>
+                    <h3 class="horizontal-row">Given<button id="give-favor" class="edit" title="Give Favor">＋</button></h3>
+                    <hr>
+                    <ul id="favors-given">
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="horizontal-row">Owed<button id="owe-favor" class="edit" title="Add Owed Favor">＋</button></h3>
+                    <hr>
+                    <ul id="favors-owed">
+                    </ul>
+                </div>
             </section>
 
             <section id="abilities">

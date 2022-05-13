@@ -164,8 +164,11 @@ button:focus,
     text-align: center;
 }
 @media only print {
+    .edit {
+        display: none !important;
+    }
     button, .button {
-        display: none;
+        display: none !important;
     }
 }
 

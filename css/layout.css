@@ -16,9 +16,36 @@
     }
 }
 
-/* ************************************************************************* */
-/* Page 1 Layout                                                             */
-/* ************************************************************************* */
+#page1header {
+    grid-area: hh;
+}
+#characteristics {
+    grid-area: cc;
+}
+#skills {
+    grid-area: ss;
+}
+#favors {
+    grid-area: ff;
+}
+#weapons {
+    grid-area: ww;
+}
+#motivations {
+    grid-area: mo;
+}
+#inventory {
+    grid-area: eq;
+}
+#character-description {
+    grid-area: cd;
+}
+#critical-injuries {
+    grid-area: ci;
+}
+#abilities {
+    grid-area: sa;
+}
 #page1 {
     display: grid;
     grid-template-columns: auto auto;
@@ -26,25 +53,22 @@
     column-gap: 0.5em;
     row-gap: 0.5em;
     grid-template-areas: 
-        "h h"
-        "c f"
-        "s f"
-        "w w";
+        "hh hh"
+        "cc cc"
+        "ss cd"
+        "ss ci"
+        "ww ww";
 }
-#page1header {
-    grid-area: h;
-}
-#characteristics {
-    grid-area: c;
-}
-#skills {
-    grid-area: s;
-}
-#favors {
-    grid-area: f;
-}
-#weapons {
-    grid-area: w;
+#page2 {
+    display: grid;
+    column-gap: 0.5rem;
+    row-gap: 0.5rem;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: 
+        "mo ff"
+        "eq ff"
+        "sa sa";
 }
 
 /* Page 1 - header Layout ************************************************** */
@@ -111,36 +135,6 @@
 }
 #soak, #soak-lbl {
     grid-column: span 2;
-}
-
-/* ************************************************************************* */
-/* Page 2 layout                                                             */
-/* ************************************************************************* */
-#page2 {
-    display: grid;
-    column-gap: 0.5rem;
-    row-gap: 0.5rem;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto auto 1fr;
-    grid-template-areas: 
-        "mo cd"
-        "eq ci"
-        "sa sa";
-}
-#motivations {
-    grid-area: mo;
-}
-#inventory {
-    grid-area: eq;
-}
-#character-description {
-    grid-area: cd;
-}
-#critical-injuries {
-    grid-area: ci;
-}
-#abilities {
-    grid-area: sa;
 }
 
 /* Page 2 - motivations layout ********************************************* */
@@ -251,10 +245,4 @@
 #modal-edit-weapon .right {
     grid-column: 2;
     text-align: start;
-}
-#modal-edit-item {
-    grid-template-columns: auto auto;
-}
-#modal-edit-item h1, #modal-edit-item .horizontal-row {
-    grid-column: span 2;
 }

@@ -6,7 +6,7 @@ const ELEMENT_HTML = /* HTML */ `
         box-sizing: border-box;
         flex-direction: column;
         align-items: stretch;
-        width: 1.15em;
+        max-width: 1.15em;
 
         border-right: 0.2rem solid var(--ca1-50);
     }
