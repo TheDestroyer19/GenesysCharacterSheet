@@ -1,6 +1,7 @@
 /* Shared Styles */
 #app-header {
     box-sizing: border-box;
+    z-index: 10;
     position: sticky;
     top: 0.5rem;
 }
@@ -38,11 +39,6 @@ textarea {
     border: 0.2rem solid var(--cp-50);
     border-radius: 0.75rem;
     padding: 0.25rem;
-}
-
-/* Header styles */
-#page1header input[type=text] {
-    width: 10rem;
 }
 #page1header input[type=number] {
     width: 3.5rem;

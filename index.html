@@ -33,19 +33,12 @@
         <div id="page1" class="sheet">
             <section id="page1header">
                 <h2 class="sr-only">Character Summary</h2>
-                <div>
-                    <label>Character Name <input id="name" type="text" /></label>
-                    <label>Player Name <input id="player" type="text" /></label>
-                </div>
-                <div>
-                    <label>Species/Archetype <input id="archetype" type="text" /></label>
-                    <label>Career <input id="career" type="text" /></label>
-                    <label>Specializations <input id="specializations" type="text" /></label>
-                </div>
-                <div>
-                    <label>Available XP <input id="xp-available" type="number" /></label>
-                    <label>Total XP <input id="xp-total" type="number" /></label>
-                </div>
+                <label for="name">Character Name</label><input id="name" type="text" />
+                <label for="archetype">Species/Archetype</label><input id="archetype" type="text" />
+                <label for="player">Player Name</label><input id="player" type="text" />
+                <label for="career">Career</label><input id="career" type="text" />
+                <label for="xp-available">Available XP</label><span><input id="xp-available" type="number" /> of <input id="xp-total" type="number" /></span>
+                <label for="specializations">Specializations</label><input id="specializations" type="text" />
             </section>
             <section id="characteristics">
                 <h2 class="sr-only">Characteristics</h2>
@@ -234,12 +227,12 @@
                 </h2>
                 <div id="notes-table"></div>
             </section>
+
+            <footer id="app-footer">
+                <h2>Genesys HTML Character Sheet - Created By TD19</h2>
+            </footer>
         </div>
     </div>
-
-    <footer id="app-footer">
-        <h2>Genesys HTML Character Sheet - Created By TD19</h2>
-    </footer>
 
     <td19-modal id="modal-edit-weapon">
         <h1 slot="title">Weapon</h1>
