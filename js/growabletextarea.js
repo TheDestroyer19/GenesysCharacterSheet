@@ -14,7 +14,11 @@ export function attachResize(target) {
 }
 
 function resize(target) {
-    target.style['min-height'] = "0px";
+    let height = target.style['height'];
+    if (!height) {
+        height = "0px";
+    }
+    target.style['min-height'] = height;
     let scrollheight = target.scrollHeight;
     target.style['min-height'] = scrollheight + "px";
 }

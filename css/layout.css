@@ -59,20 +59,19 @@
         "hh hh"
         "cc cc"
         "ss cd"
-        "ss ci"
-        "ww ww";
+        "ww ci";
 }
 #page2 {
     display: grid;
     column-gap: 0.5rem;
     row-gap: 0.5rem;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto auto 1fr;
     grid-template-areas: 
+        "sa sa"
         "mo ff"
         "ob ff"
-        "eq eq"
-        "sa sa";
+        "eq eq";
 }
 
 /* Page 1 - header Layout ************************************************** */
@@ -179,13 +178,12 @@
 #character-description h2 {
     grid-column: span 2;
 }
-#character-description label[for="bio-features"] {
-    grid-column: span 2;
-    text-align: start;
-}
 #character-description textarea {
-    grid-column: span 2;
-    min-height: 100%;
+    height: 1.6em;
+    align-self: stretch;
+}
+#character-description #bio-features {
+    height: unset;
 }
 #character-description label {
     text-align: end;
