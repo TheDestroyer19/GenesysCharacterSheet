@@ -28,8 +28,11 @@ export class MechanicDisplay extends HTMLElement {
         h1 {
             display: inline;
         }
-        #value {
+        #magnitude {
             font-size: small;
+        }
+        #magnitude.hidden {
+            display: none;
         }
         </style>
         <list-controls></list-controls>
@@ -37,7 +40,7 @@ export class MechanicDisplay extends HTMLElement {
             <div>
                 <button id="edit" class="edit" title="Edit">🖉</button>
                 <h1 id="type">Name</h1>
-                <span id="value"></span>
+                <span id="magnitude"></span>
             </div>
             <div id="description">
                 description
@@ -57,7 +60,7 @@ export class MechanicDisplay extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['type', 'value', 'description'];
+        return ['type', 'magnitude', 'description'];
     }
 
     static get tag() {
@@ -68,7 +71,7 @@ export class MechanicDisplay extends HTMLElement {
         if (!this.isConnected) return;
 
         ConvertSymbols(this.#state.type, this.shadowRoot.querySelector('#type'));
-        this.#updateValue(this.#state.value);
+        this.#updateMagnitude(this.#state.magnitude);
         ConvertSymbols(this.#state.description, this.shadowRoot.querySelector('#description'));
     }
 
@@ -76,7 +79,7 @@ export class MechanicDisplay extends HTMLElement {
         this.#state[name] = newValue;
         switch (name) {
             case 'type': ConvertSymbols(newValue, this.shadowRoot.querySelector('#type')); break;
-            case 'value': this.#updateValue(newValue); break;
+            case 'magnitude': this.#updateMagnitude(newValue); break;
             case 'description': ConvertSymbols(newValue, this.shadowRoot.querySelector('#description')); break;
         }
     }
@@ -85,11 +88,15 @@ export class MechanicDisplay extends HTMLElement {
         this.onEdit(event);
     }
 
-    #updateValue(newValue) {
-        let container = this.shadowRoot.querySelector('#value');
+    #updateMagnitude(newValue) {
+        let container = this.shadowRoot.querySelector('#magnitude');
         RemoveAllChildNodes(container);
-        if (newValue) {
-            container.appendChild(document.createTextNode("value: " + newValue));
+        let value = parseInt(newValue);
+        if (value > 0) {
+            container.appendChild(document.createTextNode('Magnitude ' + newValue));
+            container.classList.remove('hidden');
+        } else {
+            container.classList.add('hidden');
         }
     }
 }
@@ -102,8 +109,8 @@ ModalTemplate.innerHTML = /* HTML */ `
     <h1 slot="title">Obligation</h1>
     <label for="type">Type:</label>
     <input type="text" id="type" />
-    <label for="value">Value:</label>
-    <input type="number" id="value" />
+    <label for="magnitude">Magnitude:</label>
+    <input type="number" id="magnitude" />
     <label for="description">Description:</label>
     <textarea class="growable" id="description"></textarea>
 </td19-modal>
