@@ -24,7 +24,16 @@ textarea {
 .horizontal-row {
     display: flex;
     flex-direction: row;
+    align-items: baseline;
     justify-content: space-between;
+    gap: 0.5rem;
+}
+.horizontal-row>input {
+    width: 5rem;
+    flex-grow: 1;
+}
+.horizontal-row>input[type="number"] {
+    width: 2rem;
 }
 
 .caption {
@@ -42,6 +51,16 @@ textarea {
 }
 #page1header input[type=number] {
     width: 3.5rem;
+}
+
+.two-column-grid {
+    display: grid;
+    align-items: center;
+    gap: 0.5rem;
+    grid-template-columns: auto auto;
+}
+.two-column-grid > * {
+    text-align: start;
 }
 
 /* Condition Styles */

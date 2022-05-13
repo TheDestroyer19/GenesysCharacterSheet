@@ -72,6 +72,10 @@ label{
 	padding:0px;
 	display:block;
 }
+input[type=checkbox] {
+    flex-grow: 0;
+    justify-self: start;
+}
 input[type=text], 
 input[type=number],
 textarea, 

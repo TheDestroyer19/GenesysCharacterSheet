@@ -170,25 +170,27 @@ customElements.define(WeaponDisplay.tag, WeaponDisplay);
 const ModalTemplate = document.createElement('template');
 ModalTemplate.id = 'ability-modal-template';
 ModalTemplate.innerHTML = /* HTML */ `
-<td19-modal id="modal-edit-weapon">
+<td19-modal class="modal-edit-weapon">
 <h1 slot="title">Weapon</h1>
-<div>
-    <label>Name<input type="text" id="name" /></label>
-    <label>Skill<input type="text" id="skill" /></label>
-    <label>Damage<input type="number" id="damage" /></label>
-    <label><input type="checkbox" id="uses_brawn"> Add Brawn</label>
-    <label >Critical<input type="number" id="crit" /></label>
-    <label >Range<select id="range">
+<div class="two-column-grid">
+    <label for="name">Name</label><input type="text" id="name" />
+    <label for="skill">Skill</label><input type="text" id="skill" />
+    <label for="damage">Damage</label><span class="horizontal-row">
+        <input type="number" id="damage" />
+        <label> Add Brawn <input type="checkbox" id="uses_brawn"></label>
+    </span>
+    <label for="crit">Critical</label><input type="number" id="crit" />
+    <label for="range">Range</label><select id="range">
         <option>Engaged</option>
         <option>Short</option>
         <option>Medium</option>
         <option>Long</option>
         <option>Extreme</option>
-    </select></label>
-    <label>Encumberance<input type="number" id="encumberance" /></label>
-    <label>Hard Points<input type="number" id="hard_points" /></label>
-    <label>Special<input type="text" id="special" /></label>
-    <label for="description">description</label>
+    </select>
+    <label for="special">Special</label><input type="text" id="special" />
+    <label for="encumberance">Encumberance</label><input type="number" id="encumberance" />
+    <label for="hard_points">Hard Points</label><input type="number" id="hard_points" />
+    <label for="description">Description</label>
     <textarea id="description" class="growable"></textarea>
 </div>
 </td19-modal>
