@@ -10,6 +10,7 @@ modalTemplate.innerHTML = /* HTML */`
     position: fixed;
     top: 0px;
     left: 0px;
+    min-width: fit-content;
     width: 4in;
     max-width: 100%;
     background-color: white;
@@ -100,8 +101,19 @@ export class Modal extends HTMLElement {
         if (!this.isConnected) return;
         this.#attachEvents(this.shadowRoot);
     }
-
+    
     #attachEvents(element) {
+        if (element.classList) {
+            if (element.classList.contains('modal-close')) {
+                element.addEventListener("click", this.#onClose)
+            }
+            if (element.classList.contains('modal-save')) {
+                element.addEventListener("click", this.#onSave)
+            }
+            if (element.classList.contains('modal-delete')) {
+                element.addEventListener("click", this.#onDelete)
+            }
+        }
         //setup event handlers
         element.querySelectorAll(".modal-close").forEach(
             btn => btn.addEventListener("click", this.#onClose)

@@ -18,7 +18,6 @@ export function ConvertSymbols(sourceText, container) {
         if (seg.startsWith('(')) {
             let a = document.createElement('a');
             let href = seg.slice(1, -1);
-            console.log(href);
             a.href = href;
             a.target = '_blank';
             a.appendChild(document.createTextNode(href));
