@@ -134,6 +134,8 @@ document.addEventListener(CHARACTER_LOADED, () => {
     document.getElementById("bio-hair").value = desc.hair;
     document.getElementById("bio-eyes").value = desc.eyes;
     document.getElementById("bio-features").value = desc.features;
+    SendRecalcSize(document.getElementById("bio-hair"));
+    SendRecalcSize(document.getElementById("bio-features"));
 });
 
 // ========================================================================= //

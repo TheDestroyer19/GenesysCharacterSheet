@@ -1,7 +1,5 @@
 import { RemoveAllChildNodes, SendCharacterUpdated } from './common.js';
-import { attachResize } from "./growabletextarea.js";
-
-import {Modal} from './elements/modal.js';
+import { attachResize, SendRecalcSize } from "./growabletextarea.js";
 
 /**
  * @typedef {function} ModalOpenCallback
@@ -50,6 +48,8 @@ export function NewSimpleListEditor(tableElement, displayClass, modalTemplate) {
             /** @type { Element} */
             let modal  = modalTemplate.content.firstElementChild.cloneNode(true);
             document.body.append(modal);
+            //display
+            modal.Open(event.clientX, event.clientY);
             //fill in details
             fields.forEach(field => {
                 let inputField = modal.querySelector('#' + field);
@@ -68,8 +68,6 @@ export function NewSimpleListEditor(tableElement, displayClass, modalTemplate) {
             });
             //hookup listeners
             modal.addEventListener('delete', () => listEditor.remove(ability));
-            //display
-            modal.Open(event.clientX, event.clientY);
         };
         return element;
     };   
