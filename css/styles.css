@@ -92,7 +92,6 @@ textarea {
     align-items: start;
 }
 #skills skill-display {
-    font-size: small;
     margin-bottom: 0.2rem;
 }
 
@@ -102,7 +101,6 @@ textarea {
 
 #skills .sh {
     font-weight: bold;
-    font-size: small;
     margin-bottom: 0.15rem;
     display: flex;
     gap: 0.2em;

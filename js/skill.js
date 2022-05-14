@@ -1,5 +1,6 @@
 import {SendCharacterUpdated, RemoveAllChildNodes, CHARACTER_LOADED} from './common.js';
 import {Skill, CHARACTERISTIC} from './genesys.js';
+import {} from './elements/skill-display.js';
 
 const SkillsElement = document.getElementById("skills");
 const GeneralSkills = document.getElementById("skills-general");
@@ -33,10 +34,10 @@ export function AddAllSkills() {
  */
 function AddToTable(skill, tbody) {
     let skill_row = document.createElement('skill-display');
-    skill_row.career = skill.career;
-    skill_row.name = skill.name;
-    skill_row.rank = skill.rank;
-    skill_row.stat = skill.characteristic;
+    skill_row.setAttribute('career', skill.career);
+    skill_row.setAttribute('name', skill.name);
+    skill_row.setAttribute('rank', skill.rank);
+    skill_row.setAttribute('stat', skill.characteristic);
     tbody.appendChild(skill_row);
     return skill_row;
 }
@@ -74,10 +75,10 @@ SkillsElement.addEventListener("change", (event) => {
     //find the skill we want
     let skill = category.find(s => s.name == oldName);
 
-    skill.name = target.name;
-    skill.career = target.career;
-    skill.rank = target.rank;
-    skill.characteristic = target.stat;
+    skill_row.setAttribute('career', skill.career);
+    skill_row.setAttribute('name', skill.name);
+    skill_row.setAttribute('rank', skill.rank);
+    skill_row.setAttribute('stat', skill.characteristic);
 
     SendCharacterUpdated();
 });
