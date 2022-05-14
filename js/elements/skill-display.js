@@ -10,8 +10,6 @@ const STYLE_TEXT = /*css*/`
     flex-direction: row;
     align-items: center;
     gap: 0.25em;
-    margin-top: 0.25em;
-    margin-bottom: 0.25em;
 }
 list-controls {
     align-self: stretch;

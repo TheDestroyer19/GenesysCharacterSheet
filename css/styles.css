@@ -94,14 +94,17 @@ textarea {
     grid-template-columns: 1fr 1fr;
     align-items: start;
 }
-#skills skill-display {
-    margin-bottom: 0.2rem;
+#skills skill-display, #skills .sh {
+    border-top: 1px solid black;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+}
+#skills .sh:first-child {
+    border-top: none;
 }
 
 #skills .sh {
     font-weight: bold;
-    margin-top: 0.2rem;
-    margin-bottom: 0.2rem;
     display: flex;
     gap: 0.2em;
 }
