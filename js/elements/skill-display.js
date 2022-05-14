@@ -1,4 +1,4 @@
-import { RemoveAllChildNodes } from "/js/common.js";
+import { RemoveAllChildNodes, DoOnUpdate } from "/js/common.js";
 import { Characteristic } from "/js/genesys.js";
 import { } from "/js/elements/list-controls.js";
 import { } from "/js/elements/dice-symbols.js";
@@ -79,8 +79,8 @@ export class SkillDisplay extends HTMLElement {
         //call some methods to get display set up
         this.attributeChangedCallback('career', undefined, this.getAttribute('career'));
         this.attributeChangedCallback('name', undefined, this.getAttribute('name'));
-        this.attributeChangedCallback('rank', undefined, this.getAttribute('rank'));
         this.attributeChangedCallback('characteristic', undefined, this.getAttribute('characteristic'));
+        this.attributeChangedCallback('rank', undefined, this.getAttribute('rank'));
 
         this.shadowRoot.appendChild(style);
 
@@ -110,19 +110,55 @@ export class SkillDisplay extends HTMLElement {
             case 'characteristic':
                 this.#stat.textContent = Characteristic.Shorten(newValue);
                 this.#stat.title = newValue;
+                this.updateRanksDisplay();
                 break;
-            case 'rank':
-                RemoveAllChildNodes(this.#ranks);
-                for (let i = 0; i < newValue; i++) {
-                    this.#ranks.appendChild(document.createElement('die-ability'));
-                }
+            case 'rank': 
+                this.updateRanksDisplay();
                 break;
         };
+    }
+
+    updateRanksDisplay() {
+        let rank = this.getAttribute('rank');
+        let stat = character.characteristics[this.getAttribute('characteristic')];
+        RemoveAllChildNodes(this.#ranks);
+        let i = 0;
+        for (; i < rank && i < stat; i++) {
+            this.#ranks.appendChild(document.createElement('die-proficiency'));
+        }
+        for (; i < rank || i < stat; i++) {
+            this.#ranks.appendChild(document.createElement('die-ability'));
+        }
     }
 
     #edit(event) {
         this.onEdit(event);
     }
 }
+
+DoOnUpdate('character.characteristics.Brawn', () => {
+    document.querySelectorAll(SkillDisplay.tag + '[characteristic="Brawn"]')
+        .forEach(skill => skill.updateRanksDisplay());
+});
+DoOnUpdate('character.characteristics.Agility', () => {
+    document.querySelectorAll(SkillDisplay.tag + '[characteristic="Agility"]')
+        .forEach(skill => skill.updateRanksDisplay());
+});
+DoOnUpdate('character.characteristics.Intellect', () => {
+    document.querySelectorAll(SkillDisplay.tag + '[characteristic="Intellect"]')
+        .forEach(skill => skill.updateRanksDisplay());
+});
+DoOnUpdate('character.characteristics.Cunning', () => {
+    document.querySelectorAll(SkillDisplay.tag + '[characteristic="Cunning"]')
+        .forEach(skill => skill.updateRanksDisplay());
+});
+DoOnUpdate('character.characteristics.Willpower', () => {
+    document.querySelectorAll(SkillDisplay.tag + '[characteristic="Willpower"]')
+        .forEach(skill => skill.updateRanksDisplay());
+});
+DoOnUpdate('character.characteristics.Presence', () => {
+    document.querySelectorAll(SkillDisplay.tag + '[characteristic="Presence"]')
+        .forEach(skill => skill.updateRanksDisplay());
+});
 
 customElements.define('skill-display', SkillDisplay);

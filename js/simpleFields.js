@@ -44,28 +44,30 @@ document.getElementById('characteristics').addEventListener("change", (event) =>
     let target = event.target;
     let value = parseInt(target.value);
 
+    let modPath = "character.characteristics.";
+
     //handle inputs with an id
     switch (target.id) {
         // Characteristics
-        case "brawn": stats.Brawn = value; break;
-        case "agility": stats.Agility = value; break;
-        case "intellect": stats.Intellect = value; break;
-        case "cunning": stats.Cunning = value; break;
-        case "willpower": stats.Willpower = value; break;
-        case "presence": stats.Presence = value; break;
-        case "force-rank": stats.ForceRank = value; break;
+        case "brawn": stats.Brawn = value; modPath += "Brawn"; break;
+        case "agility": stats.Agility = value; modPath += "Agility"; break;
+        case "intellect": stats.Intellect = value; modPath += "Intellect"; break;
+        case "cunning": stats.Cunning = value; modPath += "Cunning"; break;
+        case "willpower": stats.Willpower = value; modPath += "Willpower"; break;
+        case "presence": stats.Presence = value; modPath += "Presence"; break;
+        case "force-rank": stats.ForceRank = value; modPath += "ForceRank"; break;
         // Conditions
-        case "soak": stats.Soak = value; break;
-        case "wounds-threshold": stats.WoundsThreshold = value; break;
-        case "wounds-current": stats.WoundsCurrent = value; break;
-        case "strain-threshold": stats.StrainThreshold = value; break;
-        case "strain-current": stats.StrainCurrent = value; break;
-        case "defense-ranged": stats.DefenseRanged = value; break;
-        case "defense-melee": stats.DefenseMelee = value; break;
+        case "soak": stats.Soak = value; modPath += "Soak"; break;
+        case "wounds-threshold": stats.WoundsThreshold = value; modPath += "WoundsThreshold"; break;
+        case "wounds-current": stats.WoundsCurrent = value; modPath += "WoundsCurrent"; break;
+        case "strain-threshold": stats.StrainThreshold = value; modPath += "StrainThreshold"; break;
+        case "strain-current": stats.StrainCurrent = value; modPath += "StrainCurrent"; break;
+        case "defense-ranged": stats.DefenseRanged = value; modPath += "DefenseRanged"; break;
+        case "defense-melee": stats.DefenseMelee = value; modPath += "DefenseMelee"; break;
         default: return;
     }
 
-    SendCharacterUpdated();
+    SendCharacterUpdated(modPath);
 });
 
 document.addEventListener("character-loaded", () => {
