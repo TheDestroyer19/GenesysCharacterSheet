@@ -133,14 +133,6 @@ textarea {
     font-size: small;
 }
 
-#motivations div {
-    display: flex;
-    flex-direction: column;
-}
-#motivations textarea {
-    flex-grow: 1;
-}
-
 @media print {
     .sheet {
         page-break-after: always;
@@ -158,6 +150,12 @@ textarea {
     font-size: small;
 }
 #obligation-table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+}
+
+/* motivations styling*/
+#motivation-table {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
 }

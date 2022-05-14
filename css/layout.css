@@ -144,16 +144,6 @@
     grid-column: span 2;
 }
 
-/* Page 2 - motivations layout ********************************************* */
-#motivations {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 0.25rem;
-    row-gap: 0.25rem;
-}
-#motivations h2 {
-    grid-column: span 2;
-}
 /* Page 2 - equipment layout *********************************************** */
 #inventory table {
     width: 100%;

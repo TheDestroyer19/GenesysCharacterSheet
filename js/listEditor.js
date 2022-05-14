@@ -53,6 +53,10 @@ export function NewSimpleListEditor(tableElement, displayClass, modalTemplate) {
             //fill in details
             fields.forEach(field => {
                 let inputField = modal.querySelector('#' + field);
+                if (!inputField) {
+                    console.info(`skipped '{field}' because there's no input field for it`);
+                    return;
+                }
                 inputField.value = ability[field];
                 if (inputField.classList.contains('growable')) {
                     attachResize(inputField);

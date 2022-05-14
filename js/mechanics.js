@@ -117,19 +117,46 @@ ModalTemplate.innerHTML = /* HTML */ `
 `;
 document.body.append(ModalTemplate);
 
-const listEditor = NewSimpleListEditor(
+const MotivationTemplate = document.createElement('template');
+MotivationTemplate.id = 'motivation-modal-template';
+MotivationTemplate.innerHTML = /* HTML */ `
+<td19-modal discard-on-close>
+    <h1 slot="title">Motivation</h1>
+    <label for="type">Type:</label>
+    <input type="text" id="type" />
+    <label for="description">Description:</label>
+    <textarea class="growable" id="description"></textarea>
+</td19-modal>
+`;
+document.body.append(MotivationTemplate);
+
+const obligationEditor = NewSimpleListEditor(
     document.getElementById('obligation-table'),
     MechanicDisplay,
     ModalTemplate,
 );
 
+const motivationEditor = NewSimpleListEditor(
+    document.getElementById('motivation-table'),
+    MechanicDisplay,
+    MotivationTemplate,
+);
+
 document.getElementById('new-obligation').addEventListener('click', event => {
-    listEditor.add(new Mechanic("Debt", 10, "You owe someone a large amount of money that will \
+    obligationEditor.add(new Mechanic("Debt", 10, "You owe someone a large amount of money that will \
+take signifigant effort to repay. \
+Your creditor is getting impatient")).onEdit(event);
+});
+
+document.getElementById('new-motivation').addEventListener('click', event => {
+    motivationEditor.add(new Mechanic("Debt", 0, "You owe someone a large amount of money that will \
 take signifigant effort to repay. \
 Your creditor is getting impatient")).onEdit(event);
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
     if (!window.character.obligations) window.character.obligations = [];
-    listEditor.replaceArray(window.character.obligations);
+    obligationEditor.replaceArray(window.character.obligations);
+    if (!window.character.motivations) window.character.motivations = [];
+    motivationEditor.replaceArray(window.character.motivations);
 });
