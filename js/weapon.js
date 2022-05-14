@@ -170,7 +170,7 @@ customElements.define(WeaponDisplay.tag, WeaponDisplay);
 const ModalTemplate = document.createElement('template');
 ModalTemplate.id = 'ability-modal-template';
 ModalTemplate.innerHTML = /* HTML */ `
-<td19-modal class="modal-edit-weapon">
+<td19-modal class="modal-edit-weapon" discard-on-close>
 <h1 slot="title">Weapon</h1>
 <div class="two-column-grid">
     <label for="name">Name</label><input type="text" id="name" />
