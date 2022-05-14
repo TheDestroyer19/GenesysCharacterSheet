@@ -95,19 +95,11 @@ textarea {
     margin-bottom: 0.2rem;
 }
 
-#skills h2 {
-    grid-column: span 2;
-}
-
 #skills .sh {
     font-weight: bold;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.2rem;
     display: flex;
     gap: 0.2em;
-}
-#skills .sh span {
-    flex-grow: 1;
-    text-align: right;
 }
 
 /* Favor styles*/

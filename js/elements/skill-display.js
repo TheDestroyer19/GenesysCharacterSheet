@@ -1,4 +1,4 @@
-import { setBoolAttribute, RemoveAllChildNodes } from "/js/common.js";
+import { RemoveAllChildNodes } from "/js/common.js";
 import { Characteristic } from "/js/genesys.js";
 import { } from "/js/elements/list-controls.js";
 import { } from "/js/elements/dice-simbols.js";
@@ -50,7 +50,7 @@ const ELEMENT_HTML = /*html*/`
 </span>
 `;
 
-class SkillDisplay extends HTMLElement {
+export class SkillDisplay extends HTMLElement {
     #career;
     #name;
     #stat;
@@ -80,7 +80,7 @@ class SkillDisplay extends HTMLElement {
         this.attributeChangedCallback('career', undefined, this.getAttribute('career'));
         this.attributeChangedCallback('name', undefined, this.getAttribute('name'));
         this.attributeChangedCallback('rank', undefined, this.getAttribute('rank'));
-        this.attributeChangedCallback('stat', undefined, this.getAttribute('stat'));
+        this.attributeChangedCallback('characteristic', undefined, this.getAttribute('characteristic'));
 
         this.shadowRoot.appendChild(style);
 
@@ -88,7 +88,11 @@ class SkillDisplay extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['rank', 'name', 'career', 'stat'];
+        return ['rank', 'name', 'career', 'characteristic'];
+    }
+
+    static get tag() {
+        return 'skill-display';
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -103,7 +107,7 @@ class SkillDisplay extends HTMLElement {
             case 'name':
                 this.#name.textContent = newValue;
                 break;
-            case 'stat':
+            case 'characteristic':
                 this.#stat.textContent = Characteristic.Shorten(newValue);
                 this.#stat.title = newValue;
                 break;
