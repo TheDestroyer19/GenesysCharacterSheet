@@ -49,6 +49,9 @@ textarea {
     border-radius: 0.75rem;
     padding: 0.25rem;
 }
+#page1header {
+    align-items: baseline;
+}
 #page1header input[type=number] {
     width: 3.5rem;
 }
