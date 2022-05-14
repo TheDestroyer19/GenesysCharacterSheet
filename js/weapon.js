@@ -74,6 +74,9 @@ export class WeaponDisplay extends HTMLElement {
             border-radius: 0.35em;
             padding: 0 0.2em;
         }
+        #special {
+            display: inline-block;
+        }
         #skill, #special, #description {
             font-size: small;
         }
