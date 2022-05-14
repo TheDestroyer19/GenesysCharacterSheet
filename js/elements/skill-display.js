@@ -8,9 +8,13 @@ const STYLE_TEXT = /*css*/`
 :host {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 0.25em;
     margin-top: 0.25em;
     margin-bottom: 0.25em;
+}
+list-controls {
+    align-self: stretch;
 }
 #spacer {
     flex-grow: 1;
@@ -30,12 +34,13 @@ const STYLE_TEXT = /*css*/`
 #career {
     background-color: Var(--ca1-30);
 }
-#career.hidden {
+.hidden {
     visibility: hidden;
 }
 #stat {
     padding: 0 0.2em;
     background-color: Var(--ca2-50);
+    font-size: small;
 }
 `;
 
