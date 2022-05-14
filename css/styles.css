@@ -68,7 +68,7 @@ textarea {
 .condition input {
     text-align: center;
 }
-.condition label {
+.condition label, #soak-caption {
     font-size: x-small;
 }
 

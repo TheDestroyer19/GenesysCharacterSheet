@@ -123,7 +123,6 @@
     justify-items: center;
 }
 .condition .caption {
-    grid-row: 1;
     grid-column: span 2;
 }
 .condition input {
@@ -134,6 +133,14 @@
     grid-row: 3;
 }
 #soak, #soak-lbl {
+    grid-column: span 2;
+}
+#soak-lbl {
+    font-size: medium;
+    grid-row: 1;
+}
+#soak-caption {
+    grid-row: 3;
     grid-column: span 2;
 }
 
