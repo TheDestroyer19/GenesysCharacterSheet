@@ -1,7 +1,7 @@
 import { RemoveAllChildNodes } from "/js/common.js";
 import { Characteristic } from "/js/genesys.js";
 import { } from "/js/elements/list-controls.js";
-import { } from "/js/elements/dice-simbols.js";
+import { } from "/js/elements/dice-symbols.js";
 
 const STYLE_TEXT = /*css*/`
 @import '/css/shared.css';

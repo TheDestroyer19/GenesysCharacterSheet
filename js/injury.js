@@ -3,7 +3,7 @@ import { CriticalInjury } from './genesys.js';
 import { NewSimpleListEditor } from './listEditor.js';
 import { ConvertSymbols } from './util/prettyText.js';
 import { } from "./elements/list-controls.js";
-import { } from "./elements/dice-simbols.js";
+import { } from "./elements/dice-symbols.js";
 import { attachResize } from './growabletextarea.js';
 
 export class InjuryDisplay extends HTMLElement {
