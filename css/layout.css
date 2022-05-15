@@ -52,6 +52,7 @@
 #page1 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, auto) 1fr;
     column-gap: 0.5em;
     row-gap: 0.5em;
     grid-template-areas: 
@@ -70,6 +71,7 @@
     column-gap: 0.5rem;
     row-gap: 0.5rem;
     grid-template-columns: 2.5fr 1fr;
+    grid-template-rows: auto auto auto 1fr;
     grid-template-areas: 
         "mo cd"
         "ob cd"
