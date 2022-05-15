@@ -1,4 +1,5 @@
-import { RemoveAllChildNodes, SendCharacterUpdated } from '../common.js';
+import { SendCharacterUpdated } from '../common.js';
+import { RemoveAllChildNodes } from './utils.js';
 import { attachResize } from "./growabletextarea.js";
 
 /**

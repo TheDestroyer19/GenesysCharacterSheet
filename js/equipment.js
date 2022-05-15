@@ -1,8 +1,9 @@
-import {CHARACTER_LOADED, RemoveAllChildNodes, SendCharacterUpdated} from './common.js';
+import {CHARACTER_LOADED } from './common.js';
 import {Item} from './genesys.js';
 import { NewSimpleListEditor } from './util/listEditor.js';
 import { ConvertSymbols } from './util/prettyText.js';
 import { } from "./elements/list-controls.js";
+import { RemoveAllChildNodes } from './util/utils.js';
 
 export class ItemDisplay extends HTMLElement {
     #state;

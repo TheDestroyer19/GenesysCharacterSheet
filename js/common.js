@@ -44,27 +44,3 @@ export function SendCharacterLoaded() {
     var event = new CustomEvent(CHARACTER_LOADED, {});
     document.dispatchEvent(event);
 }
-
-/**
- * Removes all children of the given element
- * @param {HTMLElement} parent 
- */
-export function RemoveAllChildNodes(parent) {
-    while(parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
-}
-
-/**
- * Sets or removes a boolean attribute
- * @param {HTMLElement} element 
- * @param {string} attribute 
- * @param {boolean} value 
- */
-export function setBoolAttribute(element, attribute, value) {
-    if (value) {
-        element.setAttribute(attribute, true);
-    } else {
-        element.removeAttribute(attribute);
-    }
-}

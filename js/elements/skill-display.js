@@ -1,7 +1,8 @@
-import { RemoveAllChildNodes, DoOnUpdate } from "/js/common.js";
+import { DoOnUpdate } from "/js/common.js";
 import { Characteristic } from "/js/genesys.js";
 import { } from "/js/elements/list-controls.js";
 import { } from "/js/elements/dice-symbols.js";
+import { RemoveAllChildNodes } from "../util/utils.js";
 
 const STYLE_TEXT = /*css*/`
 @import '/css/shared.css';
