@@ -3,7 +3,7 @@ import { } from "./list-controls.js";
 
 const ELEMENT_HTML = /* HTML */ `
 <style>
-@import '../../css/shared.css';
+@import './css/shared.css';
 
 :host {
     display: flex;

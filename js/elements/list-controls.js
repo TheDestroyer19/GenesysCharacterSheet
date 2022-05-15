@@ -1,6 +1,6 @@
 const ELEMENT_HTML = /* HTML */ `
 <style>
-    @import '../../css/shared.css';
+    @import './css/shared.css';
     :host {
         display: flex;
         box-sizing: border-box;
