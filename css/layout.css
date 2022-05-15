@@ -51,15 +51,15 @@
 }
 #page1 {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto auto auto 1fr;
     column-gap: 0.5em;
     row-gap: 0.5em;
     grid-template-areas: 
-        "hh hh"
-        "cc cc"
-        "ss cd"
-        "ww ci";
+        "hh hh hh hh"
+        "cc cc cc cc"
+        "ss ss ss cd"
+        "ww ww ww ci";
 }
 #page2 {
     display: grid;
