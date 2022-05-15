@@ -3,7 +3,7 @@ const modalTemplate = document.createElement('template');
 modalTemplate.id = 'modal-template';
 modalTemplate.innerHTML = /* HTML */`
 <style>
-@import '/css/shared.css';
+@import '../css/shared.css';
 #wrapper {
     box-sizing: border-box;
     z-index: 110;

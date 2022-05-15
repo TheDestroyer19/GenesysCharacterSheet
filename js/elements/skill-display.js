@@ -5,7 +5,7 @@ import { } from "../elements/dice-symbols.js";
 import { RemoveAllChildNodes } from "../util/utils.js";
 
 const STYLE_TEXT = /*css*/`
-@import '/css/shared.css';
+@import '../css/shared.css';
 :host, :host > div {
     display: flex;
     flex-direction: row;

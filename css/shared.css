@@ -1,4 +1,4 @@
-@import '/css/normalize.css';
+@import './normalize.css';
 
 body {
     --cp-90: #ffeaa4;
