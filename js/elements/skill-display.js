@@ -5,17 +5,19 @@ import { } from "/js/elements/dice-symbols.js";
 
 const STYLE_TEXT = /*css*/`
 @import '/css/shared.css';
-:host {
+:host, :host > div {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.25em;
+    justify-content: stretch;
+    column-gap: 0.25em;
+}
+:host > div {
+    flex-grow: 1;
+    flex-wrap: wrap;
 }
 list-controls {
     align-self: stretch;
-}
-#spacer {
-    flex-grow: 1;
 }
 #career, #stat {
     display: inline-block;
@@ -40,17 +42,21 @@ list-controls {
     background-color: Var(--ca2-50);
     font-size: small;
 }
+#ranks {
+    flex-grow: 1;
+    text-align: end;
+}
 `;
 
 const ELEMENT_HTML = /*html*/`
 <list-controls></list-controls>
-<button id="edit" class="edit" title="Edit">🖉</button>
-<span id="career">C</span>
-<span id="name"></span>
-<span id="stat"></span>
-<span id="spacer"></span>
-<span id="ranks">
-</span>
+<div>
+    <button id="edit" class="edit" title="Edit">🖉</button>
+    <span id="career">C</span>
+    <span id="name"></span>
+    <span id="stat"></span>
+    <span id="ranks"></span>
+</div>
 `;
 
 export class SkillDisplay extends HTMLElement {

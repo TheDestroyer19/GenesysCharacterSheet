@@ -53,6 +53,7 @@ textarea {
     align-items: baseline;
 }
 #page1header input[type=number] {
+    text-align: center;
     width: 3.5rem;
 }
 
@@ -69,6 +70,7 @@ textarea {
 /* Condition Styles */
 
 .condition input {
+    font-size: 1.5rem;
     text-align: center;
 }
 .condition label, #soak-caption {
@@ -83,7 +85,7 @@ textarea {
 }
 
 .stat input {
-    font-size: large;
+    font-size: 1.5rem;
     text-align: center;
 }
 
