@@ -14,7 +14,7 @@ export class ItemDisplay extends HTMLElement {
         this.attachShadow({mode: 'open'});
         this.shadowRoot.innerHTML = /* HTML */ `
         <style>
-        @import '/css/shared.css';
+        @import '../css/shared.css';
         
         :host {
             display: flex;
