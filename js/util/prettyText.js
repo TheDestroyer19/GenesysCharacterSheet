@@ -15,7 +15,7 @@ export function ConvertSymbols(sourceText, container) {
     const segments = sourceText.split(CODE_REGEX);
 
     segLoop: for (const seg of segments) {
-        if (seg.startsWith('(')) {
+        if (seg.match(/\(http\S+\)/)) {
             let a = document.createElement('a');
             let href = seg.slice(1, -1);
             a.href = href;
