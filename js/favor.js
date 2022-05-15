@@ -1,7 +1,7 @@
 import {Favor} from './genesys.js';
 import { ConvertSymbols } from './util/prettyText.js';
 import { CHARACTER_LOADED, SendCharacterUpdated } from './common.js';
-import { ListEditor } from './listEditor.js';
+import { ListEditor } from './util/listEditor.js';
 
 const FavorTemplate = document.createElement('template');
 FavorTemplate.id = "favor-template";

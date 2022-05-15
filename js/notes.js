@@ -1,5 +1,5 @@
 import { CHARACTER_LOADED } from "./common.js";
-import { NewSimpleListEditor } from "./listEditor.js";
+import { NewSimpleListEditor } from "./util/listEditor.js";
 import { NotesDisplay } from './elements/notes-display.js';
 
 const NotesTemplate = document.createElement('template');

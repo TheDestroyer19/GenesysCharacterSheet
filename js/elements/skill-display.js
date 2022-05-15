@@ -86,10 +86,10 @@ export class SkillDisplay extends HTMLElement {
         style.textContent = STYLE_TEXT;
 
         //call some methods to get display set up
-        this.attributeChangedCallback('career', undefined, this.getAttribute('career'));
-        this.attributeChangedCallback('name', undefined, this.getAttribute('name'));
-        this.attributeChangedCallback('characteristic', undefined, this.getAttribute('characteristic'));
-        this.attributeChangedCallback('rank', undefined, this.getAttribute('rank'));
+        // this.attributeChangedCallback('career', undefined, this.getAttribute('career'));
+        // this.attributeChangedCallback('name', undefined, this.getAttribute('name'));
+        // this.attributeChangedCallback('characteristic', undefined, this.getAttribute('characteristic'));
+        // this.attributeChangedCallback('rank', undefined, this.getAttribute('rank'));
 
         this.shadowRoot.appendChild(style);
 
@@ -117,7 +117,11 @@ export class SkillDisplay extends HTMLElement {
                 this.#name.textContent = newValue;
                 break;
             case 'characteristic':
-                this.#stat.textContent = Characteristic.Shorten(newValue);
+                if (newValue) {
+                    this.#stat.textContent = Characteristic.Shorten(newValue);
+                } else {
+                    this.#stat.textContent = '';
+                }
                 this.#stat.title = newValue;
                 this.updateRanksDisplay();
                 break;

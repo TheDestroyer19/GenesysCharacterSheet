@@ -1,7 +1,7 @@
 import {CHARACTER_LOADED} from './common.js';
 import {Skill, CHARACTERISTIC} from './genesys.js';
 import {SkillDisplay} from './elements/skill-display.js';
-import { ListEditor, NewSimpleListEditor } from './listEditor.js';
+import { ListEditor, NewSimpleListEditor } from './util/listEditor.js';
 
 const ModalTemplate = document.createElement('template');
 ModalTemplate.id = 'skills-modal-template';
@@ -69,13 +69,13 @@ document.addEventListener(CHARACTER_LOADED, () => {
 
 document.getElementById('new-skill-general')
     .addEventListener('click', () => NewSkill(character.skills_general, GeneralEditor));
-document.getElementById('new-skill-general')
+document.getElementById('new-skill-magic')
     .addEventListener('click', () => NewSkill(character.skills_magic, MagicEditor));
-document.getElementById('new-skill-general')
+document.getElementById('new-skill-combat')
     .addEventListener('click', () => NewSkill(character.skills_combat, CombatEditor));
-document.getElementById('new-skill-general')
+document.getElementById('new-skill-social')
     .addEventListener('click', () => NewSkill(character.skills_social, SocialEditor));
-document.getElementById('new-skill-general')
+document.getElementById('new-skill-knowledge')
     .addEventListener('click', () => NewSkill(character.skills_knowledge, KnowledgeEditor));
 
 /**

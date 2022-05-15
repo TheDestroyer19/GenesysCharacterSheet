@@ -1,6 +1,6 @@
 import { CHARACTER_LOADED } from './common.js';
 import { RANGE, Weapon} from './genesys.js';
-import { NewSimpleListEditor } from './listEditor.js';
+import { NewSimpleListEditor } from './util/listEditor.js';
 import { ConvertSymbols } from './util/prettyText.js';
 
 export class WeaponDisplay extends HTMLElement {

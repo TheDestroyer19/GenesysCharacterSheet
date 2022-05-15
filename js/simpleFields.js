@@ -1,5 +1,5 @@
 import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
-import { SendRecalcSize } from "./growabletextarea.js";
+import { SendRecalcSize } from "./util/growabletextarea.js";
 
 // ========================================================================= //
 // HEADER ================================================================== //
