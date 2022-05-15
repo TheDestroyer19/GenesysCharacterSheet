@@ -50,11 +50,15 @@ textarea {
     padding: 0.25rem;
 }
 #page1header {
-    align-items: baseline;
+    align-items: center;
 }
 #page1header input[type=number] {
     text-align: center;
     width: 3.5rem;
+}
+#page1header textarea {
+    font-size: medium;
+    height: 1.3em;
 }
 
 .two-column-grid {

@@ -10,7 +10,7 @@
         margin-left: -0.25rem;
         margin-right: -0.25rem;
     }
-    #page1, #page2, #page3 {
+    #page1, #page2, #page3, #page4 {
         margin: 0.25rem;
         flex-grow: 1;
     }
@@ -52,28 +52,30 @@
 #page1 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto auto auto 1fr;
     column-gap: 0.5em;
     row-gap: 0.5em;
     grid-template-areas: 
         "hh hh hh hh"
         "cc cc cc cc"
-        "ss ss ss cd"
+        "ss ss ss ss"
         "ww ww ww ci";
 }
 #page2 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+#page3 {
     display: grid;
     column-gap: 0.5rem;
     row-gap: 0.5rem;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-columns: 2.5fr 1fr;
     grid-template-areas: 
-        "sa sa"
-        "mo ff"
-        "ob ff"
-        "eq eq";
+        "mo cd"
+        "ob cd"
+        "ff cd";
 }
-#page3 {
+#page4 {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -82,7 +84,7 @@
 /* Page 1 - header Layout ************************************************** */
 #page1header {
     display: grid;
-    grid-template-columns: auto auto auto 1fr;
+    grid-template-columns: auto 1fr auto 1fr;
     column-gap: 0.5rem;
 }
 
