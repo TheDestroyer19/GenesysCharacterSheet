@@ -16,7 +16,7 @@ export class InjuryDisplay extends HTMLElement {
         this.attachShadow({mode: 'open'});
         this.shadowRoot.innerHTML = /* HTML */ `
         <style>
-        @import './css/shared.css';
+        @import '/src/css/shared.css';
         
         :host {
             display: flex;
