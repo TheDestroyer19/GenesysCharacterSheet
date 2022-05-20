@@ -27,12 +27,7 @@ const default_character = {
         DefenseMelee: 0,
         DefenseRanged: 0,
     },
-    motivations: {
-        fear: "",
-        strength: "",
-        flaw: "",
-        desire: "",
-    },
+    motivations: [],
     notes: [
 
     ],
