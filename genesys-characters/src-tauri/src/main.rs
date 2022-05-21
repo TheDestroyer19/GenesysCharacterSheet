@@ -136,12 +136,20 @@ fn open_character(window: Window) {
     }
 }
 
+fn print_character(window: Window) {
+    match window.print() {
+        Ok(()) => (),
+        Err(e) => dialog::message(Some(&window), "Failed to print character", format!("{:#}", e)),
+    }
+}
+
 fn on_menu_event(event: WindowMenuEvent) {
     let window = event.window();
     match event.menu_item_id() {
         "new" => new_character(window.clone()),
         "open" => open_character(window.clone()),
         "save" => save_character(window.clone()),
+        "print" => print_character(window.clone()),
         a => println!("Unhandled menu event '{}'", a),
     }
 }
@@ -158,9 +166,10 @@ fn main() {
     let new = CustomMenuItem::new("new", "New").accelerator("CommandOrControl+N");
     let open = CustomMenuItem::new("open", "Open").accelerator("CommandOrControl+O");
     let save = CustomMenuItem::new("save", "Save").accelerator("CommandOrControl+S");
+    let print = CustomMenuItem::new("print", "Print").accelerator("CommandOrControl+P");
     let submenu = Submenu::new(
         "File",
-        Menu::new().add_item(new).add_item(open).add_item(save),
+        Menu::new().add_item(new).add_item(open).add_item(save).add_item(print),
     );
     let menu = Menu::new().add_submenu(submenu);
 
