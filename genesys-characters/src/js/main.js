@@ -1,5 +1,6 @@
 import {CHARACTERISTIC, Skill } from './genesys.js';
 import {CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
+import { invoke} from '@tauri-apps/api/tauri';
 
 const default_character = {
     header: {
@@ -110,19 +111,21 @@ function GetFromLocalStorage() {
 }
 
 function DownloadCharacter() {
-    let element = document.createElement('a');
     let character = window.character;
     let filename = character.header.name + ".json";
     let text = JSON.stringify(character);
-    element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
+    invoke('save_character', { character: character});
 
-    element.style.display = 'none';
-    document.body.appendChild(element);
+    // let element = document.createElement('a');
+    // element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(text));
+    // element.setAttribute('download', filename);
 
-    element.click();
+    // element.style.display = 'none';
+    // document.body.appendChild(element);
 
-    document.body.removeChild(element);
+    // element.click();
+
+    // document.body.removeChild(element);
 }
 
 function UploadCharacter() {

@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "genesys-characters/src-tauri/Cargo.toml"
+    ]
+}
