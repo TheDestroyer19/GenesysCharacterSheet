@@ -1,144 +1,20 @@
-import {CHARACTERISTIC, Skill } from './genesys.js';
 import {CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
-import { invoke} from '@tauri-apps/api/tauri';
-
-const default_character = {
-    header: {
-        name: "",
-        player: "",
-        archetype: "",
-        career: "",
-        specializations: "",
-        xp_available: 100,
-        xp_total: 100,
-    },
-    characteristics: {
-        brawn: 2,
-        agility: 2,
-        intellect: 2,
-        cunning: 2,
-        willpower: 2,
-        presence: 2,
-        force_rank: 0,
-        soak: 10,
-        wounds_threshold: 10,
-        wounds_current: 0,
-        strain_threshold: 10,
-        strain_current: 0,
-        defense_melee: 0,
-        defense_ranged: 0,
-    },
-    motivations: [],
-    notes: [
-
-    ],
-    skills_general: [
-        new Skill("Athletics", CHARACTERISTIC.Brawn, false, 0),
-        new Skill("Computer - Hacking", CHARACTERISTIC.Intellect, false, 0),
-        new Skill("Computer - Sysops", CHARACTERISTIC.Intellect, false, 0),
-        new Skill("Cool", CHARACTERISTIC.Presence, false, 0),
-        new Skill("Coordination", CHARACTERISTIC.Agility, false, 0),
-        new Skill("Discipline", CHARACTERISTIC.Willpower, false, 0),
-        new Skill("Driving", CHARACTERISTIC.Agility, false, 0),
-        new Skill("Mechanics", CHARACTERISTIC.Intellect, false, 0),
-        new Skill("Medicine", CHARACTERISTIC.Intellect, false, 0),
-        new Skill("Operating", CHARACTERISTIC.Intellect, false, 0),
-        new Skill("Perception", CHARACTERISTIC.Cunning, false, 0),
-        new Skill("Piloting", CHARACTERISTIC.Agility, false, 0),
-        new Skill("Resilience", CHARACTERISTIC.Brawn, false, 0),
-        new Skill("Skulduggery", CHARACTERISTIC.Cunning, false, 0),
-        new Skill("Stealth", CHARACTERISTIC.Agility, false, 0),
-        new Skill("Survival", CHARACTERISTIC.Cunning, false, 0),
-        new Skill("Vigilance", CHARACTERISTIC.Willpower, false, 0),
-    ],
-    skills_magic: [
-
-    ],
-    skills_combat: [
-        new Skill("Brawl", CHARACTERISTIC.Brawn, false, 0),
-        new Skill("Melee", CHARACTERISTIC.Brawn, false, 0),
-        new Skill("Ranged - Light", CHARACTERISTIC.Agility, false, 0),
-        new Skill("Ranged - Heavy", CHARACTERISTIC.Agility, false, 0),
-        new Skill("Gunnery", CHARACTERISTIC.Agility, false, 0),
-    ],
-    skills_social: [
-        new Skill("Charm", CHARACTERISTIC.Presence, false, 0),
-        new Skill("Coercion", CHARACTERISTIC.Willpower, false, 0),
-        new Skill("Deception", CHARACTERISTIC.Cunning, false, 0),
-        new Skill("Leadership", CHARACTERISTIC.Presence, false, 0),
-        new Skill("Negotiation", CHARACTERISTIC.Presence, false, 0),
-    ],
-    skills_knowledge: [
-        new Skill("Science", CHARACTERISTIC.Intellect, false, 0),
-        new Skill("Society", CHARACTERISTIC.Intellect, false, 0),
-        new Skill("The Net", CHARACTERISTIC.Intellect, false, 0),
-    ],
-    favors_owed: [
-    ],
-    favors_given: [
-    ],
-    inventory: [
-    ],
-    weapons: [
-    ],
-}
-
-function SaveToLocalStorage(character) {
-    let localstorage = window.localStorage;
-    localstorage.setItem("character", JSON.stringify(character));
-    console.log("Character saved to LocalStorage");
-}
-
-function GetFromLocalStorage() {
-    let localstorage = window.localStorage;
-    
-    let value = localstorage.getItem("character");
-
-    if (!value) {
-        console.log("No character found");
-        return JSON.parse(JSON.stringify(default_character));
-    }
-
-    try {
-        let character = JSON.parse(value);
-        console.log("Character loaded from LocalStorage");
-        return character;
-    } catch (error) {
-        console.error("Failed to parse character: " + error);
-        return JSON.parse(JSON.stringify(default_character));
-    }
-
-}
-
-function UploadCharacter() {
-    let files = document.getElementById('import-character').files;
-    if (files.length <= 0) {
-        return;
-    }
-
-    let fr = new FileReader();
-    fr.onload = (e) => {
-        let character = JSON.parse(e.target.result);
-        window.character = character;
-        SendCharacterLoaded();
-        SaveToLocalStorage(window.character);
-        console.log("Character imported");
-    }
-
-    fr.readAsText(files.item(0));
-}
-
-document.getElementById('import-character').addEventListener('change', UploadCharacter);
+import { invoke } from '@tauri-apps/api/tauri';
+import { listen } from '@tauri-apps/api/event';
 
 document.getElementById('toggle-symbols-modal').addEventListener('click', e => document.getElementById('symbols').Toggle(e.clientX, e.clientY));
 
-document.addEventListener("DOMContentLoaded", (event) => {
-    let character = GetFromLocalStorage();
+document.addEventListener(CHARACTER_UPDATED, () => {
+    invoke('on_character_edited', { character, });
+});
+
+await listen('character-updated', event => {
+    character = event.payload;
     window.character = character;
     SendCharacterLoaded();
 });
 
-document.addEventListener(CHARACTER_UPDATED, () => {
-    invoke('on_character_edited', { character, });
-    SaveToLocalStorage(window.character);
-});
+invoke('get_character').then(character => {
+    window.character = character;
+    SendCharacterLoaded();
+})

@@ -1,6 +1,6 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug, Default)]
+#[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct Character {
     pub header: Header,
     pub description: Description,
@@ -22,7 +22,7 @@ pub struct Character {
     pub favors_owed: Vec<Favor>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Default)]
+#[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct Header {
     pub name: String,
     pub player: String,
@@ -33,7 +33,7 @@ pub struct Header {
     pub xp_total: i32,
 }
 
-#[derive(Serialize, Deserialize, Debug, Default)]
+#[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct Description {
     pub age: String,
     pub build: String,
@@ -44,7 +44,7 @@ pub struct Description {
     pub height: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Default)]
+#[derive(Serialize, Deserialize, Debug, Default, Clone)]
 pub struct Characteristics {
     pub brawn: i32,
     pub agility: i32,
@@ -62,21 +62,21 @@ pub struct Characteristics {
     pub defense_ranged: i32,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Mechanic {
     pub mechanic_type: String,
     pub description: String,
     pub magnitude: String, //TODO FIX ME should be i32
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Item {
     pub quantity: i32,
     pub name: String,
     pub description: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum Characteristic {
     Brawn,
     Agility,
@@ -86,7 +86,7 @@ pub enum Characteristic {
     Presence,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Skill {
     pub name: String,
     pub characteristic: Characteristic,
@@ -94,28 +94,28 @@ pub struct Skill {
     pub rank: i32,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Note {
     pub title: String,
     pub body: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Weapon {
     pub name: String,
     pub description: String,
     pub damage: i32,
     #[serde(alias = "crit")]
     pub critical: i32,
-    pub encumberance: String,//TODO FIX ME should be i32
-    pub hard_points: String,//TODO FIX ME should be i32
+    pub encumberance: String, //TODO FIX ME should be i32
+    pub hard_points: String,  //TODO FIX ME should be i32
     pub range: Range,
     pub skill: String,
     pub special: String,
-    pub uses_brawn: String,//TODO FIX ME should be bool
+    pub uses_brawn: String, //TODO FIX ME should be bool
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum Range {
     Enganged,
     Short,
@@ -124,7 +124,7 @@ pub enum Range {
     Extreme,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Ability {
     pub name: String,
     pub description: String,
@@ -132,14 +132,14 @@ pub struct Ability {
     pub source: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct CriticalInjury {
     pub severity: i32,
     pub result: String,
 }
 
 //TODO unify Favor with mechanic
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Favor {
     pub text: String,
 }

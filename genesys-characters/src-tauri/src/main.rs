@@ -1,75 +1,133 @@
 #![cfg_attr(
-  all(not(debug_assertions), target_os = "windows"),
-  windows_subsystem = "windows"
+    all(not(debug_assertions), target_os = "windows"),
+    windows_subsystem = "windows"
 )]
 
 mod genesys;
 
 use std::fs::File;
-use std::io::prelude::*;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Mutex;
 
 use genesys::Character;
-use tauri::{CustomMenuItem, Submenu, Menu, WindowMenuEvent, Manager};
-use tauri::api::dialog::{FileDialogBuilder, self};
+use tauri::api::dialog;
+use tauri::{CustomMenuItem, Manager, Menu, Submenu, Window, WindowMenuEvent};
+use anyhow::Context;
+
+struct CharacterDirty(AtomicBool);
 
 #[tauri::command]
-fn on_character_edited(character: Character, state: tauri::State<Mutex<Character>>) {
-  let mut state = state.lock().unwrap();
-  *state = character;
-  println!("Character modified");
+fn on_character_edited(
+    character: Character,
+    character_state: tauri::State<Mutex<Character>>,
+    dirty: tauri::State<CharacterDirty>,
+) {
+    let mut character_state = character_state.lock().unwrap();
+    *character_state = character;
+    dirty.0.store(true, Ordering::SeqCst);
+    println!("Character modified");
 }
 
-#[tauri::command]
-fn save_character(character: tauri::State<Mutex<Character>>) {
-  let character = character.lock().unwrap();
-  let name = format!("{}.json", character.header.name);
-  let json = serde_json::to_string(&*character).unwrap();
+fn save_character(
+    window: Window,
+) {
+    let name= {
+      let character = window.state::<Mutex<Character>>();
+      let character = character.lock().unwrap();
+      format!("{}.json", character.header.name)
+    };
 
-  FileDialogBuilder::new()
-    .set_file_name(&name)
-    .save_file(move |file_path| {
-      if file_path.is_none() { return; }
-      let file_path = file_path.unwrap();
-      let display = file_path.display();
+    dialog::FileDialogBuilder::new()
+        .set_file_name(&name)
+        .save_file(move |file_path| {
+          if file_path.is_none() {
+              return;
+          }
+          let file_path = file_path.unwrap();
 
+          let character = window.state::<Mutex<Character>>();
+          let character = character.lock().unwrap();
       
-      let mut file = match File::create(&file_path) {
-        Err(why) => panic!("couldn't create {}: {}", display, why),
-        Ok(file) => file,
-      };
+          let result = File::create(&file_path)
+            .with_context(|| format!("Failed to create file '{}'", file_path.display()))
+            .and_then(|file| serde_json::to_writer(file, &*character).context("Failed to serialize data"));
+      
+          match result {
+            Ok(()) => window.state::<CharacterDirty>().0.store(false, Ordering::SeqCst),
+            Err(e) => dialog::message(
+              Some(&window),
+              "Failed to save character",
+              format!("{}", e)
+            ),
+          }
+        });
+}
 
-      match file.write_all(json.as_bytes()) {
-        Err(why) => panic!("couldn't write to {}: {}", display, why),
-        Ok(_) => (),
-      }
+fn new_character(window: Window) {
+    let dirty = {
+        window.state::<CharacterDirty>().0.load(Ordering::SeqCst)
+    };
+    let new_character = move || {
+        let character_state = window.state::<Mutex<Character>>();
+        let dirty = window.state::<CharacterDirty>();
+        let mut character = character_state.lock().unwrap();
+        *character = Character::default();
+        dirty.0.store(false, Ordering::SeqCst);
+        window
+            .app_handle()
+            .emit_all("character-updated", character.clone())
+            .unwrap();
+    };
+
+    if dirty {
+        dialog::ask(Option::<&Window<tauri::Wry>>::None,
+      "New Character", 
+      "The character has unsaved changes.\nDo you want to discard those changes and create a new character?", 
+      move |answer| if answer {
+        new_character();
     });
+    } else {
+        new_character();
+    }
 }
 
 fn on_menu_event(event: WindowMenuEvent) {
-  let window = event.window();
-  let character = window.state::<Mutex<Character>>();
-  match event.menu_item_id() {
-    "new" => dialog::message(Some(window), "New", "Creating a new character is not implemented yet"),//TODO
-    "open" => dialog::message(Some(window), "Open", "Opening a character is not implemented yet"),//TODO
-    "save" => save_character(character),
-    a => println!("Unhandled menu event '{}'", a),
-  }
+    let window = event.window();
+    match event.menu_item_id() {
+        "new" => new_character(window.clone()),
+        "open" => todo!(),
+        "save" => save_character(window.clone()),
+        a => println!("Unhandled menu event '{}'", a),
+    }
+}
+
+#[tauri::command]
+fn get_character(character: tauri::State<Mutex<Character>>) -> Character {
+    character.lock().unwrap().clone()
 }
 
 fn main() {
-  let new = CustomMenuItem::new("new", "New");
-  let open = CustomMenuItem::new("open", "Open");
-  let save = CustomMenuItem::new("save", "Save");
-  let submenu = Submenu::new("File", Menu::new().add_item(new).add_item(open).add_item(save));
-  let menu = Menu::new().add_submenu(submenu);
+    let new = CustomMenuItem::new("new", "New");
+    let open = CustomMenuItem::new("open", "Open");
+    let save = CustomMenuItem::new("save", "Save");
+    let submenu = Submenu::new(
+        "File",
+        Menu::new().add_item(new).add_item(open).add_item(save),
+    );
+    let menu = Menu::new().add_submenu(submenu);
 
-  tauri::Builder::default()
-    .menu(menu)
-    .manage(Mutex::new(Character::default()))
-    .on_menu_event(on_menu_event)
-    // This is where you pass in your commands
-    .invoke_handler(tauri::generate_handler![on_character_edited, save_character])
-    .run(tauri::generate_context!())
-    .expect("error while running tauri application");
+    tauri::Builder::default()
+        .menu(menu)
+        .manage(Mutex::new(Character::default()))
+        .manage(CharacterDirty(AtomicBool::new(false)))
+        .on_menu_event(on_menu_event)
+        // This is where you pass in your commands
+        .invoke_handler(tauri::generate_handler![on_character_edited, get_character])
+        .setup(|app| {
+            let character = app.state::<Mutex<Character>>().lock().unwrap().clone();
+            app.emit_all("character-updated", character)?;
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
