@@ -155,9 +155,9 @@ fn main() {
     let thread = std::thread::current();
     println!("thread {:?}", thread.id());
 
-    let new = CustomMenuItem::new("new", "New");
-    let open = CustomMenuItem::new("open", "Open");
-    let save = CustomMenuItem::new("save", "Save");
+    let new = CustomMenuItem::new("new", "New").accelerator("CommandOrControl+N");
+    let open = CustomMenuItem::new("open", "Open").accelerator("CommandOrControl+O");
+    let save = CustomMenuItem::new("save", "Save").accelerator("CommandOrControl+S");
     let submenu = Submenu::new(
         "File",
         Menu::new().add_item(new).add_item(open).add_item(save),
