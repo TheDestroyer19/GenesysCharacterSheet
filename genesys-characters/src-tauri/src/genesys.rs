@@ -96,7 +96,7 @@ pub struct Skill {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Note {
-    pub title: String,//TODO FIX ME should be note_title
+    pub title: String, //TODO FIX ME should be note_title
     pub body: String,
 }
 
