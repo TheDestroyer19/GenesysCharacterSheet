@@ -5,6 +5,9 @@
 
 mod genesys;
 
+use std::fs::File;
+use std::io::prelude::*;
+
 use genesys::Character;
 use tauri::api::dialog::FileDialogBuilder;
 
@@ -18,11 +21,22 @@ fn my_custom_command() {
 fn save_character(character: Character) {
   FileDialogBuilder::new()
     .set_file_name(&format!("{}.json", character.header.name))
-    .save_file(|file_path| {
+    .save_file(move |file_path| {
       if file_path.is_none() { return; }
       let file_path = file_path.unwrap();
+      let display = file_path.display();
+
+      let json = serde_json::to_string(&character).unwrap();
       
-      println!("{:?}", file_path);
+      let mut file = match File::create(&file_path) {
+        Err(why) => panic!("couldn't create {}: {}", display, why),
+        Ok(file) => file,
+      };
+
+      match file.write_all(json.as_bytes()) {
+        Err(why) => panic!("couldn't write to {}: {}", display, why),
+        Ok(_) => (),
+      }
     });
 }
 
