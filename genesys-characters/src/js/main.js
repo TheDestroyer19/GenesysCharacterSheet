@@ -2,7 +2,9 @@ import {CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
 import { invoke } from '@tauri-apps/api/tauri';
 import { listen } from '@tauri-apps/api/event';
 
-document.getElementById('toggle-symbols-modal').addEventListener('click', e => document.getElementById('symbols').Toggle(e.clientX, e.clientY));
+await listen('toggle_symbols', event => {
+    document.getElementById('symbols').Toggle(10, 10);
+})
 
 document.addEventListener(CHARACTER_UPDATED, () => {
     invoke('on_character_edited', { character, });
@@ -17,4 +19,4 @@ await listen('character-updated', event => {
 invoke('get_character').then(character => {
     window.character = character;
     SendCharacterLoaded();
-})
+});

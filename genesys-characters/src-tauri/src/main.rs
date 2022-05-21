@@ -16,16 +16,20 @@ use tauri::{CustomMenuItem, Manager, Menu, Submenu, Window, WindowMenuEvent};
 
 struct CharacterDirty(AtomicBool);
 
+const WINDOW_TITLE_PREFIX: &str = "Genesys Characters";
+
 #[tauri::command]
 fn on_character_edited(
     character: Character,
     character_state: tauri::State<Mutex<Character>>,
     dirty: tauri::State<CharacterDirty>,
+    window: Window,
 ) {
     let mut character_state = character_state.lock().unwrap();
     *character_state = character;
     dirty.0.store(true, Ordering::SeqCst);
     println!("Character modified");
+    window.set_title(&format!("{} - {}", WINDOW_TITLE_PREFIX, character_state.header.name)).unwrap();
 }
 
 fn save_character(window: Window) {
@@ -72,6 +76,7 @@ fn new_character(window: Window) {
         let mut character = character_state.lock().unwrap();
         *character = Character::default();
         dirty.0.store(false, Ordering::SeqCst);
+        window.set_title(&format!("{} - {}", WINDOW_TITLE_PREFIX, character.header.name)).unwrap();
         window
             .app_handle()
             .emit_all("character-updated", character.clone())
@@ -110,6 +115,7 @@ fn open_character(window: Window) {
                         let dirty = window.state::<CharacterDirty>();
                         *character = loaded_character;
                         dirty.0.store(false, Ordering::SeqCst);
+                        window.set_title(&format!("{} - {}", WINDOW_TITLE_PREFIX, character.header.name)).unwrap();
                         window
                             .app_handle()
                             .emit_all("character-updated", character.clone())
@@ -143,13 +149,18 @@ fn print_character(window: Window) {
     }
 }
 
+fn toggle_symbols(window: Window) {
+    window.emit_all("toggle_symbols", ()).unwrap();
+}
+
 fn on_menu_event(event: WindowMenuEvent) {
-    let window = event.window();
+    let window = event.window().clone();
     match event.menu_item_id() {
-        "new" => new_character(window.clone()),
-        "open" => open_character(window.clone()),
-        "save" => save_character(window.clone()),
-        "print" => print_character(window.clone()),
+        "new" => new_character(window),
+        "open" => open_character(window),
+        "save" => save_character(window),
+        "print" => print_character(window),
+        "symbols" => toggle_symbols(window),
         a => println!("Unhandled menu event '{}'", a),
     }
 }
@@ -159,19 +170,30 @@ fn get_character(character: tauri::State<Mutex<Character>>) -> Character {
     character.lock().unwrap().clone()
 }
 
-fn main() {
-    let thread = std::thread::current();
-    println!("thread {:?}", thread.id());
-
+fn build_menu() -> Menu {
     let new = CustomMenuItem::new("new", "New").accelerator("CommandOrControl+N");
     let open = CustomMenuItem::new("open", "Open").accelerator("CommandOrControl+O");
     let save = CustomMenuItem::new("save", "Save").accelerator("CommandOrControl+S");
     let print = CustomMenuItem::new("print", "Print").accelerator("CommandOrControl+P");
-    let submenu = Submenu::new(
+    let file = Submenu::new(
         "File",
         Menu::new().add_item(new).add_item(open).add_item(save).add_item(print),
     );
-    let menu = Menu::new().add_submenu(submenu);
+    let view = Submenu::new(
+        "View",
+        Menu::new()
+            .add_item(CustomMenuItem::new("symbols", "Symbols Reference"))
+    );
+    Menu::new()
+        .add_submenu(file)
+        .add_submenu(view)
+}
+
+fn main() {
+    let thread = std::thread::current();
+    println!("thread {:?}", thread.id());
+
+    let menu = build_menu();
 
     tauri::Builder::default()
         .menu(menu)

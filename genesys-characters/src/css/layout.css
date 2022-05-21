@@ -6,12 +6,10 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        gap: 0.5rem;
         align-items: stretch;
-        margin-left: -0.25rem;
-        margin-right: -0.25rem;
     }
     #page1, #page2, #page3, #page4 {
-        margin: 0.25rem;
         flex-grow: 1;
     }
 }

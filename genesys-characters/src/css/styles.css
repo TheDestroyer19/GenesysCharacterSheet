@@ -1,16 +1,4 @@
 /* Shared Styles */
-#app-header {
-    box-sizing: border-box;
-    z-index: 10;
-    position: sticky;
-    top: 0.5rem;
-}
-
-#pages {
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-}
-
 textarea {
     font-size: small;
 }
@@ -41,9 +29,9 @@ textarea {
 }
 
 #skills, #favors, #weapons, .modal, #page1header,
-.condition, .stat, #app-header,
+.condition, .stat,
 #motivations, #inventory, #character-description,
-#notes, #critical-injuries, #abilities, #obligations, #app-footer {
+#notes, #critical-injuries, #abilities, #obligations {
     background: white;
     border: 0.2rem solid var(--cp-50);
     border-radius: 0.75rem;
