@@ -58,7 +58,7 @@ fn save_character(window: Window) {
                     .0
                     .store(false, Ordering::SeqCst),
                 Err(e) => {
-                    dialog::message(Some(&window), "Failed to save character", format!("{}", e))
+                    dialog::message(Some(&window), "Failed to save character", format!("{:#}", e))
                 }
             }
         });
@@ -115,7 +115,7 @@ fn open_character(window: Window) {
                             .emit_all("character-updated", character.clone())
                             .unwrap();
                     },
-                    Err(e) => dialog::message(Some(&window), "Failed to save character", format!("{}", e))
+                    Err(e) => dialog::message(Some(&window), "Failed to open character", format!("{:#}", e))
                 }
             });
     };
