@@ -110,24 +110,6 @@ function GetFromLocalStorage() {
 
 }
 
-function DownloadCharacter() {
-    let character = window.character;
-    let filename = character.header.name + ".json";
-    let text = JSON.stringify(character);
-    invoke('save_character', { character: character});
-
-    // let element = document.createElement('a');
-    // element.setAttribute('href', 'data:text/json;charset=utf-8,' + encodeURIComponent(text));
-    // element.setAttribute('download', filename);
-
-    // element.style.display = 'none';
-    // document.body.appendChild(element);
-
-    // element.click();
-
-    // document.body.removeChild(element);
-}
-
 function UploadCharacter() {
     let files = document.getElementById('import-character').files;
     if (files.length <= 0) {
@@ -148,8 +130,6 @@ function UploadCharacter() {
 
 document.getElementById('import-character').addEventListener('change', UploadCharacter);
 
-document.getElementById('export-character').addEventListener('click', DownloadCharacter);
-
 document.getElementById('toggle-symbols-modal').addEventListener('click', e => document.getElementById('symbols').Toggle(e.clientX, e.clientY));
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -159,5 +139,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 document.addEventListener(CHARACTER_UPDATED, () => {
+    invoke('on_character_edited', { character, });
     SaveToLocalStorage(window.character);
 });

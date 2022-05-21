@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Character {
     pub header: Header,
     pub description: Description,
@@ -22,7 +22,7 @@ pub struct Character {
     pub favors_owed: Vec<Favor>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Header {
     pub name: String,
     pub player: String,
@@ -33,7 +33,7 @@ pub struct Header {
     pub xp_total: i32,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Description {
     pub age: String,
     pub build: String,
@@ -44,7 +44,7 @@ pub struct Description {
     pub height: String,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Default)]
 pub struct Characteristics {
     pub brawn: i32,
     pub agility: i32,
