@@ -49,7 +49,7 @@ fn save_character(window: Window) {
             let result = File::create(&file_path)
                 .with_context(|| format!("Failed to create file '{}'", file_path.display()))
                 .and_then(|file| {
-                    serde_json::to_writer(file, &*character).context("Failed to serialize data")
+                    serde_json::to_writer_pretty(file, &*character).context("Failed to serialize data")
                 });
 
             match result {

@@ -58,7 +58,7 @@ export class WeaponDisplay extends HTMLElement {
         .grow {
             flex-grow: 1;
         }
-        #damage, #crit, #encumberance, #hard_points {
+        #damage, #crit, #encumbrance, #hard_points {
             font-size: 1.5rem;
             line-height: 1.05;
         }
@@ -105,7 +105,7 @@ export class WeaponDisplay extends HTMLElement {
             <span>Crit</span>
         </div>
         <div class="block a1">
-            <span id="encumberance"></span>
+            <span id="encumbrance"></span>
             <span>Encum</span>
         </div>
         <div class="block a1">
@@ -127,7 +127,7 @@ export class WeaponDisplay extends HTMLElement {
     static get observedAttributes() {
         return ['name', 'skill', 'damage', 
             'uses_brawn', 'critical', 'range', 'special', 
-            'encumberance', 'hard_points', 'description'];
+            'encumbrance', 'hard_points', 'description'];
     }
 
     static get tag() {
@@ -152,8 +152,8 @@ export class WeaponDisplay extends HTMLElement {
             case 'special': ConvertSymbols(newValue, shadow.querySelector('#special')); break;
             case 'uses_brawn': case 'damage': this.#updateDamageText(); break;
             case 'critical': shadow.querySelector('#crit').innerHTML = this.#state.critical; break;
-            case 'encumberance': shadow.querySelector('#encumberance').innerHTML = this.#state.encumberance;
-            case 'hard_points': shadow.querySelector('#hard_points').innerHTML = this.#state.hard_points;
+            case 'encumbrance': shadow.querySelector('#encumbrance').innerHTML = this.#state.encumbrance; break;
+            case 'hard_points': shadow.querySelector('#hard_points').innerHTML = this.#state.hard_points; break;
             case 'description': ConvertSymbols(newValue, shadow.querySelector('#description')); break;
         }
     }
@@ -191,7 +191,7 @@ ModalTemplate.innerHTML = /* HTML */ `
         <option>Extreme</option>
     </select>
     <label for="special">Special</label><input type="text" id="special" />
-    <label for="encumberance">Encumberance</label><input type="number" id="encumberance" />
+    <label for="encumbrance">Encumbrance</label><input type="number" id="encumbrance" />
     <label for="hard_points">Hard Points</label><input type="number" id="hard_points" />
     <label for="description">Description</label>
     <textarea id="description" class="growable"></textarea>

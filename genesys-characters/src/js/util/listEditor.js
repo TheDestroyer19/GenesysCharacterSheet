@@ -63,9 +63,13 @@ export function NewSimpleListEditor(tableElement, displayClass, modalTemplate) {
                     attachResize(inputField);
                 }
                 inputField.addEventListener('change', event => {
-                    let value = inputField.value;
+                    let value;
                     if (inputField.type == 'checkbox')
                         value = inputField.checked;
+                    else if (inputField.type == 'number')
+                        value = parseInt(inputField.value);
+                    else
+                        value = inputField.value;
                     ability[field] = value;
                     element.setAttribute(field, value);
                     SendCharacterUpdated();

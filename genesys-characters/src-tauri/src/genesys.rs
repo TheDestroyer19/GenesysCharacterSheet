@@ -66,7 +66,7 @@ pub struct Characteristics {
 pub struct Mechanic {
     pub mechanic_type: String,
     pub description: String,
-    pub magnitude: String, //TODO FIX ME should be i32
+    pub magnitude: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -96,7 +96,7 @@ pub struct Skill {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Note {
-    pub title: String,
+    pub title: String,//TODO FIX ME should be note_title
     pub body: String,
 }
 
@@ -106,12 +106,12 @@ pub struct Weapon {
     pub description: String,
     pub damage: i32,
     pub critical: i32,
-    pub encumberance: String, //TODO FIX ME should be i32
-    pub hard_points: String,  //TODO FIX ME should be i32
+    pub encumbrance: i32,
+    pub hard_points: i32,
     pub range: Range,
     pub skill: String,
     pub special: String,
-    pub uses_brawn: String, //TODO FIX ME should be bool
+    pub uses_brawn: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -127,7 +127,7 @@ pub enum Range {
 pub struct Ability {
     pub name: String,
     pub description: String,
-    pub rank: String, //TODO FIX ME Should be i32
+    pub rank: i32,
     pub source: String,
 }
 
