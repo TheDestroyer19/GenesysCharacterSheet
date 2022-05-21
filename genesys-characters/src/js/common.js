@@ -25,7 +25,7 @@ export function DoOnUpdate(modpath, action) {
             if (event.detail === modpath) {
                 action();
             }
-            document.addEventListener(CHARACTER_UPDATED, this, { once: true });
+            DoOnUpdate(modpath, action);
         } catch (exception) {
             //I'm assuming that most exceptions will be of the flavor - thing doesn't exist anymore
         }

@@ -169,14 +169,14 @@ export class Ability {
 
 /**
  * @typedef {Object} Mechanic
- * @property {string} type
- * @property {number} value
+ * @property {string} mechanic_type
+ * @property {number} magnitude
  * @property {string} description
  */
 export class Mechanic {
-    constructor(type, value, description) {
-        this.type = type;
-        this.value = value;
+    constructor(type, magnitude, description) {
+        this.mechanic_type = type;
+        this.magnitude = magnitude;
         this.description = description;
     }
 }

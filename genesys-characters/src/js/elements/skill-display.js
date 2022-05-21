@@ -134,7 +134,8 @@ export class SkillDisplay extends HTMLElement {
 
     updateRanksDisplay() {
         let rank = this.getAttribute('rank');
-        let stat = character.characteristics[this.getAttribute('characteristic')];
+
+        let stat = character.characteristics[this.getAttribute('characteristic')?.toLowerCase()];
         RemoveAllChildNodes(this.#ranks);
         let i = 0;
         for (; i < rank && i < stat; i++) {
@@ -150,27 +151,27 @@ export class SkillDisplay extends HTMLElement {
     }
 }
 
-DoOnUpdate('character.characteristics.Brawn', () => {
+DoOnUpdate('character.characteristics.brawn', () => {
     document.querySelectorAll(SkillDisplay.tag + '[characteristic="Brawn"]')
         .forEach(skill => skill.updateRanksDisplay());
 });
-DoOnUpdate('character.characteristics.Agility', () => {
+DoOnUpdate('character.characteristics.agility', () => {
     document.querySelectorAll(SkillDisplay.tag + '[characteristic="Agility"]')
         .forEach(skill => skill.updateRanksDisplay());
 });
-DoOnUpdate('character.characteristics.Intellect', () => {
+DoOnUpdate('character.characteristics.intellect', () => {
     document.querySelectorAll(SkillDisplay.tag + '[characteristic="Intellect"]')
         .forEach(skill => skill.updateRanksDisplay());
 });
-DoOnUpdate('character.characteristics.Cunning', () => {
+DoOnUpdate('character.characteristics.cunning', () => {
     document.querySelectorAll(SkillDisplay.tag + '[characteristic="Cunning"]')
         .forEach(skill => skill.updateRanksDisplay());
 });
-DoOnUpdate('character.characteristics.Willpower', () => {
+DoOnUpdate('character.characteristics.willpower', () => {
     document.querySelectorAll(SkillDisplay.tag + '[characteristic="Willpower"]')
         .forEach(skill => skill.updateRanksDisplay());
 });
-DoOnUpdate('character.characteristics.Presence', () => {
+DoOnUpdate('character.characteristics.presence', () => {
     document.querySelectorAll(SkillDisplay.tag + '[characteristic="Presence"]')
         .forEach(skill => skill.updateRanksDisplay());
 });

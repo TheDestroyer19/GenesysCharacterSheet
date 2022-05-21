@@ -1,7 +1,4 @@
-use std::collections::HashMap;
-
 use serde::{Serialize, Deserialize};
-use serde_json::Value;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Character {
@@ -11,7 +8,6 @@ pub struct Character {
     pub inventory: Vec<Item>,
     pub motivations: Vec<Mechanic>,
     pub obligations: Vec<Mechanic>,
-    #[serde(alias = "ObligationTotal")]
     pub obligation_total: String, //TODO FIX ME should be i32
     pub notes: Vec<Note>,
     pub skills_general: Vec<Skill>,
@@ -24,8 +20,6 @@ pub struct Character {
     pub critical_injuries: Vec<CriticalInjury>,
     pub favors_given: Vec<Favor>,
     pub favors_owed: Vec<Favor>,
-    #[serde(flatten)]
-    pub extra: HashMap<String, Value>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -35,9 +29,7 @@ pub struct Header {
     pub archetype: String,
     pub career: String,
     pub specializations: String,
-    #[serde(alias = "xpAvailable")]
     pub xp_available: i32,
-    #[serde(alias = "xpTotal")]
     pub xp_total: i32,
 }
 
@@ -54,42 +46,27 @@ pub struct Description {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Characteristics {
-    #[serde(alias = "Brawn")]
     pub brawn: i32,
-    #[serde(alias = "Agility")]
     pub agility: i32,
-    #[serde(alias = "Intellect")]
     pub intellect: i32,
-    #[serde(alias = "Cunning")]
     pub cunning: i32,
-    #[serde(alias = "Willpower")]
     pub willpower: i32,
-    #[serde(alias = "Presence")]
     pub presence: i32,
-    #[serde(alias = "ForceRank")]
     pub force_rank: i32,
-    #[serde(alias = "Soak")]
     pub soak: i32,
-    #[serde(alias = "WoundsThreshold")]
     pub wounds_theshold: i32,
-    #[serde(alias = "WoundsCurrent")]
     pub wounds_current: i32,
-    #[serde(alias = "StrainThreshold")]
     pub strain_threshold: i32,
-    #[serde(alias = "StrainCurrent")]
     pub strain_current: i32,
-    #[serde(alias = "DefenseMelee")]
     pub defense_melee: i32,
-    #[serde(alias = "DefenseRanged")]
     pub defense_ranged: i32,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Mechanic {
-    #[serde(alias = "type")]
     pub mechanic_type: String,
     pub description: String,
-    pub value: i32,
+    pub magnitude: String, //TODO FIX ME should be i32
 }
 
 #[derive(Serialize, Deserialize, Debug)]

@@ -16,8 +16,8 @@ document.getElementById("page1header").addEventListener('change', (event) => {
         case "archetype": header.archetype = target.value; break;
         case "career": header.career = target.value; break;
         case "specializations": header.specializations = target.value; break;
-        case "xp-available": header.xpAvailable = parseInt(target.value); break;
-        case "xp-total": header.xpTotal = parseInt(target.value); break;
+        case "xp-available": header.xp_available = parseInt(target.value); break;
+        case "xp-total": header.xp_total = parseInt(target.value); break;
         default: return;
     }
 
@@ -31,8 +31,8 @@ document.addEventListener(CHARACTER_LOADED, () => {
     document.getElementById("archetype").value = header.archetype;
     document.getElementById("career").value = header.career;
     document.getElementById("specializations").value = header.specializations;
-    document.getElementById("xp-available").value = header.xpAvailable;
-    document.getElementById("xp-total").value = header.xpTotal;
+    document.getElementById("xp-available").value = header.xp_available;
+    document.getElementById("xp-total").value = header.xp_total;
 });
 
 // ========================================================================= //
@@ -49,21 +49,21 @@ document.getElementById('characteristics').addEventListener("change", (event) =>
     //handle inputs with an id
     switch (target.id) {
         // Characteristics
-        case "brawn": stats.Brawn = value; modPath += "Brawn"; break;
-        case "agility": stats.Agility = value; modPath += "Agility"; break;
-        case "intellect": stats.Intellect = value; modPath += "Intellect"; break;
-        case "cunning": stats.Cunning = value; modPath += "Cunning"; break;
-        case "willpower": stats.Willpower = value; modPath += "Willpower"; break;
-        case "presence": stats.Presence = value; modPath += "Presence"; break;
-        case "force-rank": stats.ForceRank = value; modPath += "ForceRank"; break;
+        case "brawn": stats.brawn = value; modPath += "brawn"; break;
+        case "agility": stats.agility = value; modPath += "agility"; break;
+        case "intellect": stats.intellect = value; modPath += "intellect"; break;
+        case "cunning": stats.cunning = value; modPath += "cunning"; break;
+        case "willpower": stats.willpower = value; modPath += "willpower"; break;
+        case "presence": stats.presence = value; modPath += "presence"; break;
+        case "force-rank": stats.force_rank = value; modPath += "force_rank"; break;
         // Conditions
-        case "soak": stats.Soak = value; modPath += "Soak"; break;
-        case "wounds-threshold": stats.WoundsThreshold = value; modPath += "WoundsThreshold"; break;
-        case "wounds-current": stats.WoundsCurrent = value; modPath += "WoundsCurrent"; break;
-        case "strain-threshold": stats.StrainThreshold = value; modPath += "StrainThreshold"; break;
-        case "strain-current": stats.StrainCurrent = value; modPath += "StrainCurrent"; break;
-        case "defense-ranged": stats.DefenseRanged = value; modPath += "DefenseRanged"; break;
-        case "defense-melee": stats.DefenseMelee = value; modPath += "DefenseMelee"; break;
+        case "soak": stats.soak = value; modPath += "soak"; break;
+        case "wounds-threshold": stats.wounds_theshold = value; modPath += "wounds_theshold"; break;
+        case "wounds-current": stats.wounds_current = value; modPath += "wounds_current"; break;
+        case "strain-threshold": stats.strain_threshold = value; modPath += "strain_threshold"; break;
+        case "strain-current": stats.strain_current = value; modPath += "strain_current"; break;
+        case "defense-ranged": stats.defense_melee = value; modPath += "defense_melee"; break;
+        case "defense-melee": stats.defense_ranged = value; modPath += "defense_ranged"; break;
         default: return;
     }
 
@@ -73,21 +73,21 @@ document.getElementById('characteristics').addEventListener("change", (event) =>
 document.addEventListener("character-loaded", () => {
     let characteristics = window.character.characteristics;
 
-    document.getElementById("brawn").value = characteristics.Brawn;
-    document.getElementById("agility").value = characteristics.Agility;
-    document.getElementById("intellect").value = characteristics.Intellect;
-    document.getElementById("cunning").value = characteristics.Cunning;
-    document.getElementById("willpower").value = characteristics.Willpower;
-    document.getElementById("presence").value = characteristics.Presence;
-    document.getElementById("force-rank").value = characteristics.ForceRank;
+    document.getElementById("brawn").value = characteristics.brawn;
+    document.getElementById("agility").value = characteristics.agility;
+    document.getElementById("intellect").value = characteristics.intellect;
+    document.getElementById("cunning").value = characteristics.cunning;
+    document.getElementById("willpower").value = characteristics.willpower;
+    document.getElementById("presence").value = characteristics.presence;
+    document.getElementById("force-rank").value = characteristics.force_rank;
 
-    document.getElementById("soak").value = characteristics.Soak;
-    document.getElementById("wounds-threshold").value = characteristics.WoundsThreshold;
-    document.getElementById("wounds-current").value = characteristics.WoundsCurrent;
-    document.getElementById("strain-threshold").value = characteristics.StrainThreshold;
-    document.getElementById("strain-current").value = characteristics.StrainCurrent;
-    document.getElementById("defense-melee").value = characteristics.DefenseMelee;
-    document.getElementById("defense-ranged").value = characteristics.DefenseRanged;
+    document.getElementById("soak").value = characteristics.soak;
+    document.getElementById("wounds-threshold").value = characteristics.wounds_theshold;
+    document.getElementById("wounds-current").value = characteristics.wounds_current;
+    document.getElementById("strain-threshold").value = characteristics.strain_threshold;
+    document.getElementById("strain-current").value = characteristics.strain_current;
+    document.getElementById("defense-melee").value = characteristics.defense_melee;
+    document.getElementById("defense-ranged").value = characteristics.defense_ranged;
 });
 
 // ========================================================================= //
@@ -143,12 +143,12 @@ document.addEventListener(CHARACTER_LOADED, () => {
 // ========================================================================= //
 
 document.getElementById("obligation-total").addEventListener('change', event => {
-    window.character.ObligationTotal = event.target.value;
+    window.character.obligation_total = event.target.value;
     SendCharacterUpdated();
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
-    let obligation_total = window.character.ObligationTotal;
+    let obligation_total = window.character.obligation_total;
     if (obligation_total) {
         document.getElementById('obligation-total').value = obligation_total;
     }

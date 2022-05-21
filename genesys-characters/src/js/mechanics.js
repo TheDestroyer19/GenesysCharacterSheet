@@ -61,7 +61,7 @@ export class MechanicDisplay extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['type', 'magnitude', 'description'];
+        return ['mechanic_type', 'magnitude', 'description'];
     }
 
     static get tag() {
@@ -71,7 +71,7 @@ export class MechanicDisplay extends HTMLElement {
     connectedCallback() {
         if (!this.isConnected) return;
 
-        ConvertSymbols(this.#state.type, this.shadowRoot.querySelector('#type'));
+        ConvertSymbols(this.#state.mechanic_type, this.shadowRoot.querySelector('#type'));
         this.#updateMagnitude(this.#state.magnitude);
         ConvertSymbols(this.#state.description, this.shadowRoot.querySelector('#description'));
     }
@@ -79,7 +79,7 @@ export class MechanicDisplay extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         this.#state[name] = newValue;
         switch (name) {
-            case 'type': ConvertSymbols(newValue, this.shadowRoot.querySelector('#type')); break;
+            case 'mechanic_type': ConvertSymbols(newValue, this.shadowRoot.querySelector('#type')); break;
             case 'magnitude': this.#updateMagnitude(newValue); break;
             case 'description': ConvertSymbols(newValue, this.shadowRoot.querySelector('#description')); break;
         }
@@ -108,8 +108,8 @@ ModalTemplate.id = 'obligation-modal-template';
 ModalTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Obligation</h1>
-    <label for="type">Type:</label>
-    <input type="text" id="type" />
+    <label for="mechanic_type">Type:</label>
+    <input type="text" id="mechanic_type" />
     <label for="magnitude">Magnitude:</label>
     <input type="number" id="magnitude" />
     <label for="description">Description:</label>
@@ -123,8 +123,8 @@ MotivationTemplate.id = 'motivation-modal-template';
 MotivationTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Motivation</h1>
-    <label for="type">Type:</label>
-    <input type="text" id="type" />
+    <label for="mechanic_type">Type:</label>
+    <input type="text" id="mechanic_type" />
     <label for="description">Description:</label>
     <textarea class="growable" id="description"></textarea>
 </td19-modal>
