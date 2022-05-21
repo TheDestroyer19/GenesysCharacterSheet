@@ -105,7 +105,6 @@ pub struct Weapon {
     pub name: String,
     pub description: String,
     pub damage: i32,
-    #[serde(alias = "crit")]
     pub critical: i32,
     pub encumberance: String, //TODO FIX ME should be i32
     pub hard_points: String,  //TODO FIX ME should be i32

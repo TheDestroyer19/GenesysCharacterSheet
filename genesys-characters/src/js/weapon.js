@@ -126,7 +126,7 @@ export class WeaponDisplay extends HTMLElement {
 
     static get observedAttributes() {
         return ['name', 'skill', 'damage', 
-            'uses_brawn', 'crit', 'range', 'special', 
+            'uses_brawn', 'critical', 'range', 'special', 
             'encumberance', 'hard_points', 'description'];
     }
 
@@ -151,7 +151,7 @@ export class WeaponDisplay extends HTMLElement {
             case 'range': shadow.querySelector('#range').innerHTML = this.#state.range;; break;
             case 'special': ConvertSymbols(newValue, shadow.querySelector('#special')); break;
             case 'uses_brawn': case 'damage': this.#updateDamageText(); break;
-            case 'crit': shadow.querySelector('#crit').innerHTML = this.#state.crit; break;
+            case 'critical': shadow.querySelector('#crit').innerHTML = this.#state.critical; break;
             case 'encumberance': shadow.querySelector('#encumberance').innerHTML = this.#state.encumberance;
             case 'hard_points': shadow.querySelector('#hard_points').innerHTML = this.#state.hard_points;
             case 'description': ConvertSymbols(newValue, shadow.querySelector('#description')); break;
