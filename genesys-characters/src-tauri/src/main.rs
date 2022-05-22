@@ -28,6 +28,32 @@ fn on_character_edited(character: Character, state: tauri::State<CharacterState>
         .unwrap();
 }
 
+fn save(window: Window) {
+    let state = window.state::<CharacterState>();
+    let mut state = state.lock();
+
+    if state.path().is_some() {
+        match state.save() {
+            Ok(()) => {
+                let title = format!(
+                    "{} - {}{}",
+                    WINDOW_TITLE_PREFIX, state.character().header.name, if state.dirty() { "*" } else { "" }
+                );
+                window.set_title(&title).unwrap();
+            },
+            Err(e) => dialog::message(
+                Some(&window),
+                "Failed to save character",
+                format!("{:#}", e),
+            ),
+        }
+    } else {
+        std::mem::drop(state);
+        save_as(window);
+    }
+
+}
+
 fn save_as(window: Window) {
     let dialog = {
         let state = window.state::<CharacterState>();
@@ -38,20 +64,19 @@ fn save_as(window: Window) {
 
         if let Some(path) = state.path() {
             if path.is_dir() { 
-                dialog.set_directory(path)
-            } else if let Some(path) = path.parent() {
-                dialog.set_directory(path)
+                dialog.set_directory(path).set_file_name(&format!("{}.json", character.header.name))
+            } else if let Some(dir) = path.parent() {
+                dialog.set_directory(dir).set_file_name(&path.file_name().unwrap().to_string_lossy())
             } else {
-                dialog
+                //TODO there is a path but it doesn't have a parent
+                dialog.set_file_name(&path.file_name().unwrap().to_string_lossy())
             }
         } else {
-            dialog
-        }.set_file_name(&format!("{}.json", character.header.name))
+            dialog.set_file_name(&format!("{}.json", character.header.name))
+        }
     };
 
-    dialog
-        
-        .save_file(move |file_path| {
+    dialog.save_file(move |file_path| {
             if file_path.is_none() {
                 return;
             }
@@ -182,7 +207,8 @@ fn on_menu_event(event: WindowMenuEvent) {
     match event.menu_item_id() {
         "new" => new_character(window),
         "open" => open_character(window),
-        "save" => save_as(window),
+        "save" => save(window),
+        "save-as" => save_as(window),
         "print" => print_character(window),
         "symbols" => toggle_symbols(window),
         a => println!("Unhandled menu event '{}'", a),
@@ -198,6 +224,7 @@ fn build_menu() -> Menu {
     let new = CustomMenuItem::new("new", "New").accelerator("CommandOrControl+N");
     let open = CustomMenuItem::new("open", "Open").accelerator("CommandOrControl+O");
     let save = CustomMenuItem::new("save", "Save").accelerator("CommandOrControl+S");
+    let save_as = CustomMenuItem::new("save-as", "Save As...").accelerator("CommandOrControl+Shift+S");
     let print = CustomMenuItem::new("print", "Print").accelerator("CommandOrControl+P");
     let file = Submenu::new(
         "File",
@@ -205,6 +232,7 @@ fn build_menu() -> Menu {
             .add_item(new)
             .add_item(open)
             .add_item(save)
+            .add_item(save_as)
             .add_item(print),
     );
     let view = Submenu::new(
