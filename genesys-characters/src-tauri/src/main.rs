@@ -37,13 +37,21 @@ fn save_as(window: Window) {
         let dialog = dialog::FileDialogBuilder::new();
 
         if let Some(path) = state.path() {
-            dialog.set_directory(path)
+            if path.is_dir() { 
+                dialog.set_directory(path)
+            } else if let Some(path) = path.parent() {
+                dialog.set_directory(path)
+            } else {
+                dialog
+            }
         } else {
-            dialog.set_file_name(&format!("{}.json", character.header.name))
-        }
+            dialog
+        }.set_file_name(&format!("{}.json", character.header.name))
     };
 
-    dialog.save_file(move |file_path| {
+    dialog
+        
+        .save_file(move |file_path| {
             if file_path.is_none() {
                 return;
             }

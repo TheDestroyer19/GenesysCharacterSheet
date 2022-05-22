@@ -66,7 +66,6 @@ function setElementPos(x, y, target) {
 
 export class Modal extends HTMLElement {
     #root;
-    #wrapper;
     #title;
     #onClose;
     #onSave;
@@ -82,7 +81,6 @@ export class Modal extends HTMLElement {
             .appendChild(templateContent.cloneNode(true));
 
         this.#root = this.shadowRoot.querySelector('#root');
-        this.#wrapper = this.shadowRoot.querySelector('#wrapper');
         this.#title = this.shadowRoot.querySelector('#titlebar');
         this.#onClose = () => this.Close();
         this.#onSave = () => this.#Save();
@@ -161,8 +159,8 @@ export class Modal extends HTMLElement {
     Open(x, y) {
         this.setAttribute('open', "");
 
-        x -= this.#wrapper.clientWidth / 2;
-        setElementPos(x, y, this.#wrapper);
+        x -= this.shadowRoot.querySelector('#wrapper').clientWidth / 2;
+        setElementPos(x, y, this.shadowRoot.querySelector('#wrapper'));
     }
 
     Close() {
@@ -185,10 +183,11 @@ export class Modal extends HTMLElement {
     }
 
     #onDragDown(event) {
-        let stuff = this.#wrapper.style.transform.match(/\((\d+)px, (\d+)px/);
+        let stuff = this.shadowRoot.querySelector('#wrapper').style.transform
+            .match(/\((-?\d+)px, (-?\d+)px/);
         let x = stuff[1];
         let y = stuff[2];
-        dragging = this.#wrapper;
+        dragging = this.shadowRoot.querySelector('#wrapper');
         dragX = event.clientX - x;
         dragY = event.clientY - y;
         window.addEventListener('mousemove', onDragMove, true);
