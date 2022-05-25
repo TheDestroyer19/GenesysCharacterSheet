@@ -8,7 +8,7 @@ mod genesys;
 
 use genesys::Character;
 use tauri::api::dialog;
-use tauri::{CustomMenuItem, Manager, Menu, Submenu, Window, WindowMenuEvent};
+use tauri::{CustomMenuItem, Manager, Menu, Submenu, Window, WindowMenuEvent, GlobalWindowEvent, MenuItem};
 
 use crate::character_state::CharacterState;
 
@@ -211,6 +211,7 @@ fn on_menu_event(event: WindowMenuEvent) {
         "save-as" => save_as(window),
         "print" => print_character(window),
         "symbols" => toggle_symbols(window),
+        "quit" => quit(&window),
         a => println!("Unhandled menu event '{}'", a),
     }
 }
@@ -226,20 +227,50 @@ fn build_menu() -> Menu {
     let save = CustomMenuItem::new("save", "Save").accelerator("CommandOrControl+S");
     let save_as = CustomMenuItem::new("save-as", "Save As...").accelerator("CommandOrControl+Shift+S");
     let print = CustomMenuItem::new("print", "Print").accelerator("CommandOrControl+P");
+    let quit = CustomMenuItem::new("quit", "Quit").accelerator("CommandOrControl+Q");
     let file = Submenu::new(
         "File",
         Menu::new()
             .add_item(new)
             .add_item(open)
+            .add_native_item(MenuItem::Separator)
             .add_item(save)
             .add_item(save_as)
-            .add_item(print),
+            .add_native_item(MenuItem::Separator)
+            .add_item(print)
+            .add_native_item(MenuItem::Separator)
+            .add_item(quit)
     );
     let view = Submenu::new(
         "View",
         Menu::new().add_item(CustomMenuItem::new("symbols", "Symbols Reference")),
     );
     Menu::new().add_submenu(file).add_submenu(view)
+}
+
+fn quit(window: &Window) {
+    if window.state::<CharacterState>().dirty() {
+        let window_clone = window.clone();
+        dialog::ask(Some(window), "You have unsaved changes", "Do you still want to quit?", move |yes| {
+            if yes {
+                window_clone.app_handle().exit(0);
+            }
+        })
+    } else {
+        window.app_handle().exit(0);
+    }
+}
+
+fn on_window_event(event: GlobalWindowEvent) {
+    let window = event.window();
+    let event = event.event();
+    match event {
+        tauri::WindowEvent::CloseRequested { api, .. } => {
+            api.prevent_close();
+            quit(window);
+        },
+        _ => (),
+    }
 }
 
 fn main() {
@@ -252,6 +283,7 @@ fn main() {
         .menu(menu)
         .manage(CharacterState::new())
         .on_menu_event(on_menu_event)
+        .on_window_event(on_window_event)
         // This is where you pass in your commands
         .invoke_handler(tauri::generate_handler![on_character_edited, get_character])
         .setup(|app| {
