@@ -66,8 +66,14 @@ pub struct Characteristics {
 pub struct Mechanic {
     pub mechanic_type: String,
     pub description: String,
-    pub magnitude: String,
+    pub magnitude: String, // TODO FIX ME SHOULD BE i32
 }
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Favor {
+    pub text: String,
+}
+
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Item {
@@ -94,10 +100,20 @@ pub struct Skill {
     pub rank: i32,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[serde(default)]
 pub struct Note {
-    pub title: String, //TODO FIX ME should be note_title
+    pub note_title: String,
+    pub subtitle: String,
     pub body: String,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Ability {
+    pub name: String,
+    pub description: String,
+    pub rank: i32,
+    pub source: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -124,21 +140,7 @@ pub enum Range {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Ability {
-    pub name: String,
-    pub description: String,
-    pub rank: i32,
-    pub source: String,
-}
-
-#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct CriticalInjury {
     pub severity: i32,
     pub result: String,
-}
-
-//TODO unify Favor with mechanic
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Favor {
-    pub text: String,
 }
