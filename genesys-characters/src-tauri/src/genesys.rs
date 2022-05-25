@@ -104,6 +104,7 @@ pub struct Skill {
 #[serde(default)]
 pub struct Note {
     pub note_title: String,
+    pub note_title: String,
     pub subtitle: String,
     pub body: String,
 }
