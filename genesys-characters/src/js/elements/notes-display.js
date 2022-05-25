@@ -23,7 +23,7 @@ h1 {
 <div>
     <div>
         <button id="edit" class="edit" title="Edit">🖉</button>
-        <h1 id="title">Title</h1>
+        <h1 id="note_title">Title</h1>
     </div>
     <div id="body">
         Body
@@ -54,7 +54,7 @@ export class NotesDisplay extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['title', 'body'];
+        return ['note_title', 'body'];
     }
 
     static get tag() {
@@ -64,14 +64,14 @@ export class NotesDisplay extends HTMLElement {
     connectedCallback() {
         if (!this.isConnected) return;
 
-        ConvertSymbols(this.#state.title, this.shadowRoot.querySelector('#title'));
+        ConvertSymbols(this.#state.note_title, this.shadowRoot.querySelector('#note_title'));
         ConvertSymbols(this.#state.body, this.shadowRoot.querySelector('#body'));
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         this.#state[name] = newValue;
         switch (name) {
-            case 'title': ConvertSymbols(newValue, this.shadowRoot.querySelector('#title')); break;
+            case 'note_title': ConvertSymbols(newValue, this.shadowRoot.querySelector('#note_title')); break;
             case 'body': ConvertSymbols(newValue, this.shadowRoot.querySelector('#body')); break;
         }
     }
