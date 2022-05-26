@@ -48,6 +48,7 @@ export class NotesDisplay extends GenericListItem {
 }
 customElements.define(NotesDisplay.tag, NotesDisplay);
 
+//TODO replace uses of NotesTemplate with just inserting a new notes-display
 const NotesTemplate = document.createElement('template');
 NotesTemplate.id = 'notes-template';
 NotesTemplate.innerHTML = /* HTML */ `

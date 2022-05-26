@@ -105,16 +105,15 @@ textarea {
 
 /* Favor styles*/
 #favors {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, auto);
+}
+#favors > h2 {
+    grid-row: 1;
 }
 #favors > div {
-    flex-grow: 1;
-    align-items: flex-start;
-}
-.favor > * {
-    display: flex;
-    justify-content: space-between;
+    grid-row: 2;
 }
 
 /* Weapon styles*/

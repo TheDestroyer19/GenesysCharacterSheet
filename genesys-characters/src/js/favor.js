@@ -1,16 +1,39 @@
-import {Favor} from './genesys.js';
-import { ConvertSymbols } from './util/prettyText.js';
-import { CHARACTER_LOADED, SendCharacterUpdated } from './common.js';
-import { ListEditor } from './util/listEditor.js';
+import {Favor} from './genesys';
+import { ConvertSymbols } from './util/prettyText';
+import { CHARACTER_LOADED, SendCharacterUpdated } from './common';
+import { NewSimpleListEditor } from './util/listEditor';
+import { GenericListItem } from './elements/generic-list-item';
 
-const FavorTemplate = document.createElement('template');
-FavorTemplate.id = "favor-template";
-FavorTemplate.innerHTML = /* HTML*/ `
-<li class="favor"><div>
-    <span class="text"></span><div><button class="edit" title="Edit favor">🖉</button></div>
-</div></li>
-`;
-document.body.append(FavorTemplate);
+export class FavorDisplay extends GenericListItem {
+    #state;
+
+    constructor() {
+        super();
+        this.#state = {};
+    }
+
+    static get observedAttributes() {
+        return ['text'];
+    }
+
+    static get tag() {
+        return 'favor-display';
+    }
+
+    connectedCallback() {
+        if (!this.isConnected) return;
+
+        this.updateName(element => ConvertSymbols(this.#state.text, element));
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.#state[name] = newValue;
+        switch (name) {
+            case 'text': this.updateName(element => ConvertSymbols(this.#state.text, element)); break;
+        }
+    }
+}
+customElements.define(FavorDisplay.tag, FavorDisplay);
 
 const GivenFavorModalTemplate = document.createElement('template');
 GivenFavorModalTemplate.id = "favor-modal-template";
@@ -32,49 +55,29 @@ OwedFavorModalTemplate.innerHTML = /* HTML */ `
 `;
 document.body.append(OwedFavorModalTemplate);
 
-function BuildCreateDisplay(listEditor, modalTemplate) {
-    return (favor) => {
-        let element = FavorTemplate.content.firstElementChild.cloneNode(true);
-        ConvertSymbols(favor.text, element.querySelector(".text"));
-        element.querySelector(".edit").addEventListener('click', event => {
-            //create modal
-            let modal = modalTemplate.content.firstElementChild.cloneNode(true);
-            document.body.append(modal);
-            modal.addEventListener('delete', () => listEditor.remove(favor));
-            //fill in details
-            let textarea = modal.querySelector('textarea');
-            textarea.value = favor.text;
-            //hookup listener to input to update favor
-            textarea.addEventListener('change', event => {
-                favor.text = textarea.value;
-                ConvertSymbols(favor.text, element.querySelector(".text"));
-                SendCharacterUpdated();
-            });
-    
-            //display the modal
-            modal.Open(event.clientX, event.clientY);
-        })
-        return element;
-    };
-}
+const GivenFavorEditor = NewSimpleListEditor(
+    document.getElementById('favors-given'),
+    FavorDisplay,
+    GivenFavorModalTemplate
+);
 
-const GivenFavorListEditor = new ListEditor(document.getElementById('favors-given'));
-GivenFavorListEditor.onChange = () => SendCharacterUpdated();
-GivenFavorListEditor.createDisplay = BuildCreateDisplay(GivenFavorListEditor, GivenFavorModalTemplate);
+const OwedFavorEditor = NewSimpleListEditor(
+    document.getElementById('favors-owed'),
+    FavorDisplay,
+    OwedFavorModalTemplate
+);
 
-document.getElementById("give-favor").addEventListener('click', event => {
-    GivenFavorListEditor.add(new Favor("I helped someone out, they owe me now"));
+document.getElementById('give-favor').addEventListener('click', event => {
+    GivenFavorEditor.add(new Favor("I helped someone out, they owe me now")).onEdit(event);
 });
 
-const OwedFavorListEditor = new ListEditor(document.getElementById('favors-owed'));
-OwedFavorListEditor.onChange = () => SendCharacterUpdated();
-OwedFavorListEditor.createDisplay = BuildCreateDisplay(OwedFavorListEditor, OwedFavorModalTemplate);
-
-document.getElementById("owe-favor").addEventListener('click', event => {
-    OwedFavorListEditor.add(new Favor("Someone saved my bacon, now I owe them"));
+document.getElementById('owe-favor').addEventListener('click', event => {
+    OwedFavorEditor.add(new Favor("Someone saved my bacon, now I owe them")).onEdit(event);
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
-    GivenFavorListEditor.replaceArray(window.character.favors_given);
-    OwedFavorListEditor.replaceArray(window.character.favors_owed);
+    if (!window.character.favors_given) window.character.favors_given = [];
+    GivenFavorEditor.replaceArray(window.character.favors_given);
+    if (!window.character.favors_owed) window.character.favors_owed = [];
+    OwedFavorEditor.replaceArray(window.character.favors_owed);
 });
