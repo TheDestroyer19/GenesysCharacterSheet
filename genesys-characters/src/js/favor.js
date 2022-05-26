@@ -1,6 +1,6 @@
 import {Favor} from './genesys';
 import { ConvertSymbols } from './util/prettyText';
-import { CHARACTER_LOADED, SendCharacterUpdated } from './common';
+import { CHARACTER_LOADED } from './common';
 import { NewSimpleListEditor } from './util/listEditor';
 import { GenericListItem } from './elements/generic-list-item';
 
