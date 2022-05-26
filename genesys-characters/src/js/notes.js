@@ -25,9 +25,7 @@ export class NotesDisplay extends GenericListItem {
         this.updateName(element => ConvertSymbols(this.#state.note_title, element));
         this.updateBody(element => ConvertSymbols(this.#state.body, element));
         this.updateBadge(element => {
-            if (this.#state.subtitle.length > 0) {
-                element.appendChild(document.createTextNode(this.#state.subtitle));
-            }
+            if (this.#state.subtitle.length > 0) element.append(this.#state.subtitle);
         }); 
     }
 
@@ -37,9 +35,7 @@ export class NotesDisplay extends GenericListItem {
             case 'note_title': this.updateName(element => ConvertSymbols(this.#state.note_title, element)); break;
             case 'subtitle': 
                 this.updateBadge(element => {
-                    if (newValue.length > 0) {
-                        element.appendChild(document.createTextNode(this.#state.subtitle));
-                    }
+                    if (newValue.length > 0) element.append(this.#state.subtitle);
                 }); 
                 break;
             case 'body': this.updateBody(element => ConvertSymbols(this.#state.body, element)); break;
@@ -47,14 +43,6 @@ export class NotesDisplay extends GenericListItem {
     }
 }
 customElements.define(NotesDisplay.tag, NotesDisplay);
-
-//TODO replace uses of NotesTemplate with just inserting a new notes-display
-const NotesTemplate = document.createElement('template');
-NotesTemplate.id = 'notes-template';
-NotesTemplate.innerHTML = /* HTML */ `
-<notes-display></notes-display>
-`;
-document.body.append(NotesTemplate);
 
 const ModalTemplate = document.createElement('template');
 ModalTemplate.id = 'notes-modal-template';
