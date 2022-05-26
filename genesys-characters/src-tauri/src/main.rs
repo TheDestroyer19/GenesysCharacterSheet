@@ -8,7 +8,7 @@ mod genesys;
 
 use genesys::Character;
 use tauri::api::dialog;
-use tauri::{CustomMenuItem, Manager, Menu, Submenu, Window, WindowMenuEvent, GlobalWindowEvent, MenuItem};
+use tauri::{CustomMenuItem, Manager, Menu, Submenu, Window, WindowMenuEvent, GlobalWindowEvent, MenuItem, async_runtime};
 
 use crate::character_state::CharacterState;
 
@@ -26,6 +26,11 @@ fn on_character_edited(character: Character, state: tauri::State<CharacterState>
     window
         .set_title(&title)
         .unwrap();
+}
+
+#[tauri::command]
+fn get_character(state: tauri::State<CharacterState>) -> Character {
+    state.lock().character().clone()
 }
 
 fn save(window: Window) {
@@ -102,88 +107,58 @@ fn save_as(window: Window) {
         });
 }
 
-fn new_character(window: Window) {
-    let dirty = window.state::<CharacterState>().dirty();
-    let new_character = |window: Window| {
-        let state = window.state::<CharacterState>();
-        let mut state = state.lock();
-        state.new_character();
-        let character = state.character();
-        window
-            .set_title(&format!(
-                "{} - {}*",
-                WINDOW_TITLE_PREFIX, character.header.name
-            ))
-            .unwrap();
-        window
-            .app_handle()
-            .emit_all("character-updated", character.clone())
-            .unwrap();
-    };
+/// Async to deter calling from main thread
+async fn new_character(window: Window) {
+    let state = window.state::<CharacterState>();
 
-    if dirty {
-        dialog::ask(Some(&window.clone()),
-        "New Character", 
-        "The character has unsaved changes.\nDo you want to discard those changes and create a new character?", 
-        move |answer| if answer {
-            new_character(window);
-        });
-    } else {
-        new_character(window);
+    if state.dirty() {
+        let discard_changes = dialog::blocking::ask(
+            Some(&window),
+            "The character has unsaved changes",
+            "Do you want to discard those changes?");
+
+        if !discard_changes {
+            return;
+        }
     }
+
+    let mut state = state.lock();
+    state.new_character();
+
+    let character = state.character();
+    update_title(&window, &character);
+    emit_character_updated(&window, &character);
+    println!("New character created");
 }
 
-fn open_character(window: Window) {
-    let dirty = {
-        window
-            .state::<CharacterState>()
-            .dirty()
-    };
-    let load_character = |window: Window| {
-        dialog::FileDialogBuilder::new().pick_file(move |file| {
-            if file.is_none() {
-                return;
-            }
-            let path = file.unwrap();
+async fn open_character(window: Window) {
+    let state = window.state::<CharacterState>();
 
-            let state = window.state::<CharacterState>();
-            let mut state = state.lock();
-            match state.load(path) {
-                Ok(_) => {
-                    let character = state.character();
-                    window
-                        .set_title(&format!(
-                            "{} - {}",
-                            WINDOW_TITLE_PREFIX, character.header.name
-                        ))
-                        .unwrap();
-                    window
-                        .app_handle()
-                        .emit_all("character-updated", character.clone())
-                        .unwrap();
-                },
-                Err(e) => dialog::message(
-                    Some(&window),
-                    "Failed to open character",
-                    format!("{:#}", e),
-                ),
-            };
-        });
+    if state.dirty() {
+        let discard_changes = dialog::blocking::ask(
+            Some(&window),
+            "The character has unsaved changes",
+            "Do you want to discard those changes?");
+
+        if !discard_changes {
+            return;
+        }
+    }
+
+    let path = match dialog::blocking::FileDialogBuilder::new().pick_file() {
+        Some(path) => path,
+        None => return,
     };
 
-    if dirty {
-        dialog::ask(
-            Some(&window.clone()),
-            "New Character",
-            "The character has unsaved changes.\nDo you want to discard those changes?",
-            move |answer| {
-                if answer {
-                    load_character(window);
-                }
-            },
-        );
-    } else {
-        load_character(window);
+    match state.load_async(path).await {
+        Ok(_) => {
+            let state = state.lock();
+            let character = state.character();
+            update_title(&window, character);
+            emit_character_updated(&window, character);
+            println!("Character loaded");
+        },
+        Err(e) => dialog::message(Some(&window), "Failed to open character", format!("{:#}", e)),
     }
 }
 
@@ -198,27 +173,40 @@ fn print_character(window: Window) {
     }
 }
 
-fn toggle_symbols(window: Window) {
+fn emit_character_updated(window: &Window, character: &Character) {
+    window
+        .app_handle()
+        .emit_all("character-updated", character.clone())
+        .unwrap();
+}
+
+fn emit_toggle_symbols(window: Window) {
     window.emit_all("toggle_symbols", ()).unwrap();
 }
 
-fn on_menu_event(event: WindowMenuEvent) {
-    let window = event.window().clone();
-    match event.menu_item_id() {
-        "new" => new_character(window),
-        "open" => open_character(window),
-        "save" => save(window),
-        "save-as" => save_as(window),
-        "print" => print_character(window),
-        "symbols" => toggle_symbols(window),
-        "quit" => quit(&window),
-        a => println!("Unhandled menu event '{}'", a),
-    }
+fn update_title(window: &Window, character: &Character) {
+    window
+        .set_title(&format!(
+            "{} - {}",
+            WINDOW_TITLE_PREFIX, character.header.name
+        ))
+        .unwrap();
 }
 
-#[tauri::command]
-fn get_character(state: tauri::State<CharacterState>) -> Character {
-    state.lock().character().clone()
+fn on_menu_event(event: WindowMenuEvent) {
+    async_runtime::spawn(async move {
+        let window = event.window().clone();
+        match event.menu_item_id() {
+            "new" => new_character(window).await,
+            "open" => open_character(window).await,
+            "save" => save(window),
+            "save-as" => save_as(window),
+            "print" => print_character(window),
+            "quit" => quit(&window),
+            "symbols" => emit_toggle_symbols(window),
+            a => println!("Unhandled menu event '{}'", a),
+        }
+    });
 }
 
 fn build_menu() -> Menu {
@@ -264,12 +252,9 @@ fn quit(window: &Window) {
 fn on_window_event(event: GlobalWindowEvent) {
     let window = event.window();
     let event = event.event();
-    match event {
-        tauri::WindowEvent::CloseRequested { api, .. } => {
-            api.prevent_close();
-            quit(window);
-        },
-        _ => (),
+    if let tauri::WindowEvent::CloseRequested { api, .. } = event {
+        api.prevent_close();
+        quit(window);
     }
 }
 
