@@ -10,6 +10,9 @@ export class FavorDisplay extends GenericListItem {
     constructor() {
         super();
         this.#state = {};
+        var style = document.createElement('style');
+        style.append(':host, h1 { font-size: small; }');
+        this.shadowRoot.append(style);
     }
 
     static get observedAttributes() {
@@ -40,7 +43,7 @@ GivenFavorModalTemplate.id = "favor-modal-template";
 GivenFavorModalTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Given Favor</h1>
-    <textarea></textarea>
+    <textarea id="text"></textarea>
 </td19-modal>
 `;
 document.body.append(GivenFavorModalTemplate);
@@ -50,7 +53,7 @@ OwedFavorModalTemplate.id = "favor-modal-template";
 OwedFavorModalTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Owed Favor</h1>
-    <textarea></textarea>
+    <textarea id="text"></textarea>
 </td19-modal>
 `;
 document.body.append(OwedFavorModalTemplate);

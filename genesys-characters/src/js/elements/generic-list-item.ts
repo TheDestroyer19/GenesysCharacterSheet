@@ -19,15 +19,12 @@ h1 {
     font-size: small;
 }
 #top-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.25em;
+
 }
 #badge {
     display: inline-block;
-    height: 1.15em;
-    min-width: 1.15em;
+    box-sizing: border-box;
+    min-width: 1em;
 
     color: white;
     text-align: center;
