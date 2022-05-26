@@ -1,6 +1,6 @@
-import { SendCharacterUpdated } from '../common.js';
-import { RemoveAllChildNodes } from './utils.js';
-import { attachResize } from "./growabletextarea.js";
+import { SendCharacterUpdated } from '../common';
+import { RemoveAllChildNodes } from './utils';
+import { attachResize } from "./growabletextarea";
 
 /**
  * @typedef {function} ModalOpenCallback

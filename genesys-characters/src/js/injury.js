@@ -1,11 +1,11 @@
-import {CHARACTER_LOADED, SendCharacterUpdated} from './common.js';
-import { CriticalInjury } from './genesys.js';
-import { NewSimpleListEditor } from './util/listEditor.js';
-import { ConvertSymbols } from './util/prettyText.js';
-import { } from "./elements/list-controls.js";
-import { } from "./elements/dice-symbols.js";
-import { attachResize } from './util/growabletextarea.js';
-import { RemoveAllChildNodes } from './util/utils.js';
+import {CHARACTER_LOADED, SendCharacterUpdated} from './common';
+import { CriticalInjury } from './genesys';
+import { NewSimpleListEditor } from './util/listEditor';
+import { ConvertSymbols } from './util/prettyText';
+import { } from "./elements/list-controls";
+import { } from "./elements/dice-symbols";
+import { attachResize } from './util/growabletextarea';
+import { RemoveAllChildNodes } from './util/utils';
 
 export class InjuryDisplay extends HTMLElement {
     #state;

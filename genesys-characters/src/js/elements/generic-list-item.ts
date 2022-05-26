@@ -1,4 +1,4 @@
-import { RemoveAllChildNodes } from "../util/utils.js";
+import { RemoveAllChildNodes } from "../util/utils";
 
 const html = /* HTML */ `
 

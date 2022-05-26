@@ -2,7 +2,7 @@ import { DoOnUpdate } from "../common.js";
 import { Characteristic } from "../genesys.js";
 import { } from "../elements/list-controls.js";
 import { } from "../elements/dice-symbols.js";
-import { RemoveAllChildNodes } from "../util/utils.js";
+import { RemoveAllChildNodes } from "../util/utils";
 
 const STYLE_TEXT = /*css*/`
 @import '/src/css/shared.css';

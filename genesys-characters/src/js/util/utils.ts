@@ -6,7 +6,7 @@
  * Removes all children of the given element
  * @param {HTMLElement} parent 
  */
- export function RemoveAllChildNodes(parent) {
+ export function RemoveAllChildNodes(parent: Element) {
     while(parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }

@@ -1,4 +1,4 @@
-import { RemoveAllChildNodes } from "./utils.js";
+import { RemoveAllChildNodes } from "./utils";
 
 const CODE_REGEX = /(\[{2}[^\[\]]*\]{2}|\n|\(http\S+\))/;
 

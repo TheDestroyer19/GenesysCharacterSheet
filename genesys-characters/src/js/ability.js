@@ -1,9 +1,9 @@
-import { CHARACTER_LOADED } from "./common.js";
-import { Ability } from './genesys.js';
-import { NewSimpleListEditor } from "./util/listEditor.js";
-import { ConvertSymbols } from "./util/prettyText.js";
-import { } from "./elements/list-controls.js";
-import { RemoveAllChildNodes } from "./util/utils.js";
+import { CHARACTER_LOADED } from "./common";
+import { Ability } from './genesys';
+import { NewSimpleListEditor } from "./util/listEditor";
+import { ConvertSymbols } from "./util/prettyText";
+import { } from "./elements/list-controls";
+import { RemoveAllChildNodes } from "./util/utils";
 
 export class AbilityDisplay extends HTMLElement {
     #state;
