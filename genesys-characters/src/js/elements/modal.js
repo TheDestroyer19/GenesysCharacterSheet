@@ -14,9 +14,6 @@ modalTemplate.innerHTML = /* HTML */`
     width: 4in;
     max-width: 100%;
     background-color: white;
-    /*display: grid;
-    column-gap: 0.25rem;
-    row-gap: 0.25rem;*/
 
     border: 0.2rem solid var(--cp-30);
     border-radius: 0.75rem;
@@ -27,10 +24,17 @@ modalTemplate.innerHTML = /* HTML */`
 }
 #titlebar {
     /* neg margin and rem stuff is to grow target area to edges of modal */
-    width: calc(4in + 1rem);
+    width: auto;
     padding: 0.5rem;
     margin: -0.5rem;
     margin-bottom: 0;
+    cursor: move;
+}
+#footer {
+    width: auto;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    margin-top: 0;
     cursor: move;
 }
 .horizontal-row {
@@ -41,14 +45,16 @@ modalTemplate.innerHTML = /* HTML */`
 </style>
 <div id="root">
     <div id="wrapper">
-        <div id="titlebar"><slot name="title"></slot></div>
+        <div id="titlebar"><slot id="titlebar" name="title"></slot></div>
         <slot>Default text</slot>
-        <slot name="footer">
-            <div class="horizontal-row">
-                <button class="modal-delete">Delete</button>
-                <button class="modal-close">Close</button>
-            </div>
-        </slot>
+        <div id="footer">
+            <slot name="footer">
+                <div class="horizontal-row">
+                    <button class="modal-delete">Delete</button>
+                    <button class="modal-close">Close</button>
+                </div>
+            </slot>
+        </div>
     </div>
 </div>
 `;
@@ -65,8 +71,6 @@ function setElementPos(x, y, target) {
 }
 
 export class Modal extends HTMLElement {
-    #root;
-    #title;
     #onClose;
     #onSave;
     #onDelete
@@ -80,12 +84,11 @@ export class Modal extends HTMLElement {
         this.attachShadow({mode: 'open'})
             .appendChild(templateContent.cloneNode(true));
 
-        this.#root = this.shadowRoot.querySelector('#root');
-        this.#title = this.shadowRoot.querySelector('#titlebar');
         this.#onClose = () => this.Close();
         this.#onSave = () => this.#Save();
         this.#onDelete = () => this.#Delete();
-        this.#title.addEventListener('mousedown', e => this.#onDragDown(e), false);
+        this.shadowRoot.querySelector('#titlebar').addEventListener('mousedown', e => this.#onDragDown(e), false);
+        this.shadowRoot.querySelector("#footer").addEventListener('mousedown', e => this.#onDragDown(e), false);
 
         this.shadowRoot.querySelectorAll('slot').forEach(slot => {
             slot.addEventListener('slotchange', event => {
