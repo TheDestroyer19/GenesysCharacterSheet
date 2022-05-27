@@ -184,6 +184,15 @@ fn emit_toggle_symbols(window: Window) {
     window.emit_all("toggle_symbols", ()).unwrap();
 }
 
+fn emit_goto(window: Window, target: &str) {
+    let target = if target.starts_with("goto-") {
+        &target[5..]
+    } else {
+        target
+    };
+    window.emit_all("goto", target).unwrap();
+}
+
 fn update_title(window: &Window, character: &Character) {
     window
         .set_title(&format!(
@@ -204,7 +213,11 @@ fn on_menu_event(event: WindowMenuEvent) {
             "print" => print_character(window),
             "quit" => quit(&window),
             "symbols" => emit_toggle_symbols(window),
-            a => println!("Unhandled menu event '{}'", a),
+            a => if a.starts_with("goto-") {
+                emit_goto(window, a);
+            } else {
+                println!("Unhandled menu event '{}'", a);
+            },
         }
     });
 }
@@ -231,9 +244,22 @@ fn build_menu() -> Menu {
     );
     let view = Submenu::new(
         "View",
-        Menu::new().add_item(CustomMenuItem::new("symbols", "Symbols Reference")),
+        Menu::new().add_item(CustomMenuItem::new("symbols", "Symbols Reference"))
     );
-    Menu::new().add_submenu(file).add_submenu(view)
+    let go = Submenu::new(
+        "Go",
+        Menu::new()
+            .add_item(CustomMenuItem::new("goto-page1header", "Go to Characteristics"))
+            .add_item(CustomMenuItem::new("goto-skills", "Go to Skills"))
+            .add_item(CustomMenuItem::new("goto-critical-injuries", "Go to Injuries"))
+            .add_item(CustomMenuItem::new("goto-weapons", "Go to Weapons"))
+            .add_item(CustomMenuItem::new("goto-inventory", "Go to Equipment"))
+            .add_item(CustomMenuItem::new("goto-abilities", "Go to Abilities"))
+            .add_item(CustomMenuItem::new("goto-page3", "Go to Mechanics"))
+            .add_item(CustomMenuItem::new("goto-character-description", "Go to Description"))
+            .add_item(CustomMenuItem::new("goto-notes", "Go to Notes"))
+    );
+    Menu::new().add_submenu(file).add_submenu(view).add_submenu(go)
 }
 
 fn quit(window: &Window) {

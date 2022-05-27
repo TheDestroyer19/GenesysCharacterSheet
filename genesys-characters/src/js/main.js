@@ -4,7 +4,12 @@ import { listen } from '@tauri-apps/api/event';
 
 await listen('toggle_symbols', event => {
     document.getElementById('symbols').Toggle(10, 10);
-})
+});
+
+await listen('goto', event => {
+    let target = document.getElementById(event.payload);
+    target.scrollIntoView({behavior: 'smooth'});
+});
 
 document.addEventListener(CHARACTER_UPDATED, () => {
     invoke('on_character_edited', { character, });
