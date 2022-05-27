@@ -103,21 +103,14 @@
     gap: 0.5rem;
 }
 .stat {
-    flex-grow: 1;
-    display: grid;
-    justify-items: center;
-    width: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .stat input {
-    grid-row: 2;
     max-width: 4rem;
 }
-.stat label {
-    grid-row: 1;
-}
 .condition {
-    flex-grow: 1;
-    width: 4rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 0.25rem;

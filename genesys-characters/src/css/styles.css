@@ -9,6 +9,16 @@ textarea {
     }   
 }
 
+.even-columns {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 0.5rem;
+}
+.even-columns>:last-child {
+    text-align: end;
+}
+
 .horizontal-row {
     display: flex;
     flex-direction: row;
