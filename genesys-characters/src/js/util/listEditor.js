@@ -1,6 +1,7 @@
 import { SendCharacterUpdated } from '../common';
 import { RemoveAllChildNodes } from './utils';
 import { attachResize } from "./growabletextarea";
+import { } from "../elements/dice-symbols";
 
 /**
  * @typedef {function} ModalOpenCallback

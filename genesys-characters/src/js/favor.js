@@ -10,9 +10,6 @@ export class FavorDisplay extends GenericListItem {
     constructor() {
         super();
         this.#state = {};
-        var style = document.createElement('style');
-        style.append(':host, h1 { font-size: small; }');
-        this.shadowRoot.append(style);
     }
 
     static get observedAttributes() {
@@ -26,13 +23,13 @@ export class FavorDisplay extends GenericListItem {
     connectedCallback() {
         if (!this.isConnected) return;
 
-        this.updateName(element => ConvertSymbols(this.#state.text, element));
+        this.updateSuffix(element => ConvertSymbols(this.#state.text, element));
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         this.#state[name] = newValue;
         switch (name) {
-            case 'text': this.updateName(element => ConvertSymbols(this.#state.text, element)); break;
+            case 'text': this.updateSuffix(element => ConvertSymbols(this.#state.text, element)); break;
         }
     }
 }

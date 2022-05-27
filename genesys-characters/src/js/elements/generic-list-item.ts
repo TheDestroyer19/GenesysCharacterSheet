@@ -1,4 +1,5 @@
 import { RemoveAllChildNodes } from "../util/utils";
+import { } from "./list-controls";
 
 const html = /* HTML */ `
 
@@ -15,11 +16,8 @@ const html = /* HTML */ `
 h1 {
     display: inline;
 }
-#body, #prefix, #suffix, #badge {
+#body, #badge {
     font-size: small;
-}
-#top-row {
-
 }
 #badge {
     display: inline-block;

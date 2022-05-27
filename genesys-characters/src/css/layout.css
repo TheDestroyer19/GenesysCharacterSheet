@@ -225,6 +225,7 @@
 /* Modals that need layout                                                   */
 /* ************************************************************************* */
 .modal-edit-weapon label,
-.modal-edit-skill label {
+.modal-edit-skill label,
+.modal-edit-injury label {
     text-align: end;
 }

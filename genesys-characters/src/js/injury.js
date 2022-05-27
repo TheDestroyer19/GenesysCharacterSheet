@@ -2,45 +2,15 @@ import {CHARACTER_LOADED, SendCharacterUpdated} from './common';
 import { CriticalInjury } from './genesys';
 import { NewSimpleListEditor } from './util/listEditor';
 import { ConvertSymbols } from './util/prettyText';
-import { } from "./elements/list-controls";
-import { } from "./elements/dice-symbols";
 import { attachResize } from './util/growabletextarea';
-import { RemoveAllChildNodes } from './util/utils';
+import { GenericListItem } from './elements/generic-list-item';
 
-export class InjuryDisplay extends HTMLElement {
+export class InjuryDisplay extends GenericListItem {
     #state;
 
     constructor() {
         super();
-
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.innerHTML = /* HTML */ `
-        <style>
-        @import '/src/css/shared.css';
-        
-        :host {
-            display: flex;
-            flex-direction: row;
-            gap: 0.25em;
-            margin-top: 0.25em;
-            margin-bottom: 0.25em;
-        }
-        </style>
-        <list-controls></list-controls>
-        <button id="edit" class="edit" title="Edit">🖉</button>
-        <span id="severity"></span>
-        <span id="result"></span>
-        `;
-
-        this.shadowRoot.getElementById('edit').addEventListener('click', event => {
-            event.preventDefault();
-            event.target.blur();
-            this.#edit(event);
-        });
-        
         this.#state = {};
-        this.onEdit = event => console.warn("Injury-Display needs onEdit set");
-
     }
 
     static get observedAttributes() {
@@ -55,27 +25,23 @@ export class InjuryDisplay extends HTMLElement {
         if (!this.isConnected) return;
 
         this.#updateSeverity(this.#state.severity);
-        ConvertSymbols(this.#state.result, this.shadowRoot.querySelector('#result'));
+        this.updateSuffix(element => ConvertSymbols(this.#state.result, element));
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         this.#state[name] = newValue;
         switch (name) {
             case 'severity': this.#updateSeverity(newValue); break;
-            case 'result': ConvertSymbols(newValue, this.shadowRoot.querySelector('#result')); break;
+            case 'result': this.updateSuffix(element => ConvertSymbols(this.#state.result, element)); break;
         }
-    }
-
-    #edit(event) {
-        this.onEdit(event);
     }
 
     #updateSeverity(newValue) {
-        let severity = this.shadowRoot.querySelector('#severity');
-        RemoveAllChildNodes(severity);
-        for (let i = 0; i < newValue; i++) {
-            severity.appendChild(document.createElement('die-difficulty'));
-        }
+        this.updatePrefix(element => {
+            for (let i = 0; i < newValue; i++) {
+                element.appendChild(document.createElement('die-difficulty'));
+            }
+        });
     }
 }
 customElements.define(InjuryDisplay.tag, InjuryDisplay);
@@ -83,17 +49,19 @@ customElements.define(InjuryDisplay.tag, InjuryDisplay);
 const ModalTemplate = document.createElement('template');
 ModalTemplate.id = 'item-modal-template';
 ModalTemplate.innerHTML = /* HTML */ `
-<td19-modal discard-on-close>
+<td19-modal class="modal-edit-injury" discard-on-close>
     <h1 slot="title">Critical Injury</h1>
-    <fieldset>
-        <legend>Severity</legend>
-        <input type="checkbox" class="severity">
-        <input type="checkbox" class="severity">
-        <input type="checkbox" class="severity">
-        <input type="checkbox" class="severity">
-    </fieldset>
-    <label for="edit-injury-result">Result</label>
-    <textarea id="edit-injury-result"></textarea>
+    <div class="two-column-grid">
+        <label>Severity</label>
+        <div>
+            <input type="checkbox" class="severity" />
+            <input type="checkbox" class="severity" />
+            <input type="checkbox" class="severity" />
+            <input type="checkbox" class="severity" />
+        </div>
+        <label for="edit-injury-result">Result</label>
+        <textarea id="edit-injury-result"></textarea>
+    </div>
 </td19-modal>
 `;
 document.body.append(ModalTemplate);
