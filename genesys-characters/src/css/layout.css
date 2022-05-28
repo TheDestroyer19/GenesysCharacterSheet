@@ -139,23 +139,6 @@
     grid-column: span 2;
 }
 
-/* Page 2 - equipment layout *********************************************** */
-#inventory table {
-    width: 100%;
-}
-#inventory .name,
-#inventory .description {
-    text-align: start;
-}
-#inventory .quantity {
-    width: 2rem;
-    text-align: center;
-}
-#inventory tr > :last-child {
-    width: 1rem;
-    text-align: end;
-}
-
 /* Page 2 - character description layout *********************************** */
 #character-description {
     display: grid;
@@ -206,19 +189,10 @@
 }
 
 /* Page 3 ****************************************************************** */
-/*#page3 {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: 1fr;
-    column-gap: 0.5rem;
-    row-gap: 0.5rem;
-}*/
 
 /* ************************************************************************* */
 /* Modals that need layout                                                   */
 /* ************************************************************************* */
-.modal-edit-weapon label,
-.modal-edit-skill label,
-.modal-edit-injury label {
+td19-modal>.two-column-grid>label {
     text-align: end;
 }

@@ -49,10 +49,12 @@ ModalTemplate.id = 'notes-modal-template';
 ModalTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Note</h1>
-    <label>Title <input id="note_title"></label>
-    <label>Subtitle <input id="subtitle"></label>
-    <label for="body">Body</label>
-    <textarea id="body" class="growable"></textarea>
+    <div class="two-column-grid">
+        <label for="note-title">Title </label><input id="note_title" type="text">
+        <label for="subtitle">Subtitle </label><input id="subtitle" type="text">
+        <label for="body">Body</label>
+        <textarea id="body" class="growable"></textarea>
+    </div>
 </td19-modal>
 `;
 document.body.append(ModalTemplate);

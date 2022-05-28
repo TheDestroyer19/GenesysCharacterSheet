@@ -98,12 +98,14 @@ ModalTemplate.id = 'item-modal-template';
 ModalTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Item</h1>
-    <label for="name">Name:</label>
-    <input type="text" id="name" />
-    <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" />
-    <label for="description">Description:</label>
-    <textarea class="growable" id="description"></textarea>
+    <div class="two-column-grid">
+        <label for="name">Name</label>
+        <input type="text" id="name" />
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" />
+        <label for="description">Description</label>
+        <textarea class="growable" id="description"></textarea>
+    </div>
 </td19-modal>
 `;
 document.body.append(ModalTemplate);

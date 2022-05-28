@@ -108,12 +108,14 @@ ModalTemplate.id = 'obligation-modal-template';
 ModalTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Obligation</h1>
-    <label for="mechanic_type">Type:</label>
-    <input type="text" id="mechanic_type" />
-    <label for="magnitude">Magnitude:</label>
-    <input type="number" id="magnitude" />
-    <label for="description">Description:</label>
-    <textarea class="growable" id="description"></textarea>
+    <div class="two-column-grid">
+        <label for="mechanic_type">Type</label>
+        <input type="text" id="mechanic_type" />
+        <label for="magnitude">Magnitude</label>
+        <input type="number" id="magnitude" />
+        <label for="description">Description</label>
+        <textarea class="growable" id="description"></textarea>
+    </div>
 </td19-modal>
 `;
 document.body.append(ModalTemplate);
@@ -123,10 +125,12 @@ MotivationTemplate.id = 'motivation-modal-template';
 MotivationTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Motivation</h1>
-    <label for="mechanic_type">Type:</label>
-    <input type="text" id="mechanic_type" />
-    <label for="description">Description:</label>
-    <textarea class="growable" id="description"></textarea>
+    <div class="two-column-grid">
+        <label for="mechanic_type">Type</label>
+        <input type="text" id="mechanic_type" />
+        <label for="description">Description</label>
+        <textarea class="growable" id="description"></textarea>
+    </div>
 </td19-modal>
 `;
 document.body.append(MotivationTemplate);

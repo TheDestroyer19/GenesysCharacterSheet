@@ -121,11 +121,12 @@ ModalTemplate.id = 'ability-modal-template';
 ModalTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Ability</h1>
-    <label>Name <input id="name" type="text"></label>
-    <label>Rank <input id="rank" type="number" min=0></label>
-    <label>Source <input id="source" type="text"></label>
-    <label for="description">Description</label>
-    <textarea id="description" class="growable"></textarea>
+    <div class="two-column-grid">
+        <label for="name">Name</label><input id="name" type="text">
+        <label for="rank">Rank</label><input id="rank" type="number" min=0>
+        <label for="source">Source</label><input id="source" type="text">
+        <label for="description">Description</label><textarea id="description" class="growable"></textarea>
+    </div>
 </td19-modal>
 `;
 document.body.append(ModalTemplate);
