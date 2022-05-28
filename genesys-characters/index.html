@@ -102,16 +102,15 @@
 
         <div id="page2" class="sheet">
 
-            <section id="abilities">
-                <h2 class="horizontal-row">
+            <section id="abilities" class="block-with-title">
+                <h2>
                     <button id="new-ability" class="edit" title="Add Ability">＋</button>
                     Talents and Special Abilities
-                    <span><!-- for alignment --></span>
                 </h2>
                 <div id="ability-table"></div>
             </section>
 
-            <section id="critical-injuries">
+            <section id="critical-injuries" class="block-with-title">
                 <h2 class="horizontal-row">
                     <button id="new-injury" class="edit" title="Add Injury">＋</button>
                     Critical Injuries
@@ -120,7 +119,7 @@
                 <div id="injury-table"></div>
             </section>
 
-            <section id="motivations">
+            <section id="motivations" class="block-with-title">
                 <h2 class="horizontal-row">
                     <button id="new-motivation" class="edit" title="New Motivation">＋</button>
                     Motivations
@@ -130,11 +129,11 @@
                 </div>
             </section>
 
-            <section id="obligations">
+            <section id="obligations" class="block-with-title">
                 <h2 class="horizontal-row">
                     <button id="new-obligation" class="edit" title="Add Ability">＋</button>
-                    Obligations
-                    <label>Total <input id="obligation-total" type="number" /></label>
+                    Obligation
+                    <span id="obligation-total"></span>
                 </h2>
                 <div id="obligation-table"></div>
             </section>

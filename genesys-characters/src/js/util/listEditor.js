@@ -31,11 +31,12 @@ import { } from "../elements/dice-symbols";
  * @param {Element} tableElement 
  * @param {any} displayClass 
  * @param {HTMLTemplateElement} modalTemplate 
+ * @param {string} modPath the modpath for SendCharacterUpdated. Optional
  * @returns 
  */
-export function NewSimpleListEditor(tableElement, displayClass, modalTemplate) {
+export function NewSimpleListEditor(tableElement, displayClass, modalTemplate, modPath) {
     let listEditor = new ListEditor(tableElement);
-    listEditor.onChange = () => SendCharacterUpdated();
+    listEditor.onChange = () => SendCharacterUpdated(modPath);
     listEditor.createDisplay = (ability) => {
         let element = document.createElement(displayClass.tag);
 
@@ -73,7 +74,7 @@ export function NewSimpleListEditor(tableElement, displayClass, modalTemplate) {
                         value = inputField.value;
                     ability[field] = value;
                     element.setAttribute(field, value);
-                    SendCharacterUpdated();
+                    SendCharacterUpdated(modPath);
                 });
             });
             //hookup listeners

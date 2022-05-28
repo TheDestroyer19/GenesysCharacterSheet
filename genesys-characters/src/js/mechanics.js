@@ -103,9 +103,9 @@ export class MechanicDisplay extends HTMLElement {
 }
 customElements.define(MechanicDisplay.tag, MechanicDisplay);
 
-const ModalTemplate = document.createElement('template');
-ModalTemplate.id = 'obligation-modal-template';
-ModalTemplate.innerHTML = /* HTML */ `
+const ObligationTemplate = document.createElement('template');
+ObligationTemplate.id = 'obligation-modal-template';
+ObligationTemplate.innerHTML = /* HTML */ `
 <td19-modal discard-on-close>
     <h1 slot="title">Obligation</h1>
     <div class="two-column-grid">
@@ -118,7 +118,7 @@ ModalTemplate.innerHTML = /* HTML */ `
     </div>
 </td19-modal>
 `;
-document.body.append(ModalTemplate);
+document.body.append(ObligationTemplate);
 
 const MotivationTemplate = document.createElement('template');
 MotivationTemplate.id = 'motivation-modal-template';
@@ -138,7 +138,8 @@ document.body.append(MotivationTemplate);
 const obligationEditor = NewSimpleListEditor(
     document.getElementById('obligation-table'),
     MechanicDisplay,
-    ModalTemplate,
+    ObligationTemplate,
+    "character.obligations",
 );
 
 const motivationEditor = NewSimpleListEditor(

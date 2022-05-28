@@ -1,4 +1,4 @@
-import { CHARACTER_LOADED, SendCharacterUpdated } from "./common.js";
+import { CHARACTER_LOADED, DoOnUpdate, SendCharacterUpdated } from "./common.js";
 import { SendRecalcSize } from "./util/growabletextarea.js";
 
 // ========================================================================= //
@@ -142,14 +142,17 @@ document.addEventListener(CHARACTER_LOADED, () => {
 // MISCELANIOUS ============================================================ //
 // ========================================================================= //
 
-document.getElementById("obligation-total").addEventListener('change', event => {
-    window.character.obligation_total = parseInt(event.target.value);
-    SendCharacterUpdated();
-});
-
 document.addEventListener(CHARACTER_LOADED, () => {
     let obligation_total = window.character.obligation_total;
     if (obligation_total) {
-        document.getElementById('obligation-total').value = obligation_total;
+        document.getElementById('obligation-total').textContent = obligation_total;
     }
-})
+});
+
+DoOnUpdate('character.obligations', () => {
+    let total = 0;
+    window.character.obligations.forEach(element => total += element.magnitude);
+    document.getElementById('obligation-total').textContent = total;
+    window.character.obligation_total = total;
+    SendCharacterUpdated();
+});

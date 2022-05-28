@@ -18,9 +18,28 @@ textarea {
     width: 2rem;
 }
 
-#skills, #favors, #weapons, .modal, #page1header,
-#motivations, #inventory, #character-description,
-#notes, #critical-injuries, #abilities, #obligations {
+.block-with-title {
+    background: white;
+    border: 0.25rem solid var(--cp-50);
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    margin-top: 1.125rem;
+}
+.block-with-title>:first-child {
+    margin-top: -1.625rem;
+    height: 1.125rem;
+    margin-inline: -0.5rem;
+    padding-top: 0.25rem;
+    padding-inline: 0.5rem;
+    background: var(--cp-50);
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    width: fit-content;
+    text-align: start;
+}
+
+#skills, #favors, #weapons, .modal, #page1header, #inventory, #character-description,
+#notes {
     background: white;
     border: 0.25rem solid var(--cp-50);
     border-radius: 0.25rem;
@@ -149,12 +168,4 @@ textarea {
     .sheet:last-child {
         page-break-after: avoid;
     }
-}
-
-/* obligations styling*/
-#obligation-total {
-    width: 3.5em;
-}
-#obligations label {
-    font-size: small;
 }
