@@ -137,21 +137,14 @@
 
 /* Page 2 - character description layout *********************************** */
 #character-description {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: repeat(8, auto) 1fr;
-    column-gap: 0.25rem;
-    align-items: center;
+    padding-right: 0;
+    padding-bottom: 0;
 }
-#character-description h2 {
-    grid-column: span 2;
+#character-description .two-column-grid {
+    row-gap: 0;
 }
 #character-description textarea {
     height: 1.6em;
-    align-self: stretch;
-}
-#character-description #bio-features {
-    height: unset;
 }
 #character-description label {
     text-align: end;

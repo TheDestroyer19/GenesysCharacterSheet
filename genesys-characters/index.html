@@ -90,8 +90,8 @@
                 </div>
             </section>
 
-            <section id="weapons">
-                <h2 class="horizontal-row">
+            <section id="weapons" class="block-with-title">
+                <h2>
                     <button id="new-weapon" class="edit" title="New Weapon">＋</button>
                     Weapons
                     <span><!--for alignment--></span>
@@ -148,8 +148,8 @@
         </div>
 
         <div id="page3" class="sheet">
-            <section id="inventory">
-                <h2 class="horizontal-row">
+            <section id="inventory" class="block-with-title">
+                <h2>
                     <button id="new-item" class="edit" title="Add Item">＋</button>
                     Equipment Log
                     <span><!-- for alignment --></span>
@@ -157,28 +157,30 @@
                 <div id="item-table"></div>
             </section>
 
-            <section id="character-description">
+            <section id="character-description" class="block-with-title">
                 <h2>Character Description</h2>
-                <label for="bio-gender">Gender</label>
-                <input type="text" id="bio-gender" />
-                <label for="bio-age">Age</label>
-                <input type="text" id="bio-age" />
-                <label for="bio-height">Height</label>
-                <input type="text" id="bio-height" />
-                <label for="bio-build">Build</label>
-                <input type="text" id="bio-build" />
-                <label for="bio-hair">Hair</label>
-                <textarea id="bio-hair" class="growable"></textarea>
-                <label for="bio-eyes">Eyes</label>
-                <input type="text" id="bio-eyes" />
-                <label for="bio-features">Notable<br>Features</label>
-                <textarea id="bio-features" class="growable"></textarea>
+                <div class="two-column-grid">
+                    <label for="bio-gender">Gender</label>
+                    <input type="text" id="bio-gender" />
+                    <label for="bio-age">Age</label>
+                    <input type="text" id="bio-age" />
+                    <label for="bio-height">Height</label>
+                    <input type="text" id="bio-height" />
+                    <label for="bio-build">Build</label>
+                    <input type="text" id="bio-build" />
+                    <label for="bio-hair">Hair</label>
+                    <textarea id="bio-hair" class="growable"></textarea>
+                    <label for="bio-eyes">Eyes</label>
+                    <input type="text" id="bio-eyes" />
+                    <label for="bio-features">Notable<br>Features</label>
+                    <textarea id="bio-features" class="growable"></textarea>
+                </div>
             </section>
         </div>
         
         <div id="page4" class="sheet">
-            <section id="notes">
-                <h2 class="horizontal-row">
+            <section id="notes" class="block-with-title">
+                <h2>
                     <button id="new-note" class="edit" title="Add Note">＋</button>
                     Notes
                     <span><!-- for alignment --></span>

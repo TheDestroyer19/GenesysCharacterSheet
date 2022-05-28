@@ -23,11 +23,11 @@ textarea {
     border: 0.25rem solid var(--cp-50);
     border-radius: 0.25rem;
     padding: 0.25rem;
-    margin-top: 1.125rem;
+    margin-top: 1.15rem;
 }
 .block-with-title>:first-child {
-    margin-top: -1.625rem;
-    height: 1.125rem;
+    margin-top: -1.65rem;
+    height: 1.15rem;
     margin-inline: -0.5rem;
     padding-top: 0.25rem;
     padding-inline: 0.5rem;
@@ -38,8 +38,7 @@ textarea {
     text-align: start;
 }
 
-#skills, #favors, #weapons, .modal, #page1header, #inventory, #character-description,
-#notes {
+#skills, #favors, .modal, #page1header {
     background: white;
     border: 0.25rem solid var(--cp-50);
     border-radius: 0.25rem;
