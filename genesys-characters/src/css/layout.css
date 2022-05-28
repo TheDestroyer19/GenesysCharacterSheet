@@ -3,14 +3,9 @@
 /* ************************************************************************* */
 @media screen {
     #pages {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(6in, 1fr));
         gap: 0.5rem;
-        align-items: stretch;
-    }
-    #page1, #page2, #page3, #page4 {
-        flex-grow: 1;
     }
 }
 
@@ -99,30 +94,30 @@
     gap: 0.5rem;
 }
 
-#characteristics > * {
+#characteristics > div {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
     gap: 0.5rem;
 }
 .stat {
     display: flex;
     flex-direction: column;
+    justify-content: end;
     align-items: center;
-}
-.stat input {
-    max-width: 4rem;
 }
 .condition {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 0.25rem;
     align-items: baseline;
     justify-items: center;
+    justify-content: center;
 }
 .condition .caption {
     grid-column: span 2;
 }
 .condition input {
     grid-row: 2;
-    max-width: 4rem;
 }
 .condition label {
     grid-row: 3;
@@ -186,6 +181,18 @@
 }
 #abilities tr > :last-child {
     width: 1rem;
+}
+
+
+/* Mechanics layout */
+#obligation-table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+}
+
+#motivation-table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
 }
 
 /* Page 3 ****************************************************************** */

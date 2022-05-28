@@ -3,12 +3,6 @@ textarea {
     font-size: small;
 }
 
-@media screen { 
-    .sheet {
-        width: 7in;
-    }   
-}
-
 .even-columns {
     display: grid;
     grid-auto-flow: column;
@@ -34,17 +28,12 @@ textarea {
     width: 2rem;
 }
 
-.caption {
-    font-size: medium;
-}
-
 #skills, #favors, #weapons, .modal, #page1header,
-.condition, .stat,
 #motivations, #inventory, #character-description,
 #notes, #critical-injuries, #abilities, #obligations {
     background: white;
-    border: 0.2rem solid var(--cp-50);
-    border-radius: 0.75rem;
+    border: 0.25rem solid var(--cp-50);
+    border-radius: 0.25rem;
     padding: 0.25rem;
 }
 #page1header {
@@ -70,24 +59,51 @@ textarea {
 }
 
 /* Condition Styles */
-
+.condition .caption, #soak-lbl {
+    font-size: small;
+    font-weight: bold;
+}
 .condition input {
     font-size: 1.5rem;
+    max-width: 4rem;
+    height: 2rem;
+    font-weight: bold;
     text-align: center;
+}
+.condition input:first-of-type {
+    border-start-start-radius: 0.5rem;
+    border-end-start-radius: 0.5rem;
+    justify-self: end;
+}
+.condition input:last-of-type {
+    border-start-end-radius: 0.5rem;
+    border-end-end-radius: 0.5rem;
+    justify-self: start;
+}
+#soak {
+    justify-self: center;
 }
 .condition label, #soak-caption {
     font-size: x-small;
 }
 
 /* Characteristic Styles */
-
+.condition, .stat {
+    background: var(--cp-50);
+    border-radius: 1rem;
+    padding: 0.25rem;
+}
 .stat {
     text-align: center;
-    font-size: medium;
+    font-size: small;
+    font-weight: bold;
 }
 
 .stat input {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 1rem;
     text-align: center;
 }
 
@@ -151,14 +167,4 @@ textarea {
 }
 #obligations label {
     font-size: small;
-}
-#obligation-table {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
-}
-
-/* motivations styling*/
-#motivation-table {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
 }

@@ -18,10 +18,11 @@ body {
     --ca2-10: #a73600;
     --cg-90: #f5f5f5;
     --cg-70: #dddddd;
+    --cg-50: #888888;
 }
 @media screen {
     body {
-        background-color: var(--cg-70);
+        background-color: var(--cg-50);
     }
 }
 
