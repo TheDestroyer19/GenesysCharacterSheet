@@ -46,29 +46,33 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, auto) 1fr;
-    column-gap: 0.5em;
-    row-gap: 0.5em;
+    gap: 0.5em;
     grid-template-areas: 
         "hh hh hh hh"
         "cc cc cc cc"
         "ss ss ss ss"
-        "ww ww ww ci";
+        "ww ww ww ww";
 }
 #page2 {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(4, auto) 1fr;
     gap: 0.5rem;
+    grid-template-areas: 
+        "sa ci"
+        "sa mo"
+        "sa ob"
+        "sa ff";
 }
 #page3 {
     display: grid;
     column-gap: 0.5rem;
     row-gap: 0.5rem;
-    grid-template-columns: 2.5fr 1fr;
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-areas: 
-        "mo cd"
-        "ob cd"
-        "ff cd";
+        "eq cd"
+        "eq . ";
 }
 #page4 {
     display: flex;
