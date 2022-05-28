@@ -132,19 +132,6 @@ textarea {
     gap: 0.2em;
 }
 
-/* Favor styles*/
-#favors {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(3, auto);
-}
-#favors > h2 {
-    grid-row: 1;
-}
-#favors > div {
-    grid-row: 2;
-}
-
 /* Weapon styles*/
 #weapons table {
     min-width: 100%;

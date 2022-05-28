@@ -10,6 +10,9 @@ export class FavorDisplay extends GenericListItem {
     constructor() {
         super();
         this.#state = {};
+        let style = document.createElement('style');
+        style.textContent = ":host { font-size: small; } list-controls {font-size: medium; }";
+        this.shadowRoot.appendChild(style);
     }
 
     static get observedAttributes() {
