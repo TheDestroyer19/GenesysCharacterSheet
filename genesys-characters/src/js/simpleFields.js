@@ -143,7 +143,7 @@ document.addEventListener(CHARACTER_LOADED, () => {
 // ========================================================================= //
 
 document.getElementById("obligation-total").addEventListener('change', event => {
-    window.character.obligation_total = event.target.value;
+    window.character.obligation_total = parseInt(event.target.value);
     SendCharacterUpdated();
 });
 

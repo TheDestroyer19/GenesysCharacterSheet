@@ -8,7 +8,7 @@ pub struct Character {
     pub inventory: Vec<Item>,
     pub motivations: Vec<Mechanic>,
     pub obligations: Vec<Mechanic>,
-    pub obligation_total: String, //TODO FIX ME should be i32
+    pub obligation_total: i32,
     pub notes: Vec<Note>,
     pub skills_general: Vec<Skill>,
     pub skills_magic: Vec<Skill>,
@@ -66,7 +66,7 @@ pub struct Characteristics {
 pub struct Mechanic {
     pub mechanic_type: String,
     pub description: String,
-    pub magnitude: String, // TODO FIX ME SHOULD BE i32
+    pub magnitude: i32,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
