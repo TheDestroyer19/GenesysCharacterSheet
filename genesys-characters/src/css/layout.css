@@ -103,15 +103,12 @@
 .stat {
     display: flex;
     flex-direction: column;
-    justify-content: end;
-    align-items: center;
+    justify-content: space-between;
 }
 .condition {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    align-items: baseline;
-    justify-items: center;
-    justify-content: center;
+    column-gap: 1px;
 }
 .condition .caption {
     grid-column: span 2;

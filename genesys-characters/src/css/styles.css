@@ -3,16 +3,6 @@ textarea {
     font-size: small;
 }
 
-.even-columns {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    gap: 0.5rem;
-}
-.even-columns>:last-child {
-    text-align: end;
-}
-
 .horizontal-row {
     display: flex;
     flex-direction: row;
@@ -59,13 +49,19 @@ textarea {
 }
 
 /* Condition Styles */
+.condition {
+    background: var(--cp-50);
+    border-radius: 1rem;
+    padding: 0.25rem;
+    padding-inline: 0.5rem;
+}
 .condition .caption, #soak-lbl {
     font-size: small;
     font-weight: bold;
+    text-align: center;
 }
 .condition input {
     font-size: 1.5rem;
-    max-width: 4rem;
     height: 2rem;
     font-weight: bold;
     text-align: center;
@@ -73,22 +69,21 @@ textarea {
 .condition input:first-of-type {
     border-start-start-radius: 0.5rem;
     border-end-start-radius: 0.5rem;
-    justify-self: end;
 }
 .condition input:last-of-type {
     border-start-end-radius: 0.5rem;
     border-end-end-radius: 0.5rem;
-    justify-self: start;
 }
 #soak {
     justify-self: center;
 }
 .condition label, #soak-caption {
     font-size: x-small;
+    text-align: center;
 }
 
 /* Characteristic Styles */
-.condition, .stat {
+.stat {
     background: var(--cp-50);
     border-radius: 1rem;
     padding: 0.25rem;
@@ -100,11 +95,19 @@ textarea {
 }
 
 .stat input {
-    font-size: 2rem;
+    font-size: 2.5rem;
     height: 3rem;
     width: 3rem;
     border-radius: 1rem;
     text-align: center;
+    align-self: center;
+    margin: 0.25rem;
+    margin-top: 0;
+}
+@media screen {
+    .stat input {
+        width: 4rem;
+    }
 }
 
 /* Skill Styles*/
