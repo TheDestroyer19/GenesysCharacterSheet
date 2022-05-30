@@ -18,14 +18,11 @@
 #skills {
     grid-area: ss;
 }
-#favors {
-    grid-area: ff;
-}
 #weapons {
     grid-area: ww;
 }
-#motivations {
-    grid-area: mo;
+#mechanics {
+    grid-area: mm;
 }
 #inventory {
     grid-area: eq;
@@ -38,9 +35,6 @@
 }
 #abilities {
     grid-area: sa;
-}
-#obligations {
-    grid-area: ob;
 }
 #page1 {
     display: grid;
@@ -55,25 +49,21 @@
 }
 #page2 {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    grid-template-rows: repeat(3, auto) 1fr;
+    grid-template-columns: 4fr 2fr;
+    grid-template-rows: repeat(1, auto) 1fr;
     gap: 0.5rem;
     grid-template-areas: 
         "sa ci"
-        "sa mo"
-        "sa ob"
-        "sa ff";
-    align-items: start;
+        "sa mm";
 }
 #page3 {
     display: grid;
     column-gap: 0.5rem;
     row-gap: 0.5rem;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 4fr 2fr;
     grid-template-rows: auto;
     grid-template-areas: 
         "eq cd";
-    align-items: start;
 }
 #page4 {
     display: flex;
@@ -150,6 +140,13 @@
 #character-description label {
     text-align: end;
 }
+
+#mechanics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 /* Page 2 - notes layout *************************************************** */
 #notes {
     display: flex;
