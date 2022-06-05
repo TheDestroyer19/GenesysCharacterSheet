@@ -195,28 +195,33 @@
 
     <td19-modal id="symbols">
         <h1 slot="title">Codes and Symbols</h1>
-        <table>
-            <thead>
-                <tr><th colspan="2">Name</th><th>Text code</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><a href="https://www.example.com" target="_blank">https://www.example.com</a></td><td>Link</td><td>(https://www.example.com)</td></tr>
-
-                <tr><td><die-boost></die-boost></td><td>Boost Die</td><td>[[boost]]</td></tr>
-                <tr><td><die-ability></die-ability></td><td>Ability Die</td><td>[[ability]]</td></tr>
-                <tr><td><die-proficiency></die-proficiency></td><td>Proficiency Die</td><td>[[proficiency]]</td></tr>
-                <tr><td><die-setback></die-setback></td><td>Setback Die</td><td>[[setback]]</td></tr>
-                <tr><td><die-difficulty></die-difficulty></td><td>Difficulty Die</td><td>[[difficulty]]</td></tr>
-                <tr><td><die-challenge></die-challenge></td><td>Challenge Die</td><td>[[challenge]]</td></tr>
-
-                <tr><td><icon-advantage></icon-advantage></td><td>Advantage</td><td>[[advantage]]</td></tr>
-                <tr><td><icon-success></icon-success></td><td>Success</td><td>[[success]]</td></tr>
-                <tr><td><icon-triumph></icon-triumph></td><td>Triumph</td><td>[[triumph]]</td></tr>
-                <tr><td><icon-threat></icon-threat></td><td>Threat</td><td>[[threat]]</td></tr>
-                <tr><td><icon-failure></icon-failure></td><td>Failure</td><td>[[failure]]</td></tr>
-                <tr><td><icon-despair></icon-despair></td><td>Despair</td><td>[[despair]]</td></tr>
-            </tbody>
-        </table>
+        <details>
+                <summary>Genesys Symbols</summary>
+                <div class="horizontal-row">
+                    <table>
+                        <tr><td><die-boost></die-boost></td><td>[[boost]]</td></tr>
+                        <tr><td><die-ability></die-ability></td><td>[[ability]]</td></tr>
+                        <tr><td><die-proficiency></die-proficiency></td><td>[[proficiency]]</td></tr>
+                        <tr><td><die-setback></die-setback></td><td>[[setback]]</td></tr>
+                        <tr><td><die-difficulty></die-difficulty></td><td>[[difficulty]]</td></tr>
+                        <tr><td><die-challenge></die-challenge></td><td>[[challenge]]</td></tr>
+                    </table>
+                    <table>
+                        <tr><td><icon-advantage></icon-advantage></td><td>[[advantage]]</td></tr>
+                        <tr><td><icon-success></icon-success></td><td>[[success]]</td></tr>
+                        <tr><td><icon-triumph></icon-triumph></td><td>[[triumph]]</td></tr>
+                        <tr><td><icon-threat></icon-threat></td><td>[[threat]]</td></tr>
+                        <tr><td><icon-failure></icon-failure></td><td>[[failure]]</td></tr>
+                        <tr><td><icon-despair></icon-despair></td><td>[[despair]]</td></tr>
+                    </table>
+                </div>
+        </details>
+        <details>
+            <summary>Other codes</summary>
+            <table>
+                <tr><td><a href="https://www.example.com" target="_blank">https://www.example.com</a></td><td>(https://www.example.com)</td></tr>
+            </table>
+        </details>
 
         <button slot="footer" class="modal-close">Close</button>
     </td19-modal>
