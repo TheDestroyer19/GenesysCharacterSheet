@@ -2,60 +2,21 @@ import {CHARACTER_LOADED } from './common';
 import {Item} from './genesys.js';
 import { NewSimpleListEditor } from './util/listEditor';
 import { ConvertSymbols } from './util/prettyText';
-import { } from "./elements/list-controls";
-import { RemoveAllChildNodes } from './util/utils';
+import { GenericListItem } from "./elements/generic-list-item.ts";
 
-export class ItemDisplay extends HTMLElement {
+export class ItemDisplay extends GenericListItem {
     #state;
 
     constructor() {
         super();
-
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.innerHTML = /* HTML */ `
-        <style>
-        @import '/src/css/shared.css';
-        
-        :host {
-            display: flex;
-            flex-direction: row;
-            gap: 0.25em;
-            margin-top: 0.25em;
-            margin-bottom: 0.25em;
-        }
-        #description {
-            font-size: small;
-        }
-        h1 {
-            display: inline;
-        }
-        </style>
-        <list-controls></list-controls>
-        <div>
-            <div>
-                <button id="edit" class="edit" title="Edit">🖉</button>
-                <span id="quantity"></span>
-                <h1 id="name">Name</h1>
-            </div>
-            <div id="description">
-                description
-            </div>
-        </div>
-        `;
-
-        this.shadowRoot.getElementById('edit').addEventListener('click', event => {
-            event.preventDefault();
-            event.target.blur();
-            this.#edit(event);
-        });
-        
         this.#state = {};
-        this.onEdit = event => console.warn("Item-Display needs onEdit set");
-
+        let style = document.createElement('style');
+        style.textContent = "#suffix { font-size: small; }";
+        this.shadowRoot.appendChild(style);
     }
 
     static get observedAttributes() {
-        return ['name', 'quantity', 'description'];
+        return ['name', 'encumbrance', 'quantity', 'description'];
     }
 
     static get tag() {
@@ -65,30 +26,35 @@ export class ItemDisplay extends HTMLElement {
     connectedCallback() {
         if (!this.isConnected) return;
 
-        ConvertSymbols(this.#state.name, this.shadowRoot.querySelector('#name'));
+        this.updateName(element => ConvertSymbols(this.#state.name, element));
+        this.updateBody(element => ConvertSymbols(this.#state.description, element));
+        this.#updateEncumbrance(this.#state.encumbrance);
         this.#updateQuantity(this.#state.quantity);
-        ConvertSymbols(this.#state.description, this.shadowRoot.querySelector('#description'));
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         this.#state[name] = newValue;
         switch (name) {
-            case 'name': ConvertSymbols(newValue, this.shadowRoot.querySelector('#name')); break;
+            case 'name': this.updateName(element => ConvertSymbols(this.#state.name, element)); break;
             case 'quantity': this.#updateQuantity(newValue); break;
-            case 'description': ConvertSymbols(newValue, this.shadowRoot.querySelector('#description')); break;
+            case 'description': this.updateBody(element => ConvertSymbols(this.#state.description, element)); break;
         }
-    }
-
-    #edit(event) {
-        this.onEdit(event);
     }
 
     #updateQuantity(newValue) {
-        let container = this.shadowRoot.querySelector('#quantity');
-        RemoveAllChildNodes(container);
-        if (newValue > 1) {
-            container.appendChild(document.createTextNode(newValue + "x"));
-        }
+        this.updatePrefix(element => {
+            if (newValue > 1) {
+                element.appendChild(document.createTextNode(newValue + "x"));
+            }
+        });
+    }
+
+    #updateEncumbrance(newValue) {
+        this.updateSuffix(element => {
+            if (newValue != 0) {
+                element.appendChild(document.createTextNode("Encumbrance: " + newValue));
+            }
+        })
     }
 }
 customElements.define(ItemDisplay.tag, ItemDisplay);
@@ -103,6 +69,8 @@ ModalTemplate.innerHTML = /* HTML */ `
         <input type="text" id="name" />
         <label for="quantity">Quantity</label>
         <input type="number" id="quantity" />
+        <label for="encumbrance">Encumbrance</label>
+        <input type="number" id="encumbrance" />
         <label for="description">Description</label>
         <textarea class="growable" id="description"></textarea>
     </div>

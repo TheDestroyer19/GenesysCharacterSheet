@@ -93,7 +93,7 @@ export class Favor {
  * @property {number} crit 
  * @property {RANGE} range 
  * @property {string} special 
- * @property {number} encumberance
+ * @property {number} encumbrance
  * @property {number} hard_points
  * @property {string} description
  */
@@ -132,8 +132,9 @@ export class Weapon {
  * @property {string} description
  */
 export class Item {
-    constructor(name, quantity, description) {
+    constructor(name, encumbrance, quantity, description) {
         this.name = name;
+        this.encumbrance = encumbrance;
         this.quantity = quantity;
         this.description = description;
     }

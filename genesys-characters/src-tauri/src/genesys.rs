@@ -79,6 +79,7 @@ pub struct Favor {
 pub struct Item {
     pub quantity: i32,
     pub name: String,
+    pub encumbrance: i32,
     pub description: String,
 }
 
