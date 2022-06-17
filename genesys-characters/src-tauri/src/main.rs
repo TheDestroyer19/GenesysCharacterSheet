@@ -5,12 +5,15 @@
 
 mod character_state;
 mod genesys;
+mod engine;
 
+use engine::{Element, Id};
 use genesys::Character;
 use tauri::api::dialog;
 use tauri::{CustomMenuItem, Manager, Menu, Submenu, Window, WindowMenuEvent, GlobalWindowEvent, MenuItem, async_runtime};
 
 use crate::character_state::CharacterState;
+use crate::engine::Engine;
 
 const WINDOW_TITLE_PREFIX: &str = "Genesys Characters";
 
@@ -31,6 +34,11 @@ fn on_character_edited(character: Character, state: tauri::State<CharacterState>
 #[tauri::command]
 fn get_character(state: tauri::State<CharacterState>) -> Character {
     state.lock().character().clone()
+}
+
+#[tauri::command]
+fn get_element(id: Id, state: tauri::State<Engine>) -> Option<Element> {
+    state.elements.lock().unwrap().get(&id).cloned()
 }
 
 fn save(window: Window) {
@@ -110,6 +118,7 @@ fn save_as(window: Window) {
 /// Async to deter calling from main thread
 async fn new_character(window: Window) {
     let state = window.state::<CharacterState>();
+    let engine = window.state::<Engine>();
 
     if state.dirty() {
         let discard_changes = dialog::blocking::ask(
@@ -124,8 +133,9 @@ async fn new_character(window: Window) {
 
     let mut state = state.lock();
     state.new_character();
-
+    engine.clear();
     let character = state.character();
+
     update_title(&window, &character);
     emit_character_updated(&window, &character);
     println!("New character created");
@@ -133,6 +143,7 @@ async fn new_character(window: Window) {
 
 async fn open_character(window: Window) {
     let state = window.state::<CharacterState>();
+    let engine = window.state::<Engine>();
 
     if state.dirty() {
         let discard_changes = dialog::blocking::ask(
@@ -154,6 +165,8 @@ async fn open_character(window: Window) {
         Ok(_) => {
             let state = state.lock();
             let character = state.character();
+            engine.replace_from(character);
+            eprintln!("{:#?}", engine);
             update_title(&window, character);
             emit_character_updated(&window, character);
             println!("Character loaded");
@@ -296,10 +309,11 @@ fn main() {
     tauri::Builder::default()
         .menu(menu)
         .manage(CharacterState::new())
+        .manage(Engine::new())
         .on_menu_event(on_menu_event)
         .on_window_event(on_window_event)
         // This is where you pass in your commands
-        .invoke_handler(tauri::generate_handler![on_character_edited, get_character])
+        .invoke_handler(tauri::generate_handler![on_character_edited, get_character, get_element])
         .setup(|app| {
             let character = app
                 .state::<CharacterState>()
