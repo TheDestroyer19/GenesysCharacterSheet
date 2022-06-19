@@ -182,7 +182,7 @@ ModalTemplate.innerHTML = /* HTML */ `
         <input type="number" id="damage" />
         <label> Add Brawn <input type="checkbox" id="uses_brawn"></label>
     </span>
-    <label for="crit">Critical</label><input type="number" id="crit" />
+    <label for="critical">Critical</label><input type="number" id="critical" />
     <label for="range">Range</label><select id="range">
         <option>Engaged</option>
         <option>Short</option>
