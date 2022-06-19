@@ -1,6 +1,6 @@
 use std::sync::atomic::AtomicUsize;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 static NEXT_ID: AtomicUsize = AtomicUsize::new(1);
 

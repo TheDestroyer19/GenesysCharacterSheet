@@ -4,15 +4,18 @@
 )]
 
 mod character_state;
-mod genesys;
 mod engine;
+mod genesys;
 
 use std::sync::Mutex;
 
-use engine::{Element, Id, ElementType};
+use engine::{Element, ElementType, Id};
 use genesys::Character;
 use tauri::api::dialog;
-use tauri::{CustomMenuItem, Manager, Menu, Submenu, Window, WindowMenuEvent, GlobalWindowEvent, MenuItem, async_runtime};
+use tauri::{
+    async_runtime, CustomMenuItem, GlobalWindowEvent, Manager, Menu, MenuItem, Submenu, Window,
+    WindowMenuEvent,
+};
 
 use crate::character_state::CharacterState;
 use crate::engine::Engine;
@@ -25,12 +28,12 @@ fn on_character_edited(character: Character, state: tauri::State<CharacterState>
     *state.character_mut() = character;
     let title = format!(
         "{} - {}{}",
-        WINDOW_TITLE_PREFIX, state.character().header.name, if state.dirty() { "*" } else { "" }
+        WINDOW_TITLE_PREFIX,
+        state.character().header.name,
+        if state.dirty() { "*" } else { "" }
     );
     println!("Character modified");
-    window
-        .set_title(&title)
-        .unwrap();
+    window.set_title(&title).unwrap();
 }
 
 #[tauri::command]
@@ -55,7 +58,11 @@ fn create_element(element_type: ElementType, state: tauri::State<Mutex<Engine>>)
 }
 
 #[tauri::command]
-fn update_element(element: Element, state: tauri::State<Mutex<Engine>>, character: tauri::State<CharacterState>) {
+fn update_element(
+    element: Element,
+    state: tauri::State<Mutex<Engine>>,
+    character: tauri::State<CharacterState>,
+) {
     println!("Element updated");
     let mut state = state.lock().unwrap();
     state.elements.insert(element.id(), element);
@@ -73,10 +80,12 @@ fn save(window: Window) {
             Ok(()) => {
                 let title = format!(
                     "{} - {}{}",
-                    WINDOW_TITLE_PREFIX, state.character().header.name, if state.dirty() { "*" } else { "" }
+                    WINDOW_TITLE_PREFIX,
+                    state.character().header.name,
+                    if state.dirty() { "*" } else { "" }
                 );
                 window.set_title(&title).unwrap();
-            },
+            }
             Err(e) => dialog::message(
                 Some(&window),
                 "Failed to save character",
@@ -87,7 +96,6 @@ fn save(window: Window) {
         std::mem::drop(state);
         save_as(window);
     }
-
 }
 
 fn save_as(window: Window) {
@@ -99,10 +107,14 @@ fn save_as(window: Window) {
         let dialog = dialog::FileDialogBuilder::new();
 
         if let Some(path) = state.path() {
-            if path.is_dir() { 
-                dialog.set_directory(path).set_file_name(&format!("{}.json", character.header.name))
+            if path.is_dir() {
+                dialog
+                    .set_directory(path)
+                    .set_file_name(&format!("{}.json", character.header.name))
             } else if let Some(dir) = path.parent() {
-                dialog.set_directory(dir).set_file_name(&path.file_name().unwrap().to_string_lossy())
+                dialog
+                    .set_directory(dir)
+                    .set_file_name(&path.file_name().unwrap().to_string_lossy())
             } else {
                 //TODO there is a path but it doesn't have a parent
                 dialog.set_file_name(&path.file_name().unwrap().to_string_lossy())
@@ -113,29 +125,31 @@ fn save_as(window: Window) {
     };
 
     dialog.save_file(move |file_path| {
-            if file_path.is_none() {
-                return;
-            }
-            let file_path = file_path.unwrap();
+        if file_path.is_none() {
+            return;
+        }
+        let file_path = file_path.unwrap();
 
-            let state = window.state::<CharacterState>();
-            let mut state = state.lock();
+        let state = window.state::<CharacterState>();
+        let mut state = state.lock();
 
-            match state.save_as(file_path) {
-                Ok(()) => {
-                    let title = format!(
-                        "{} - {}{}",
-                        WINDOW_TITLE_PREFIX, state.character().header.name, if state.dirty() { "*" } else { "" }
-                    );
-                    window.set_title(&title).unwrap();
-                },
-                Err(e) => dialog::message(
-                    Some(&window),
-                    "Failed to save character",
-                    format!("{:#}", e),
-                ),
+        match state.save_as(file_path) {
+            Ok(()) => {
+                let title = format!(
+                    "{} - {}{}",
+                    WINDOW_TITLE_PREFIX,
+                    state.character().header.name,
+                    if state.dirty() { "*" } else { "" }
+                );
+                window.set_title(&title).unwrap();
             }
-        });
+            Err(e) => dialog::message(
+                Some(&window),
+                "Failed to save character",
+                format!("{:#}", e),
+            ),
+        }
+    });
 }
 
 /// Async to deter calling from main thread
@@ -147,7 +161,8 @@ async fn new_character(window: Window) {
         let discard_changes = dialog::blocking::ask(
             Some(&window),
             "The character has unsaved changes",
-            "Do you want to discard those changes?");
+            "Do you want to discard those changes?",
+        );
 
         if !discard_changes {
             return;
@@ -172,7 +187,8 @@ async fn open_character(window: Window) {
         let discard_changes = dialog::blocking::ask(
             Some(&window),
             "The character has unsaved changes",
-            "Do you want to discard those changes?");
+            "Do you want to discard those changes?",
+        );
 
         if !discard_changes {
             return;
@@ -192,8 +208,12 @@ async fn open_character(window: Window) {
             update_title(&window, character);
             emit_character_updated(&window, character);
             println!("Character loaded");
-        },
-        Err(e) => dialog::message(Some(&window), "Failed to open character", format!("{:#}", e)),
+        }
+        Err(e) => dialog::message(
+            Some(&window),
+            "Failed to open character",
+            format!("{:#}", e),
+        ),
     }
 }
 
@@ -248,11 +268,13 @@ fn on_menu_event(event: WindowMenuEvent) {
             "print" => print_character(window),
             "quit" => quit(&window),
             "symbols" => emit_toggle_symbols(window),
-            a => if a.starts_with("goto-") {
-                emit_goto(window, a);
-            } else {
-                println!("Unhandled menu event '{}'", a);
-            },
+            a => {
+                if a.starts_with("goto-") {
+                    emit_goto(window, a);
+                } else {
+                    println!("Unhandled menu event '{}'", a);
+                }
+            }
         }
     });
 }
@@ -261,7 +283,8 @@ fn build_menu() -> Menu {
     let new = CustomMenuItem::new("new", "New").accelerator("CommandOrControl+N");
     let open = CustomMenuItem::new("open", "Open").accelerator("CommandOrControl+O");
     let save = CustomMenuItem::new("save", "Save").accelerator("CommandOrControl+S");
-    let save_as = CustomMenuItem::new("save-as", "Save As...").accelerator("CommandOrControl+Shift+S");
+    let save_as =
+        CustomMenuItem::new("save-as", "Save As...").accelerator("CommandOrControl+Shift+S");
     let print = CustomMenuItem::new("print", "Print").accelerator("CommandOrControl+P");
     let quit = CustomMenuItem::new("quit", "Quit").accelerator("CommandOrControl+Q");
     let file = Submenu::new(
@@ -275,39 +298,56 @@ fn build_menu() -> Menu {
             .add_native_item(MenuItem::Separator)
             .add_item(print)
             .add_native_item(MenuItem::Separator)
-            .add_item(quit)
+            .add_item(quit),
     );
     let view = Submenu::new(
         "View",
-        Menu::new().add_item(CustomMenuItem::new("symbols", "Symbols Reference"))
+        Menu::new().add_item(CustomMenuItem::new("symbols", "Symbols Reference")),
     );
     let go = Submenu::new(
         "Go",
         Menu::new()
-            .add_item(CustomMenuItem::new("goto-page1header", "Go to Characteristics"))
+            .add_item(CustomMenuItem::new(
+                "goto-page1header",
+                "Go to Characteristics",
+            ))
             .add_item(CustomMenuItem::new("goto-skills", "Go to Skills"))
             .add_item(CustomMenuItem::new("goto-weapons", "Go to Weapons"))
             .add_native_item(MenuItem::Separator)
             .add_item(CustomMenuItem::new("goto-abilities", "Go to Abilities"))
-            .add_item(CustomMenuItem::new("goto-critical-injuries", "Go to Injuries"))
+            .add_item(CustomMenuItem::new(
+                "goto-critical-injuries",
+                "Go to Injuries",
+            ))
             .add_item(CustomMenuItem::new("goto-mechanics", "Go to Mechanics"))
             .add_native_item(MenuItem::Separator)
             .add_item(CustomMenuItem::new("goto-inventory", "Go to Equipment"))
-            .add_item(CustomMenuItem::new("goto-character-description", "Go to Description"))
+            .add_item(CustomMenuItem::new(
+                "goto-character-description",
+                "Go to Description",
+            ))
             .add_native_item(MenuItem::Separator)
-            .add_item(CustomMenuItem::new("goto-notes", "Go to Notes"))
+            .add_item(CustomMenuItem::new("goto-notes", "Go to Notes")),
     );
-    Menu::new().add_submenu(file).add_submenu(view).add_submenu(go)
+    Menu::new()
+        .add_submenu(file)
+        .add_submenu(view)
+        .add_submenu(go)
 }
 
 fn quit(window: &Window) {
     if window.state::<CharacterState>().dirty() {
         let window_clone = window.clone();
-        dialog::ask(Some(window), "You have unsaved changes", "Do you still want to quit?", move |yes| {
-            if yes {
-                window_clone.app_handle().exit(0);
-            }
-        })
+        dialog::ask(
+            Some(window),
+            "You have unsaved changes",
+            "Do you still want to quit?",
+            move |yes| {
+                if yes {
+                    window_clone.app_handle().exit(0);
+                }
+            },
+        )
     } else {
         window.app_handle().exit(0);
     }
@@ -333,14 +373,15 @@ fn main() {
         .on_window_event(on_window_event)
         // This is where you pass in your commands
         .invoke_handler(tauri::generate_handler![
-            on_character_edited, get_character, 
-            get_character_element, get_element, update_element, create_element])
+            on_character_edited,
+            get_character,
+            get_character_element,
+            get_element,
+            update_element,
+            create_element
+        ])
         .setup(|app| {
-            let character = app
-                .state::<CharacterState>()
-                .lock()
-                .character()
-                .clone();
+            let character = app.state::<CharacterState>().lock().character().clone();
             app.emit_all("character-updated", character)?;
             Ok(())
         })

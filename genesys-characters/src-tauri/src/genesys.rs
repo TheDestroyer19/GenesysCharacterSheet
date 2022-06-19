@@ -74,7 +74,6 @@ pub struct Favor {
     pub text: String,
 }
 
-
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Item {
     pub quantity: i32,

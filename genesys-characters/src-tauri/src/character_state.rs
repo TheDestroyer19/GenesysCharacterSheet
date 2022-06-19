@@ -18,7 +18,7 @@ impl CharacterState {
                 character: Character::default(),
                 dirty: false,
                 path: None,
-            })
+            }),
         }
     }
 
@@ -32,11 +32,13 @@ impl CharacterState {
 
     pub async fn load_async(&self, path: PathBuf) -> Result<(), anyhow::Error> {
         use tokio::fs::File;
-        let mut file = File::open(&path).await
+        let mut file = File::open(&path)
+            .await
             .with_context(|| format!("Failed to open '{}'", path.display()))?;
 
         let mut contents = String::new();
-        file.read_to_string(&mut contents).await
+        file.read_to_string(&mut contents)
+            .await
             .with_context(|| format!("Failed to read '{}", path.display()))?;
 
         let character = serde_json::from_str(&contents)
@@ -50,8 +52,6 @@ impl CharacterState {
         Ok(())
     }
 }
-
-
 
 pub(crate) struct Inner {
     character: Character,
@@ -86,8 +86,9 @@ impl Inner {
             Some(path) => path,
             None => return Err(anyhow::anyhow!("No path - use save as")),
         };
-        
-        let file = File::create(&path).with_context(|| format!("Failed to create file '{}'", path.display()))?;
+
+        let file = File::create(&path)
+            .with_context(|| format!("Failed to create file '{}'", path.display()))?;
 
         serde_json::to_writer_pretty(file, &self.character).context("Failed to save character")?;
 
