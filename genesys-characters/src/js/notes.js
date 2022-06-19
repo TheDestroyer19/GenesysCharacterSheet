@@ -1,7 +1,8 @@
 import { CHARACTER_LOADED } from "./common.js";
-import { NewSimpleListEditor } from "./util/listEditor.js";
+import { buildItemwiseDisplayFunction, ListEditor, NewSimpleListEditor } from "./util/listEditor.js";
 import { ConvertSymbols } from "./util/prettyText.js";
 import { GenericListItem } from "./elements/generic-list-item.ts";
+import { invoke } from '@tauri-apps/api/tauri';
 
 export class NotesDisplay extends GenericListItem {
     #state;
@@ -25,7 +26,7 @@ export class NotesDisplay extends GenericListItem {
         this.updateName(element => ConvertSymbols(this.#state.note_title, element));
         this.updateBody(element => ConvertSymbols(this.#state.body, element));
         this.updateBadge(element => {
-            if (this.#state.subtitle.length > 0) element.append(this.#state.subtitle);
+            if (this.#state.subtitle && this.#state.subtitle.length > 0) element.append(this.#state.subtitle);
         }); 
     }
 
@@ -59,17 +60,23 @@ ModalTemplate.innerHTML = /* HTML */ `
 `;
 document.body.append(ModalTemplate);
 
-const listEditor = NewSimpleListEditor(
-    document.getElementById('notes-table'),
-    NotesDisplay,
-    ModalTemplate
-);
+let list = { id: 0, items: [], type: "List" };
+
+const listEditor = new ListEditor(document.getElementById('notes-table'));
+listEditor.createDisplay = buildItemwiseDisplayFunction(NotesDisplay, ModalTemplate);
+listEditor.onChange = () => invoke('update_element', { element: list });
+listEditor.replaceArray(list.items);
 
 document.getElementById('new-note').addEventListener('click', event => {
-    listEditor.add({ note_title: "New Note", subtitle: "", body: ""}).onEdit(event);
+    invoke('create_element', { elementType: "Note" })
+        .then(element => listEditor.add(element.id).onEdit(event));
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
-    if (!window.character.notes) window.character.notes = [];
-    listEditor.replaceArray(window.character.notes);
+    invoke('get_character_element')
+        .then((character) => invoke('get_element', { id: character.notes }))
+        .then((listContainer) => {
+            list = listContainer;
+            listEditor.replaceArray(list.items);
+        });
 });

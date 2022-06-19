@@ -7,7 +7,9 @@ mod character_state;
 mod genesys;
 mod engine;
 
-use engine::{Element, Id};
+use std::sync::Mutex;
+
+use engine::{Element, Id, ElementType};
 use genesys::Character;
 use tauri::api::dialog;
 use tauri::{CustomMenuItem, Manager, Menu, Submenu, Window, WindowMenuEvent, GlobalWindowEvent, MenuItem, async_runtime};
@@ -37,8 +39,29 @@ fn get_character(state: tauri::State<CharacterState>) -> Character {
 }
 
 #[tauri::command]
-fn get_element(id: Id, state: tauri::State<Engine>) -> Option<Element> {
-    state.elements.lock().unwrap().get(&id).cloned()
+fn get_character_element(state: tauri::State<Mutex<Engine>>) -> Option<Element> {
+    let state = state.lock().unwrap();
+    state.elements.get(&state.character).cloned()
+}
+
+#[tauri::command]
+fn get_element(id: Id, state: tauri::State<Mutex<Engine>>) -> Option<Element> {
+    state.lock().unwrap().elements.get(&id).cloned()
+}
+
+#[tauri::command]
+fn create_element(element_type: ElementType, state: tauri::State<Mutex<Engine>>) -> Element {
+    state.lock().unwrap().create_element(element_type)
+}
+
+#[tauri::command]
+fn update_element(element: Element, state: tauri::State<Mutex<Engine>>, character: tauri::State<CharacterState>) {
+    println!("Element updated");
+    let mut state = state.lock().unwrap();
+    state.elements.insert(element.id(), element);
+    let mut character = character.lock();
+    let character = character.character_mut();
+    state.write_into(character).unwrap();
 }
 
 fn save(window: Window) {
@@ -118,7 +141,7 @@ fn save_as(window: Window) {
 /// Async to deter calling from main thread
 async fn new_character(window: Window) {
     let state = window.state::<CharacterState>();
-    let engine = window.state::<Engine>();
+    let engine = window.state::<Mutex<Engine>>();
 
     if state.dirty() {
         let discard_changes = dialog::blocking::ask(
@@ -133,8 +156,8 @@ async fn new_character(window: Window) {
 
     let mut state = state.lock();
     state.new_character();
-    engine.clear();
     let character = state.character();
+    *engine.lock().unwrap() = character.clone().into();
 
     update_title(&window, &character);
     emit_character_updated(&window, &character);
@@ -143,7 +166,7 @@ async fn new_character(window: Window) {
 
 async fn open_character(window: Window) {
     let state = window.state::<CharacterState>();
-    let engine = window.state::<Engine>();
+    let engine = window.state::<Mutex<Engine>>();
 
     if state.dirty() {
         let discard_changes = dialog::blocking::ask(
@@ -165,8 +188,7 @@ async fn open_character(window: Window) {
         Ok(_) => {
             let state = state.lock();
             let character = state.character();
-            engine.replace_from(character);
-            eprintln!("{:#?}", engine);
+            *engine.lock().unwrap() = character.clone().into();
             update_title(&window, character);
             emit_character_updated(&window, character);
             println!("Character loaded");
@@ -301,19 +323,18 @@ fn on_window_event(event: GlobalWindowEvent) {
 }
 
 fn main() {
-    let thread = std::thread::current();
-    println!("thread {:?}", thread.id());
-
     let menu = build_menu();
 
     tauri::Builder::default()
         .menu(menu)
         .manage(CharacterState::new())
-        .manage(Engine::new())
+        .manage(Mutex::new(Engine::new()))
         .on_menu_event(on_menu_event)
         .on_window_event(on_window_event)
         // This is where you pass in your commands
-        .invoke_handler(tauri::generate_handler![on_character_edited, get_character, get_element])
+        .invoke_handler(tauri::generate_handler![
+            on_character_edited, get_character, 
+            get_character_element, get_element, update_element, create_element])
         .setup(|app| {
             let character = app
                 .state::<CharacterState>()
