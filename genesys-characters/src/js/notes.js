@@ -66,7 +66,7 @@ const listEditor = NewSimpleListEditor(
 );
 
 document.getElementById('new-note').addEventListener('click', event => {
-    listEditor.add({ title: "New Note", body: ""}).onEdit(event);
+    listEditor.add({ note_title: "New Note", subtitle: "", body: ""}).onEdit(event);
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {

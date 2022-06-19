@@ -40,16 +40,20 @@ export class ListControls extends HTMLElement {
         let shadow = this.attachShadow({mode: 'open'});
         shadow.innerHTML = ELEMENT_HTML;
 
-        shadow.getElementById('up').addEventListener('click', event => {
+        shadow.getElementById('up')?.addEventListener('click', event => {
             event.stopPropagation();
-            event.target.blur();
+            if (event.target instanceof HTMLElement) {
+                (event.target as HTMLElement).blur();
+            }
             let e = new CustomEvent('list-move-up', { bubbles: true, composed: true});
             this.dispatchEvent(e);
         });
 
-        shadow.getElementById('down').addEventListener('click', event => {
+        shadow.getElementById('down')?.addEventListener('click', event => {
             event.stopPropagation();
-            event.target.blur();
+            if (event.target instanceof HTMLElement) {
+                (event.target as HTMLElement).blur();
+            }
             let e = new CustomEvent('list-move-down', { bubbles: true, composed: true});
             this.dispatchEvent(e);
         });

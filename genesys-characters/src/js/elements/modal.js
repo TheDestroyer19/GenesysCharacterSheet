@@ -161,9 +161,15 @@ export class Modal extends HTMLElement {
 
     Open(x, y) {
         this.setAttribute('open', "");
+        //set a timeout so that we know how big the modal actually is
+        setTimeout(() => {
+            let modal = this.shadowRoot.querySelector('#wrapper');
 
-        x -= this.shadowRoot.querySelector('#wrapper').clientWidth / 2;
-        setElementPos(x, y, this.shadowRoot.querySelector('#wrapper'));
+            x -= modal.clientWidth / 2;
+            y -= parseFloat(getComputedStyle(document.documentElement).fontSize);
+            setElementPos(x, y, modal);
+        }, 16);
+
     }
 
     Close() {
