@@ -1,8 +1,8 @@
 import {CHARACTER_LOADED } from './common';
-import {Item} from './genesys.js';
-import { NewSimpleListEditor } from './util/listEditor';
+import { buildItemwiseDisplayFunction, ListEditor } from './util/listEditor';
 import { ConvertSymbols } from './util/prettyText';
-import { GenericListItem } from "./elements/generic-list-item.ts";
+import { GenericListItem } from "./elements/generic-list-item";
+import { invoke } from '@tauri-apps/api';
 
 export class ItemDisplay extends GenericListItem {
     #state;
@@ -36,6 +36,7 @@ export class ItemDisplay extends GenericListItem {
         this.#state[name] = newValue;
         switch (name) {
             case 'name': this.updateName(element => ConvertSymbols(this.#state.name, element)); break;
+            case 'encumbrance': this.#updateEncumbrance(newValue); break;
             case 'quantity': this.#updateQuantity(newValue); break;
             case 'description': this.updateBody(element => ConvertSymbols(this.#state.description, element)); break;
         }
@@ -51,7 +52,7 @@ export class ItemDisplay extends GenericListItem {
 
     #updateEncumbrance(newValue) {
         this.updateSuffix(element => {
-            if (newValue != 0) {
+            if (newValue && newValue != 0) {
                 element.appendChild(document.createTextNode("Encumbrance: " + newValue));
             }
         })
@@ -78,17 +79,23 @@ ModalTemplate.innerHTML = /* HTML */ `
 `;
 document.body.append(ModalTemplate);
 
-const listEditor = NewSimpleListEditor(
-    document.getElementById('item-table'),
-    ItemDisplay,
-    ModalTemplate,
-);
+let list = { id: 0, items: [], type: "List" };
 
-document.getElementById('new-item').addEventListener('click', event => {
-    listEditor.add(new Item("Unidentifed Item", 1, "something you have yet to identify")).onEdit(event);
+const listEditor = new ListEditor(document.getElementById('item-table'));
+listEditor.createDisplay = buildItemwiseDisplayFunction(listEditor, ItemDisplay, ModalTemplate);
+listEditor.onChange = () => invoke('update_element', {element: list });
+listEditor.replaceArray(list.items);
+
+document.getElementById('new-item')?.addEventListener('click', event => {
+    invoke('create_element', { elementType: "Item" })
+        .then(element => listEditor.add(element.id));
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
-    if (!window.character.inventory) window.character.inventory = [];
-    listEditor.replaceArray(window.character.inventory);
+    invoke('get_character_element')
+        .then((character) => invoke('get_element', { id: character.inventory }))
+        .then((listContainer) => {
+            list = listContainer;
+            listEditor.replaceArray(list.items);
+        });
 });

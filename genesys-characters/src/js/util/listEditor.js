@@ -166,7 +166,7 @@ export class ListEditor {
     }
 }
 
-export function buildItemwiseDisplayFunction(displayClass, modalTemplate, modPath) {
+export function buildItemwiseDisplayFunction(listEditor, displayClass, modalTemplate) {
     return (id) => {
         let element = document.createElement(displayClass.tag);
 

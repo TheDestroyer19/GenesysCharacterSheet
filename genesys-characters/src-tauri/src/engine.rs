@@ -56,9 +56,9 @@ impl From<genesys::Character> for Engine {
                     .inspect(|(i, _)| items.push(*i)),
             );
             elements.insert(
-                notes_id,
+                items_id,
                 Element::List(List {
-                    id: notes_id,
+                    id: items_id,
                     items,
                 }),
             );
