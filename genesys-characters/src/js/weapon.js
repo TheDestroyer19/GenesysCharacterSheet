@@ -1,4 +1,4 @@
-import { CHARACTER_LOADED } from './common.js';
+import { CHARACTER_LOADED } from './common';
 import { RANGE, Weapon} from './genesys.js';
 import { NewSimpleListEditor } from './util/listEditor.js';
 import { ConvertSymbols } from './util/prettyText.js';

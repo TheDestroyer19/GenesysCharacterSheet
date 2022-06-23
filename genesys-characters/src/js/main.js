@@ -1,4 +1,4 @@
-import {CHARACTER_UPDATED, SendCharacterLoaded } from './common.js';
+import {CHARACTER_UPDATED, SendCharacterLoaded } from './common';
 import { invoke } from '@tauri-apps/api/tauri';
 import { listen } from '@tauri-apps/api/event';
 
@@ -24,4 +24,15 @@ await listen('character-updated', event => {
 invoke('get_character').then(character => {
     window.character = character;
     SendCharacterLoaded();
+});
+
+await listen('element-updated', event => {
+    let element = event.payload;
+    let elements = document.querySelectorAll(`[data-element-id='${element.id}']`);
+    elements.forEach(node => {
+        for (let property in element) {
+            node.setAttribute(property, element[property]);
+        }
+    });
+    console.log(`Element ${event.payload.id} was updated`);
 });

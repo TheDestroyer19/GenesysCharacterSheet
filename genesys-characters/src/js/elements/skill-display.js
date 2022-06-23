@@ -1,7 +1,7 @@
-import { DoOnUpdate } from "../common.js";
-import { Characteristic } from "../genesys.js";
+import { DoOnUpdate } from "../common";
+import { Characteristic } from "../genesys";
 import { } from "../elements/list-controls";
-import { } from "../elements/dice-symbols.js";
+import { } from "../elements/dice-symbols";
 import { RemoveAllChildNodes } from "../util/utils";
 
 const STYLE_TEXT = /*css*/`

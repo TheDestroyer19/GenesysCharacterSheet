@@ -1,4 +1,4 @@
-import {CHARACTER_LOADED } from './common';
+import {CHARACTER_LOADED, RegisterEditorModal } from './common';
 import { buildItemwiseDisplayFunction, ListEditor } from './util/listEditor';
 import { ConvertSymbols } from './util/prettyText';
 import { GenericListItem } from "./elements/generic-list-item";
@@ -78,11 +78,12 @@ ModalTemplate.innerHTML = /* HTML */ `
 </td19-modal>
 `;
 document.body.append(ModalTemplate);
+RegisterEditorModal("Item", ModalTemplate);
 
 let list = { id: 0, items: [], type: "List" };
 
 const listEditor = new ListEditor(document.getElementById('item-table'));
-listEditor.createDisplay = buildItemwiseDisplayFunction(listEditor, ItemDisplay, ModalTemplate);
+listEditor.createDisplay = buildItemwiseDisplayFunction(ItemDisplay);
 listEditor.onChange = () => invoke('update_element', {element: list });
 listEditor.replaceArray(list.items);
 

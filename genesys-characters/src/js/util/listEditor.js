@@ -1,4 +1,4 @@
-import { SendCharacterUpdated } from '../common';
+import { OpenForEdit, SendCharacterUpdated } from '../common';
 import { RemoveAllChildNodes } from './utils';
 import { attachResize } from "./growabletextarea";
 import { } from "../elements/dice-symbols";
@@ -166,51 +166,19 @@ export class ListEditor {
     }
 }
 
-export function buildItemwiseDisplayFunction(listEditor, displayClass, modalTemplate) {
+export function buildItemwiseDisplayFunction(displayClass) {
     return (id) => {
         let element = document.createElement(displayClass.tag);
+        element.setAttribute('data-element-id', id);
 
-        invoke('get_element', { id: id })
+        element.onEdit = event => OpenForEdit(id, event.clientX, event.clientY);
+
+        let item = invoke('get_element', { id: id })
             .then((item) => {
                 let fields = displayClass.observedAttributes; 
                 fields.forEach(field => {
                     element.setAttribute(field, item[field]);
                 });
-
-                element.onEdit = event => {
-                    //create modal
-                    /** @type { Element} */
-                    let modal  = modalTemplate.content.firstElementChild.cloneNode(true);
-                    document.body.append(modal);
-                    //display
-                    modal.Open(event.clientX, event.clientY);
-                    //fill in details
-                    fields.forEach(field => {
-                        let inputField = modal.querySelector('#' + field);
-                        if (!inputField) {
-                            console.info(`skipped '${field}' because there's no input field for it`);
-                            return;
-                        }
-                        inputField.value = item[field];
-                        if (inputField.classList.contains('growable')) {
-                            attachResize(inputField);
-                        }
-                        inputField.addEventListener('change', event => {
-                            let value;
-                            if (inputField.type == 'checkbox')
-                                value = inputField.checked;
-                            else if (inputField.type == 'number')
-                                value = parseInt(inputField.value);
-                            else
-                                value = inputField.value;
-                            item[field] = value;
-                            element.setAttribute(field, value);
-                            invoke('update_element', { element: item })
-                        });
-                    });
-                    //hookup listeners
-                    modal.addEventListener('delete', () => listEditor.remove(id));
-                };
             });
 
         return element;

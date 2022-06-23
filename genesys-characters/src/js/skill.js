@@ -1,7 +1,7 @@
-import {CHARACTER_LOADED} from './common.js';
-import {Skill, CHARACTERISTIC} from './genesys.js';
-import {SkillDisplay} from './elements/skill-display.js';
-import { ListEditor, NewSimpleListEditor } from './util/listEditor.js';
+import {CHARACTER_LOADED} from './common';
+import {Skill, CHARACTERISTIC} from './genesys';
+import {SkillDisplay} from './elements/skill-display';
+import { ListEditor, NewSimpleListEditor } from './util/listEditor';
 
 const ModalTemplate = document.createElement('template');
 ModalTemplate.id = 'skills-modal-template';

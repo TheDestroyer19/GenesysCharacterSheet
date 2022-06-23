@@ -1,4 +1,4 @@
-import { CHARACTER_LOADED, DoOnUpdate, SendCharacterUpdated } from "./common.js";
+import { CHARACTER_LOADED, DoOnUpdate, SendCharacterUpdated } from "./common";
 import { SendRecalcSize } from "./util/growabletextarea.js";
 
 // ========================================================================= //

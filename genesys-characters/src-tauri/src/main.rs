@@ -49,17 +49,26 @@ fn create_element(element_type: ElementType, state: tauri::State<Mutex<Engine>>)
 }
 
 #[tauri::command]
+fn delete_element(element: Element) {
+    todo!();
+}
+
+#[tauri::command]
 fn update_element(
+    window: Window,
     element: Element,
     state: tauri::State<Mutex<Engine>>,
     character: tauri::State<CharacterState>,
 ) {
     println!("Element updated");
     let mut state = state.lock().unwrap();
-    state.elements.insert(element.id(), element);
+    //TODO check that id was in use before inserting.
+    //TODO CONSIDER CHECKING IF element type maches the given element
+    state.elements.insert(element.id(), element.clone());
     let mut character = character.lock();
     let character = character.character_mut();
     state.write_into(character).unwrap();
+    emit_element_updated(&window, element);
 }
 
 fn emit_character_updated(window: &Window, character: &Character) {
@@ -67,6 +76,10 @@ fn emit_character_updated(window: &Window, character: &Character) {
         .app_handle()
         .emit_all("character-updated", character.clone())
         .unwrap();
+}
+
+fn emit_element_updated(window: &Window, element: Element) {
+    window.app_handle().emit_all("element-updated", element).unwrap();
 }
 
 fn emit_toggle_symbols(window: Window) {
@@ -116,7 +129,8 @@ fn main() {
             get_character_element,
             get_element,
             update_element,
-            create_element
+            create_element,
+            delete_element,
         ])
         .setup(|app| {
             let character = app.state::<CharacterState>().lock().character().clone();

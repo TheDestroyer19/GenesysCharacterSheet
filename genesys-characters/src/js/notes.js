@@ -1,4 +1,4 @@
-import { CHARACTER_LOADED } from "./common.js";
+import { CHARACTER_LOADED, RegisterEditorModal } from "./common";
 import { buildItemwiseDisplayFunction, ListEditor } from "./util/listEditor.js";
 import { ConvertSymbols } from "./util/prettyText.js";
 import { GenericListItem } from "./elements/generic-list-item.ts";
@@ -59,11 +59,12 @@ ModalTemplate.innerHTML = /* HTML */ `
 </td19-modal>
 `;
 document.body.append(ModalTemplate);
+RegisterEditorModal("Note", ModalTemplate);
 
 let list = { id: 0, items: [], type: "List" };
 
 const listEditor = new ListEditor(document.getElementById('notes-table'));
-listEditor.createDisplay = buildItemwiseDisplayFunction(listEditor, NotesDisplay, ModalTemplate);
+listEditor.createDisplay = buildItemwiseDisplayFunction(NotesDisplay);
 listEditor.onChange = () => invoke('update_element', { element: list });
 listEditor.replaceArray(list.items);
 
