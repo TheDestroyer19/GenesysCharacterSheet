@@ -173,3 +173,40 @@ impl Default for Item {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    prop_compose! {
+        fn arb_item(text: &'static str, min: i32, max: i32) 
+                    (q in min..max, n in text, d in text, e in min..max) 
+                    -> genesys::Item {
+            genesys::Item {
+                quantity: q, name: n.clone(), encumbrance: e, description: d.clone()
+            }
+        }
+    }
+
+    prop_compose! {
+        fn arb_note(text: &'static str)
+                (t in text, s in text, b in text) 
+                -> genesys::Note {
+            genesys::Note { note_title: t, subtitle: s, body: b }
+        }
+    }
+
+    proptest! {
+        #[test]
+        fn item_round_trip(ref item in arb_item("\\PC*", -1000, 1000)) {
+            let engine_item = Element::from(item.clone());
+            assert_eq!(&genesys::Item::try_from(&engine_item).unwrap(), item);
+        }
+
+        #[test]
+        fn note_round_trip(ref note in arb_note("\\PC*")) {
+            let engine_note = Element::from(note.clone());
+            assert_eq!(&genesys::Note::try_from(&engine_note).unwrap(), note);
+        }
+    }
+}

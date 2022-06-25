@@ -62,19 +62,19 @@ pub struct Characteristics {
     pub defense_ranged: i32,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Mechanic {
     pub mechanic_type: String,
     pub description: String,
     pub magnitude: i32,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Favor {
     pub text: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Item {
     pub quantity: i32,
     pub name: String,
@@ -82,7 +82,7 @@ pub struct Item {
     pub description: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum Characteristic {
     Brawn,
     Agility,
@@ -92,7 +92,7 @@ pub enum Characteristic {
     Presence,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Skill {
     pub name: String,
     pub characteristic: Characteristic,
@@ -100,7 +100,7 @@ pub struct Skill {
     pub rank: i32,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, Default, PartialEq)]
 #[serde(default)]
 pub struct Note {
     pub note_title: String,
@@ -108,7 +108,7 @@ pub struct Note {
     pub body: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Ability {
     pub name: String,
     pub description: String,
@@ -116,7 +116,7 @@ pub struct Ability {
     pub source: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Weapon {
     pub name: String,
     pub description: String,
@@ -130,7 +130,7 @@ pub struct Weapon {
     pub uses_brawn: bool,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum Range {
     Enganged,
     Short,
@@ -139,7 +139,7 @@ pub enum Range {
     Extreme,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct CriticalInjury {
     pub severity: i32,
     pub result: String,

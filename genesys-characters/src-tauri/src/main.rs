@@ -3,6 +3,9 @@
     windows_subsystem = "windows"
 )]
 
+#[cfg(test)]
+#[macro_use] extern crate proptest;
+
 mod character_state;
 mod engine;
 mod filesystem;
