@@ -10,6 +10,7 @@ pub(crate) enum ElementType {
     List,
     Note,
     Item,
+    Ability,
 }
 
 impl ElementType {
@@ -18,6 +19,7 @@ impl ElementType {
             ElementType::List => Element::List(List::default()),
             ElementType::Note => Element::Note(Note::default()),
             ElementType::Item => Element::Item(Item::default()),
+            ElementType::Ability => Element::Ability(Ability::default()),
         }
     }
 }
@@ -29,6 +31,7 @@ pub(crate) enum Element {
     Note(Note),
     List(List),
     Item(Item),
+    Ability(Ability),
 }
 
 impl Element {
@@ -38,6 +41,7 @@ impl Element {
             Element::Note(n) => n.id,
             Element::List(l) => l.id,
             Element::Item(i) => i.id,
+            Element::Ability(a) => a.id,
         }
     }
 
@@ -115,6 +119,34 @@ impl<'a> TryFrom<&'a Element> for genesys::Item {
     }
 }
 
+impl<'a> From<genesys::Ability> for Element {
+    fn from(item: genesys::Ability) -> Self {
+        Element::Ability(Ability {
+            id: Id::new(),
+            name: item.name,
+            description: item.description,
+            rank: item.rank,
+            source: item.source,
+        })
+    }
+}
+
+impl<'a> TryFrom<&'a Element> for genesys::Ability {
+    type Error = anyhow::Error;
+
+    fn try_from(element: &'a Element) -> Result<Self, Self::Error> {
+        match element {
+            Element::Ability(i) => Ok(genesys::Ability {
+                name: i.name.clone(),
+                description: i.description.clone(),
+                rank: i.rank,
+                source: i.source.clone(),
+            }),
+            _ => Err(anyhow!("Element was not a Ability")),
+        }
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub(crate) struct List {
     pub id: Id,
@@ -174,6 +206,26 @@ impl Default for Item {
     }
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub(crate) struct Ability {
+    pub id: Id,
+    pub name: String,
+    pub description: String,
+    pub rank: i32,
+    pub source: String,
+}
+impl Default for Ability {
+    fn default() -> Self {
+        Self {
+            id: Id::new(),
+            name: "Unknown Ability".into(),
+            description: "".into(),
+            rank: 0,
+            source: "".into(),
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -196,6 +248,14 @@ mod test {
         }
     }
 
+    prop_compose! {
+        fn arb_ability(text: &'static str, range: std::ops::Range<i32>)
+                (n in text, d in text, s in text, r in range) 
+                -> genesys::Ability {
+            genesys::Ability { name: n, description: d, rank: r, source: s }
+        }
+    }
+
     proptest! {
         #[test]
         fn item_round_trip(ref item in arb_item("\\PC*", -1000, 1000)) {
@@ -207,6 +267,12 @@ mod test {
         fn note_round_trip(ref note in arb_note("\\PC*")) {
             let engine_note = Element::from(note.clone());
             assert_eq!(&genesys::Note::try_from(&engine_note).unwrap(), note);
+        }
+
+        #[test]
+        fn ability_round_trip(ref serializable in arb_ability("\\PC*", 0..1000)) {
+            let engine = Element::from(serializable.clone());
+            assert_eq!(&genesys::Ability::try_from(&engine).unwrap(), serializable);
         }
     }
 }
