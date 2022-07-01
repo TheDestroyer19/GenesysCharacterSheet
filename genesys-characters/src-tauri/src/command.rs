@@ -50,14 +50,14 @@ fn get_element(id: Id, state: tauri::State<Mutex<Engine>>) -> Option<Element> {
 
 #[tauri::command]
 fn create_element(element_type: ElementType, state: tauri::State<Mutex<Engine>>) -> Element {
-    info!("create_element invoked");
+    info!("creating element of type {:?}", element_type);
     state.lock().unwrap().create_element(element_type)
     //TODO mark character as dirty
 }
 
 #[tauri::command]
 fn delete_element(id: Id, state: tauri::State<Mutex<Engine>>, window: Window) {
-    info!("delete_element invoked");
+    info!("deleting element {:?}", id);
     let mut engine = state.lock().unwrap();
     let affected = engine.delete_element(id);
     for id in affected {
@@ -72,7 +72,7 @@ fn update_element(
     state: tauri::State<Mutex<Engine>>,
     character: tauri::State<CharacterState>,
 ) {
-    info!("update_element invoked");
+    info!("updating element {:?}", element.id());
     let mut state = state.lock().unwrap();
     //TODO check that id was in use before inserting.
     //TODO CONSIDER CHECKING IF element type maches the given element

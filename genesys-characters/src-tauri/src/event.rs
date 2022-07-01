@@ -20,7 +20,7 @@ pub(crate) fn emit_element_updated<M>(manager: &M, element: Element)
 where
     M: Manager<Wry>,
 {
-    info!("element_updated sent");
+    info!("sending element {:?} {:?} updated", element.get_type(), element.id());
     manager.emit_all("element-updated", element).unwrap();
 }
 
@@ -36,7 +36,7 @@ pub(crate) fn emit_goto<M>(manager: &M, target: &str)
 where
     M: Manager<Wry>,
 {
-    info!("goto sent");
+    info!("sending goto {}", target);
     let target = if target.starts_with("goto-") {
         &target[5..]
     } else {

@@ -1,3 +1,4 @@
+use core::fmt;
 use std::collections::HashMap;
 
 use anyhow::anyhow;
@@ -9,6 +10,7 @@ use super::Id;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub(crate) enum ElementType {
+    Character,
     List,
     Note,
     Item,
@@ -18,6 +20,7 @@ pub(crate) enum ElementType {
 impl ElementType {
     pub fn create(self) -> Element {
         match self {
+            ElementType::Character => unimplemented!(),
             ElementType::List => Element::List(List::default()),
             ElementType::Note => Element::Note(Note::default()),
             ElementType::Item => Element::Item(Item::default()),
@@ -44,6 +47,16 @@ impl Element {
             Element::List(l) => l.id,
             Element::Item(i) => i.id,
             Element::Ability(a) => a.id,
+        }
+    }
+
+    pub fn get_type(&self) -> ElementType {
+        match self {
+            Element::Character(_) => ElementType::Character,
+            Element::Note(_) => ElementType::Note,
+            Element::List(_) => ElementType::List,
+            Element::Item(_) => ElementType::Item,
+            Element::Ability(_) => ElementType::Ability,
         }
     }
 
