@@ -2,7 +2,7 @@ use crate::filesystem::{
     new_character, open_character, print_character, save_character, save_character_as,
 };
 use crate::genesys::Character;
-use crate::{emit_goto, emit_toggle_symbols, quit};
+use crate::{event::emit_goto, event::emit_toggle_symbols, quit};
 use tauri::{
     async_runtime, CustomMenuItem, GlobalWindowEvent, Menu, MenuItem, Submenu, Window,
     WindowMenuEvent,
@@ -38,10 +38,10 @@ pub(crate) fn on_menu_event(event: WindowMenuEvent) {
             "save-as" => save_character_as(window),
             "print" => print_character(window),
             "quit" => quit(&window),
-            "symbols" => emit_toggle_symbols(window),
+            "symbols" => emit_toggle_symbols(&window),
             a => {
                 if a.starts_with("goto-") {
-                    emit_goto(window, a);
+                    emit_goto(&window, a);
                 } else {
                     error!("Unhandled menu event '{}'", a);
                 }

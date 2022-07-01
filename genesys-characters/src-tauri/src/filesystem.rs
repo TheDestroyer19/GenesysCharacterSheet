@@ -5,7 +5,8 @@ use tauri::{Manager, Window};
 
 use crate::character_state::CharacterState;
 use crate::engine::Engine;
-use crate::{emit_character_updated, update_title};
+use crate::event::emit_character_updated;
+use crate::update_title;
 
 pub(crate) fn save_character_as(window: Window) {
     let dialog = {
