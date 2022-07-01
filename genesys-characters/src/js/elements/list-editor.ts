@@ -1,6 +1,5 @@
 import { invoke } from "@tauri-apps/api";
 import { OpenForEdit } from "../common";
-import { RemoveAllChildNodes } from "../util/utils";
 import { GenericListItem } from "./generic-list-item";
 
 type CharacterListElement = {
@@ -44,20 +43,33 @@ export class ListEditorDisplay extends HTMLElement {
         }
     }
 
-    #update_element(new_id: number) {
-        if (isNaN(new_id)) return;
-        if (this.#state != null) {
-            RemoveAllChildNodes(this);
+    #update_element(new_id: CharacterListElement | number) {
+        var promise;
+
+        if (typeof new_id === "number") {
+            if (isNaN(new_id)) return;   
+            promise = invoke('get_element', { id: new_id });
+        } else {
+            promise = Promise.resolve(new_id);
         }
-        invoke('get_element', { id: new_id })
-            .then((element) => {
-                this.#state = element as CharacterListElement;
-                if (this.#children_tag != null) {
-                    this.#state.items.forEach((id) => {
-                        this.#create_display_for(id);
-                    });
-                }
-            })
+
+        promise.then((element) => {
+            this.#state = element as CharacterListElement;
+            if (this.#children_tag != null) {
+                this.#state.items.forEach((id, index) => {
+                    let old = this.children[index]
+                    if (old && old.getAttribute('data-element-id') != id.toString()) {
+                        let element = this.#create_display_for(id);
+                        this.insertBefore(element, old);
+                        old.remove();
+                    } else if (old == undefined) {
+                        this.append(this.#create_display_for(id));
+                    } else {
+                        console.log("happy day");
+                    }
+                });
+            }
+        })
     }
 
     add(id: number): GenericListItem {
@@ -89,8 +101,6 @@ export class ListEditorDisplay extends HTMLElement {
         element.addEventListener('list-move-up', _ => this.#moveUp(id));
         element.addEventListener('list-move-down', _ => this.#moveDown(id));
 
-        this.appendChild(element);
-
         return element;
     }
 
@@ -119,7 +129,7 @@ export class ListEditorDisplay extends HTMLElement {
     }
 
     onElementChange(element: CharacterListElement) {
-        this.#update_element(element.id);
+        this.#update_element(element);
     }
 }
 customElements.define(ListEditorDisplay.tag, ListEditorDisplay);
