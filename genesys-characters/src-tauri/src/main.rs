@@ -4,7 +4,10 @@
 )]
 
 #[cfg(test)]
-#[macro_use] extern crate proptest;
+#[macro_use]
+extern crate proptest;
+#[macro_use]
+extern crate log;
 
 mod character_state;
 mod engine;
@@ -25,6 +28,7 @@ use crate::engine::Engine;
 
 #[tauri::command]
 fn on_character_edited(character: Character, state: tauri::State<CharacterState>, window: Window) {
+    info!("COMMAND: on_character_edited invoked");
     let mut state = state.lock();
     *state.character_mut() = character;
     update_title(&window, state.character());
@@ -32,28 +36,34 @@ fn on_character_edited(character: Character, state: tauri::State<CharacterState>
 
 #[tauri::command]
 fn get_character(state: tauri::State<CharacterState>) -> Character {
+    info!("COMMAND: get_character invoked");
     state.lock().character().clone()
 }
 
 #[tauri::command]
 fn get_character_element(state: tauri::State<Mutex<Engine>>) -> Option<Element> {
+    info!("COMMAND: get_character_element invoked");
     let state = state.lock().unwrap();
     state.elements.get(&state.character).cloned()
 }
 
 #[tauri::command]
 fn get_element(id: Id, state: tauri::State<Mutex<Engine>>) -> Option<Element> {
+    info!("COMMAND: get_element invoked");
     state.lock().unwrap().elements.get(&id).cloned()
 }
 
 #[tauri::command]
 fn create_element(element_type: ElementType, state: tauri::State<Mutex<Engine>>) -> Element {
+    info!("COMMAND: create_element invoked");
     state.lock().unwrap().create_element(element_type)
+    //TODO mark character as dirty
 }
 
 #[tauri::command]
 fn delete_element(element: Element) {
-    todo!();
+    info!("COMMAND: delete_element invoked");
+    error!("TODO implement delete");
 }
 
 #[tauri::command]
@@ -63,7 +73,7 @@ fn update_element(
     state: tauri::State<Mutex<Engine>>,
     character: tauri::State<CharacterState>,
 ) {
-    println!("Element updated");
+    info!("COMMAND: update_element invoked");
     let mut state = state.lock().unwrap();
     //TODO check that id was in use before inserting.
     //TODO CONSIDER CHECKING IF element type maches the given element
@@ -72,9 +82,11 @@ fn update_element(
     let character = character.character_mut();
     state.write_into(character).unwrap();
     emit_element_updated(&window, element);
+    //TODO mark character as dirty
 }
 
 fn emit_character_updated(window: &Window, character: &Character) {
+    info!("EVENT: emit_character_updated sent");
     window
         .app_handle()
         .emit_all("character-updated", character.clone())
@@ -82,14 +94,20 @@ fn emit_character_updated(window: &Window, character: &Character) {
 }
 
 fn emit_element_updated(window: &Window, element: Element) {
-    window.app_handle().emit_all("element-updated", element).unwrap();
+    info!("EVENT: emit_element_updated sent");
+    window
+        .app_handle()
+        .emit_all("element-updated", element)
+        .unwrap();
 }
 
 fn emit_toggle_symbols(window: Window) {
+    info!("EVENT: emit_toggle_symbols sent");
     window.emit_all("toggle_symbols", ()).unwrap();
 }
 
 fn emit_goto(window: Window, target: &str) {
+    info!("EVENT: emit_goto sent");
     let target = if target.starts_with("goto-") {
         &target[5..]
     } else {
@@ -107,16 +125,22 @@ fn quit(window: &Window) {
             "Do you still want to quit?",
             move |yes| {
                 if yes {
+                    info!("Quitting App");
                     window_clone.app_handle().exit(0);
                 }
             },
         )
     } else {
+        info!("Quitting App");
         window.app_handle().exit(0);
     }
 }
 
 fn main() {
+    pretty_env_logger::init();
+
+    info!("Starting up App");
+
     let menu = build_menu();
 
     tauri::Builder::default()

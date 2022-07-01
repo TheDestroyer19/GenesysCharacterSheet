@@ -51,6 +51,7 @@ pub(crate) fn save_character_as(window: Window) {
         }
 
         update_title(&window, state.character());
+        println!("Character saved");
     });
 }
 
@@ -67,6 +68,7 @@ pub(crate) fn save_character(window: Window) {
             )
         }
         update_title(&window, state.character());
+        println!("Character saved");
     } else {
         std::mem::drop(state);
         save_character_as(window);

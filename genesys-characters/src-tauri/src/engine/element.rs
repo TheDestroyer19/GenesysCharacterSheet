@@ -62,18 +62,19 @@ impl Element {
     }
 
     pub fn insert_list_into<E>(list: Vec<E>, map: &mut HashMap<Id, Element>) -> Id
-    where Element: From<E> {
+    where
+        Element: From<E>,
+    {
         let id = Id::new();
 
         let mut items = Vec::with_capacity(list.len());
         map.extend(
             list.into_iter()
-            .map(Element::from)
-            .map(|e| (e.id(), e))
-            .inspect(|(i, _)| items.push(*i)),
+                .map(Element::from)
+                .map(|e| (e.id(), e))
+                .inspect(|(i, _)| items.push(*i)),
         );
-        map.insert(id,
-        Element::List(List {id, items}));
+        map.insert(id, Element::List(List { id, items }));
 
         id
     }
@@ -251,8 +252,8 @@ mod test {
     use super::*;
 
     prop_compose! {
-        fn arb_item(text: &'static str, min: i32, max: i32) 
-                    (q in min..max, n in text, d in text, e in min..max) 
+        fn arb_item(text: &'static str, min: i32, max: i32)
+                    (q in min..max, n in text, d in text, e in min..max)
                     -> genesys::Item {
             genesys::Item {
                 quantity: q, name: n.clone(), encumbrance: e, description: d.clone()
@@ -262,7 +263,7 @@ mod test {
 
     prop_compose! {
         fn arb_note(text: &'static str)
-                (t in text, s in text, b in text) 
+                (t in text, s in text, b in text)
                 -> genesys::Note {
             genesys::Note { note_title: t, subtitle: s, body: b }
         }
@@ -270,7 +271,7 @@ mod test {
 
     prop_compose! {
         fn arb_ability(text: &'static str, range: std::ops::Range<i32>)
-                (n in text, d in text, s in text, r in range) 
+                (n in text, d in text, s in text, r in range)
                 -> genesys::Ability {
             genesys::Ability { name: n, description: d, rank: r, source: s }
         }
