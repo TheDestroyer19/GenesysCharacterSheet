@@ -1,5 +1,4 @@
 import {CHARACTER_LOADED, RegisterEditorModal } from './common';
-import { buildItemwiseDisplayFunction, ListEditor } from './util/listEditor';
 import { ConvertSymbols } from './util/prettyText';
 import { GenericListItem } from "./elements/generic-list-item";
 import { invoke } from '@tauri-apps/api';
@@ -77,23 +76,16 @@ ModalTemplate.innerHTML = /* HTML */ `
 document.body.append(ModalTemplate);
 RegisterEditorModal("Item", ModalTemplate);
 
-let list = { id: 0, items: [], type: "List" };
-
-const listEditor = new ListEditor(document.getElementById('item-table'));
-listEditor.createDisplay = buildItemwiseDisplayFunction(ItemDisplay);
-listEditor.onChange = () => invoke('update_element', {element: list });
-listEditor.replaceArray(list.items);
+const listElement = document.getElementById('item-table');
 
 document.getElementById('new-item')?.addEventListener('click', event => {
     invoke('create_element', { elementType: "Item" })
-        .then(element => listEditor.add(element.id));
+        .then(element => listElement.add(element.id)).onEdit(event);
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
     invoke('get_character_element')
-        .then((character) => invoke('get_element', { id: character.inventory }))
-        .then((listContainer) => {
-            list = listContainer;
-            listEditor.replaceArray(list.items);
-        });
+    .then((character) => {
+        listElement.setAttribute('data-element-id', character.inventory)
+    });
 });
