@@ -30,9 +30,9 @@ impl CharacterState {
         self.lock().dirty()
     }
 
-    pub async fn load_async(&self, path: PathBuf) -> Result<(), anyhow::Error> {
+    pub async fn load_async(&self, path: &PathBuf) -> Result<(), anyhow::Error> {
         use tokio::fs::File;
-        let mut file = File::open(&path)
+        let mut file = File::open(path)
             .await
             .with_context(|| format!("Failed to open '{}'", path.display()))?;
 
@@ -46,7 +46,7 @@ impl CharacterState {
 
         let mut inner = self.lock();
         inner.character = character;
-        inner.path = Some(path);
+        inner.path = Some(path.to_path_buf());
         inner.dirty = false;
 
         Ok(())

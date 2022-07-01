@@ -43,7 +43,7 @@ pub(crate) fn on_menu_event(event: WindowMenuEvent) {
                 if a.starts_with("goto-") {
                     emit_goto(window, a);
                 } else {
-                    println!("Unhandled menu event '{}'", a);
+                    error!("Unhandled menu event '{}'", a);
                 }
             }
         }

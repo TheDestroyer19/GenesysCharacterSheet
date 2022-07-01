@@ -51,7 +51,7 @@ pub(crate) fn save_character_as(window: Window) {
         }
 
         update_title(&window, state.character());
-        println!("Character saved");
+        info!("Character saved");
     });
 }
 
@@ -68,7 +68,7 @@ pub(crate) fn save_character(window: Window) {
             )
         }
         update_title(&window, state.character());
-        println!("Character saved");
+        info!("Character saved");
     } else {
         std::mem::drop(state);
         save_character_as(window);
@@ -99,7 +99,7 @@ pub(crate) async fn new_character(window: Window) {
 
     update_title(&window, &character);
     emit_character_updated(&window, &character);
-    println!("New character created");
+    info!("New character created");
 }
 
 pub(crate) async fn open_character(window: Window) {
@@ -123,14 +123,14 @@ pub(crate) async fn open_character(window: Window) {
         None => return,
     };
 
-    match state.load_async(path).await {
+    match state.load_async(&path).await {
         Ok(_) => {
             let state = state.lock();
             let character = state.character();
             *engine.lock().unwrap() = character.clone().into();
             update_title(&window, character);
             emit_character_updated(&window, character);
-            println!("Character loaded");
+            info!("Loaded Character from {}", path.display());
         }
         Err(e) => dialog::message(
             Some(&window),
@@ -149,4 +149,5 @@ pub(crate) fn print_character(window: Window) {
             format!("{:#}", e),
         ),
     }
+    info!("Printed character");
 }
