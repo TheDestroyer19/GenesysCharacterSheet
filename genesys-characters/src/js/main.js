@@ -21,8 +21,12 @@ await listen('element-updated', event => {
     let element = event.payload;
     let elements = document.querySelectorAll(`[data-element-id='${element.id}']`);
     elements.forEach(node => {
-        for (let property in element) {
-            node.setAttribute(property, element[property]);
+        if (node.onElementChange) {
+            node.onElementChange(element);
+        } else {
+            for (let property in element) {
+                node.setAttribute(property, element[property]);
+            }
         }
     });
     console.log(`Element ${event.payload.id} was updated`);

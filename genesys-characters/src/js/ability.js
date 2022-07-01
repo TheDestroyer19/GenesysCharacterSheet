@@ -1,8 +1,7 @@
 import { CHARACTER_LOADED, RegisterEditorModal } from "./common";
-import { Ability } from './genesys';
-import { buildItemwiseDisplayFunction, ListEditor, NewSimpleListEditor } from "./util/listEditor";
 import { ConvertSymbols } from "./util/prettyText";
 import { } from "./elements/list-controls";
+import { } from "./elements/list-editor";
 import { GenericListItem } from "./elements/generic-list-item";
 import { invoke } from "@tauri-apps/api";
 
@@ -67,25 +66,16 @@ ModalTemplate.innerHTML = /* HTML */ `
 document.body.append(ModalTemplate);
 RegisterEditorModal("Ability", ModalTemplate);
 
-let list = {id: 0, items: [], type: "List"};
-
-let listEditorElemement = document.getElementById('ability-table');
-const listEditor = new ListEditor(listEditorElemement);
-listEditor.createDisplay = buildItemwiseDisplayFunction(AbilityDisplay);
-listEditor.onChange = () => invoke('update_element', { element: list });
-listEditor.replaceArray(list.items);
+const listEditorElement = document.getElementById('ability-table');
 
 document.getElementById('new-ability').addEventListener('click', event => {
     invoke('create_element', { elementType: "Ability" })
-        .then(element => listEditor.add(element.id).onEdit(event));
+        .then(element => listEditorElement.add(element.id).onEdit(event));
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
     invoke('get_character_element')
-        .then((character) => invoke('get_element', { id: character.abilities }))
-        .then((listContainer) => {
-            list = listContainer;
-            listEditorElemement.setAttribute('data-element-id', list.id);
-            listEditor.replaceArray(list.items);
+        .then((character) => {
+            listEditorElement.setAttribute('data-element-id', character.abilities)
         });
 });
