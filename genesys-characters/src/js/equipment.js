@@ -10,9 +10,6 @@ export class ItemDisplay extends GenericListItem {
     constructor() {
         super();
         this.#state = {};
-        let style = document.createElement('style');
-        style.textContent = "#suffix { font-size: small; }";
-        this.shadowRoot.appendChild(style);
     }
 
     static get observedAttributes() {

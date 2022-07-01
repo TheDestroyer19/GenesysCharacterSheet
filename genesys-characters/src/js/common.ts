@@ -40,7 +40,7 @@ interface ElementEditorList {
     [index: string]: HTMLTemplateElement;
 };
 let element_editors: ElementEditorList = {};
-export function RegisterEditorModal(element_type: "Note" | "Item", editor: HTMLTemplateElement) {
+export function RegisterEditorModal(element_type: "Note" | "Item" | "Ability", editor: HTMLTemplateElement) {
     element_editors[element_type] = editor;
 }
 

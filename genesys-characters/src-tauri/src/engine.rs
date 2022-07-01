@@ -21,48 +21,9 @@ impl From<genesys::Character> for Engine {
         let mut elements = HashMap::new();
 
         let character_id = Id::new();
-
-        //Notes
-        let notes_id = Id::new();
-        {
-            let mut items = Vec::with_capacity(character.notes.len());
-            elements.extend(
-                character
-                    .notes
-                    .into_iter()
-                    .map(Element::from)
-                    .map(|e| (e.id(), e))
-                    .inspect(|(i, _)| items.push(*i)),
-            );
-            elements.insert(
-                notes_id,
-                Element::List(List {
-                    id: notes_id,
-                    items,
-                }),
-            );
-        }
-
-        //items
-        let items_id = Id::new();
-        {
-            let mut items = Vec::with_capacity(character.inventory.len());
-            elements.extend(
-                character
-                    .inventory
-                    .into_iter()
-                    .map(Element::from)
-                    .map(|e| (e.id(), e))
-                    .inspect(|(i, _)| items.push(*i)),
-            );
-            elements.insert(
-                items_id,
-                Element::List(List {
-                    id: items_id,
-                    items,
-                }),
-            );
-        }
+        let notes_id = Element::insert_list_into(character.notes, &mut elements);
+        let items_id = Element::insert_list_into(character.inventory, &mut elements);
+        let abilities_id = Element::insert_list_into(character.abilities, &mut elements);
 
         elements.insert(
             character_id,
@@ -70,6 +31,7 @@ impl From<genesys::Character> for Engine {
                 id: character_id,
                 notes: notes_id,
                 inventory: items_id,
+                abilities: abilities_id,
             }),
         );
 
@@ -89,6 +51,7 @@ impl<'a> TryFrom<&'a Engine> for genesys::Character {
             id: _id,
             notes,
             inventory,
+            abilities,
         } = engine
             .elements
             .get(&engine.character)
@@ -129,6 +92,23 @@ impl<'a> TryFrom<&'a Engine> for genesys::Character {
                     .get(id)
                     .context("Item was missing")
                     .and_then(genesys::Item::try_from)
+            })
+            .collect::<Result<_, anyhow::Error>>()?;
+
+        character.abilities = engine
+            .elements
+            .get(abilities)
+            .context("Ability list missing")?
+            .list()
+            .context("Ability was not a list")?
+            .items
+            .iter()
+            .map(|id| {
+                engine
+                    .elements
+                    .get(id)
+                    .context("Ability was missing")
+                    .and_then(genesys::Ability::try_from)
             })
             .collect::<Result<_, anyhow::Error>>()?;
 

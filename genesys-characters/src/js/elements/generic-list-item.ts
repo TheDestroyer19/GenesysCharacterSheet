@@ -16,7 +16,7 @@ const html = /* HTML */ `
 h1 {
     display: inline;
 }
-#body, #badge {
+#body, #badge, #suffix {
     font-size: small;
 }
 #badge {

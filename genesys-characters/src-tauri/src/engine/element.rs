@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use anyhow::anyhow;
 use serde::{Deserialize, Serialize};
 
@@ -58,6 +60,23 @@ impl Element {
             _ => None,
         }
     }
+
+    pub fn insert_list_into<E>(list: Vec<E>, map: &mut HashMap<Id, Element>) -> Id
+    where Element: From<E> {
+        let id = Id::new();
+
+        let mut items = Vec::with_capacity(list.len());
+        map.extend(
+            list.into_iter()
+            .map(Element::from)
+            .map(|e| (e.id(), e))
+            .inspect(|(i, _)| items.push(*i)),
+        );
+        map.insert(id,
+        Element::List(List {id, items}));
+
+        id
+    }
 }
 
 impl From<genesys::Note> for Element {
@@ -86,7 +105,7 @@ impl<'a> TryFrom<&'a Element> for genesys::Note {
                 subtitle: n.subtitle.clone(),
                 body: n.body.clone(),
             }),
-            _ => Err(anyhow!("Element was not a Note")),
+            _ => Err(anyhow!("Element was not a Note. It was {:?}", element)),
         }
     }
 }
@@ -114,7 +133,7 @@ impl<'a> TryFrom<&'a Element> for genesys::Item {
                 encumbrance: i.encumbrance,
                 description: i.description.clone(),
             }),
-            _ => Err(anyhow!("Element was not a Note")),
+            _ => Err(anyhow!("Element was not a Item. It was {:?}", element)),
         }
     }
 }
@@ -142,7 +161,7 @@ impl<'a> TryFrom<&'a Element> for genesys::Ability {
                 rank: i.rank,
                 source: i.source.clone(),
             }),
-            _ => Err(anyhow!("Element was not a Ability")),
+            _ => Err(anyhow!("Element was not a Ability. It was {:?}", element)),
         }
     }
 }
@@ -166,6 +185,7 @@ pub(crate) struct Character {
     pub id: Id,
     pub notes: Id,
     pub inventory: Id,
+    pub abilities: Id,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -270,7 +290,7 @@ mod test {
         }
 
         #[test]
-        fn ability_round_trip(ref serializable in arb_ability("\\PC*", 0..1000)) {
+        fn ability_round_trip(ref serializable in arb_ability("\\PC*", -1000..1000)) {
             let engine = Element::from(serializable.clone());
             assert_eq!(&genesys::Ability::try_from(&engine).unwrap(), serializable);
         }
