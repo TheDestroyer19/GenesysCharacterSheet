@@ -44,7 +44,7 @@ fn get_character_element(state: tauri::State<Mutex<Engine>>) -> Option<Element> 
 
 #[tauri::command]
 fn get_element(id: Id, state: tauri::State<Mutex<Engine>>) -> Option<Element> {
-    info!("get_element invoked");
+    info!("getting element {:?}", id);
     state.lock().unwrap().elements.get(&id).cloned()
 }
 
@@ -56,9 +56,13 @@ fn create_element(element_type: ElementType, state: tauri::State<Mutex<Engine>>)
 }
 
 #[tauri::command]
-fn delete_element(element: Element) {
+fn delete_element(id: Id, state: tauri::State<Mutex<Engine>>, window: Window) {
     info!("delete_element invoked");
-    error!("TODO implement delete");
+    let mut engine = state.lock().unwrap();
+    let affected = engine.delete_element(id);
+    for id in affected {
+        emit_element_updated(&window, engine.elements[&id].clone())
+    }
 }
 
 #[tauri::command]

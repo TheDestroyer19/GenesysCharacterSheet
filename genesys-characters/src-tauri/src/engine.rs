@@ -127,6 +127,23 @@ impl Engine {
         element
     }
 
+    /// Deltes the element with given id, and returns a list of affected elements
+    pub fn delete_element(&mut self, id: Id) -> Vec<Id> {
+        let mut affected = Vec::with_capacity(1);
+
+        let _element = self.elements.remove(&id);
+        for e in self.elements.values_mut().filter_map(Element::list_mut) {
+            let count = e.items.len();
+            e.items.retain(|i| *i != id);
+            if count != e.items.len() {
+                affected.push(e.id);
+            }
+        }
+        //TODO handle children
+
+        affected
+    }
+
     pub fn write_into(&self, character: &mut genesys::Character) -> Result<(), anyhow::Error> {
         let data = genesys::Character::try_from(self)?;
 

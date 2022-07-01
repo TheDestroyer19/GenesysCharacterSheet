@@ -69,7 +69,8 @@ RegisterEditorModal("Ability", ModalTemplate);
 
 let list = {id: 0, items: [], type: "List"};
 
-const listEditor = new ListEditor(document.getElementById('ability-table'));
+let listEditorElemement = document.getElementById('ability-table');
+const listEditor = new ListEditor(listEditorElemement);
 listEditor.createDisplay = buildItemwiseDisplayFunction(AbilityDisplay);
 listEditor.onChange = () => invoke('update_element', { element: list });
 listEditor.replaceArray(list.items);
@@ -84,6 +85,7 @@ document.addEventListener(CHARACTER_LOADED, () => {
         .then((character) => invoke('get_element', { id: character.abilities }))
         .then((listContainer) => {
             list = listContainer;
+            listEditorElemement.setAttribute('data-element-id', list.id);
             listEditor.replaceArray(list.items);
         });
 });

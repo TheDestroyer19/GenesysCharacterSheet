@@ -11,17 +11,8 @@ await listen('goto', event => {
     target.scrollIntoView({behavior: 'smooth'});
 });
 
-document.addEventListener(CHARACTER_UPDATED, () => {
-    invoke('on_character_edited', { character, });
-});
-
 await listen('character-updated', event => {
     character = event.payload;
-    window.character = character;
-    SendCharacterLoaded();
-});
-
-invoke('get_character').then(character => {
     window.character = character;
     SendCharacterLoaded();
 });
@@ -35,4 +26,13 @@ await listen('element-updated', event => {
         }
     });
     console.log(`Element ${event.payload.id} was updated`);
+});
+
+document.addEventListener(CHARACTER_UPDATED, () => {
+    invoke('on_character_edited', { character, });
+});
+
+invoke('get_character').then(character => {
+    window.character = character;
+    SendCharacterLoaded();
 });

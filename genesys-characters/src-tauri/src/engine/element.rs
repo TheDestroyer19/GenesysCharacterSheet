@@ -61,6 +61,13 @@ impl Element {
         }
     }
 
+    pub fn list_mut(&mut self) -> Option<&mut List> {
+        match self {
+            Element::List(l) => Some(l),
+            _ => None,
+        }
+    }
+
     pub fn insert_list_into<E>(list: Vec<E>, map: &mut HashMap<Id, Element>) -> Id
     where
         Element: From<E>,
