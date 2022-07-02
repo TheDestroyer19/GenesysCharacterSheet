@@ -20,6 +20,10 @@ pub struct Character {
     pub critical_injuries: Vec<CriticalInjury>,
     pub favors_given: Vec<Favor>,
     pub favors_owed: Vec<Favor>,
+    #[serde(default)]
+    pub encumbrance: i32,
+    #[serde(default)]
+    pub encumbrance_threshold: i32,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default, Clone)]

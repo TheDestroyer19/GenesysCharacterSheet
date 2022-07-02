@@ -152,10 +152,12 @@
 
         <div id="page3" class="sheet">
             <section id="inventory" class="block-with-title">
-                <h2>
+                <h2 class="horizontal-row">
                     <button id="new-item" class="edit" title="Add Item">＋</button>
                     Equipment Log
-                    <span><!-- for alignment --></span>
+                    <span class="horizontal-row">
+                        <label for="encumbrance">Encumbrance</label><input id="encumbrance" type="number" /> / <input id="encumbrance-threshold" type="number" />
+                    </span>
                 </h2>
                 <list-editor id="item-table" children-tag="item-display"></list-editor>
             </section>

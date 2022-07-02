@@ -136,6 +136,18 @@ document.addEventListener(CHARACTER_LOADED, () => {
     document.getElementById("bio-features").value = desc.features;
     SendRecalcSize(document.getElementById("bio-hair"));
     SendRecalcSize(document.getElementById("bio-features"));
+
+    document.getElementById('encumbrance').value = character.encumbrance;
+    document.getElementById('encumbrance-threshold').value = character.encumbrance_threshold;
+});
+
+document.getElementById('encumbrance').addEventListener('change', event => {
+    window.character.encumbrance = parseInt(event.target.value);
+    SendCharacterUpdated();
+});
+document.getElementById('encumbrance-threshold').addEventListener('change', event => {
+    window.character.encumbrance_threshold = parseInt(event.target.value);
+    SendCharacterUpdated();
 });
 
 // ========================================================================= //
@@ -147,6 +159,7 @@ document.addEventListener(CHARACTER_LOADED, () => {
     if (obligation_total) {
         document.getElementById('obligation-total').textContent = obligation_total;
     }
+
 });
 
 DoOnUpdate('character.obligations', () => {

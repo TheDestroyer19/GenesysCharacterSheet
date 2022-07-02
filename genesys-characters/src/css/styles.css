@@ -10,7 +10,7 @@ textarea {
 .horizontal-row {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
 }
@@ -130,6 +130,13 @@ textarea {
     .stat input {
         width: 4rem;
     }
+}
+
+#inventory>h2 label {
+    font-size: small;
+}
+#encumbrance, #encumbrance-threshold {
+    width: 3rem;
 }
 
 /* Skill Styles*/
