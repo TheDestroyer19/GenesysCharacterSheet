@@ -107,11 +107,11 @@
                     <button id="new-ability" class="edit" title="Add Ability">＋</button>
                     Talents and Special Abilities
                 </h2>
-                <list-editor id="ability-table" children-tag="ability-display"></list-editor>
+                <div><list-editor id="ability-table" children-tag="ability-display"></list-editor></div>
             </section>
 
             <section id="critical-injuries" class="block-with-title">
-                <h2 class="horizontal-row">
+                <h2>
                     <button id="new-injury" class="edit" title="Add Injury">＋</button>
                     Critical Injuries
                     <span><!-- for alignment --></span>
@@ -121,7 +121,7 @@
 
             <div id="mechanics">
                 <section id="motivations" class="block-with-title">
-                    <h2 class="horizontal-row">
+                    <h2>
                         <button id="new-motivation" class="edit" title="New Motivation">＋</button>
                         Motivations
                         <span><!--for alignment--></span>
@@ -131,19 +131,21 @@
                 </section>
     
                 <section id="obligations" class="block-with-title">
-                    <h2 class="horizontal-row">
+                    <h2>
                         <button id="new-obligation" class="edit" title="Add Ability">＋</button>
                         Obligation
                         <span id="obligation-total"></span>
                     </h2>
                     <div id="obligation-table"></div>
                 </section>
-    
-                <section id="favors">
-                    <h2 class="horizontal-row"><button id="owe-favor" class="edit" title="Add Owed Favor">＋</button>Favors Owed<span></span></h2>
+
+                <section class="block-with-title">
+                    <h2><button id="owe-favor" class="edit" title="Add Owed Favor">＋</button>Favors Owed</h2>
                     <div id="favors-owed"></div>
-                    <hr>
-                    <h2 class="horizontal-row"><button id="give-favor" class="edit" title="Give Favor">＋</button>Favors Given<span></span></h2>
+                </section>
+    
+                <section class="block-with-title">
+                    <h2><button id="give-favor" class="edit" title="Give Favor">＋</button>Favors Given</h2>
                     <div id="favors-given"></div>
                 </section>
             </div>

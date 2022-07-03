@@ -8,7 +8,7 @@ const ELEMENT_HTML = /* HTML */ `
         align-items: stretch;
         max-width: 1.15em;
 
-        border-right: 0.2rem solid var(--ca1-50);
+        border-right: 0.2rem solid var(--ca1-50) !important;
     }
     button.edit {
         height: auto;

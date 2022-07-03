@@ -13,9 +13,9 @@ modalTemplate.innerHTML = /* HTML */`
     min-width: fit-content;
     width: 4in;
     max-width: 100%;
-    background-color: white;
+    background-color: var(--surface-3);
 
-    border: 0.2rem solid var(--cp-30);
+    border: 0.2rem solid var(--orange-6);
     border-radius: 0.75rem;
     padding: 0.5rem;
 }

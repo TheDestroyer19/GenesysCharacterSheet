@@ -1,4 +1,5 @@
-@import './normalize.css';
+@import 'open-props/style';
+@import 'open-props/normalize';
 
 body {
     --cp-90: #ffeaa4;
@@ -20,17 +21,11 @@ body {
     --cg-70: #dddddd;
     --cg-50: #888888;
 }
-@media screen {
-    body {
-        background-color: var(--cg-50);
-    }
-}
 
 /* ******************************************************
 Common bits
 ****************************************************** */
 html {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 0.25rem;
 }
 
@@ -48,6 +43,9 @@ h1,h2,h3 {
 }
 h1, h2 {
     font-size: medium;
+}
+h2 {
+    /* display: inline-block; */
 }
 h3 {
     font-size: small;
@@ -72,11 +70,6 @@ ul {
 /* ******************************************************
 Inputs
 ****************************************************** */
-label{
-	margin:0;
-	padding:0px;
-	display:block;
-}
 input[type=checkbox] {
     flex-grow: 0;
     justify-self: start;
@@ -85,24 +78,7 @@ input[type=text],
 input[type=number],
 textarea, 
 select{
-    font: inherit;
-	box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	border:1px solid #BEBEBE;
-	padding: 2px;
-	margin:0px;
     width: 100%;
-	outline: none;	
-}
-input[type=text]:focus, 
-input[type=number]:focus,
-textarea:focus, 
-select:focus{
-	-moz-box-shadow: 0 0 8px #88D5E9;
-	-webkit-box-shadow: 0 0 8px #88D5E9;
-	box-shadow: 0 0 8px #88D5E9;
-	border: 1px solid #88D5E9;
 }
 textarea {
     resize: none;
@@ -113,30 +89,10 @@ textarea.growable {
     min-height: 0;
 }
 @media only print {
-    input[type=text],input[type=number],textarea {
-        border: none;
-        -moz-appearance: textfield;
-    }
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
     }
-}
-
-.inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
-}
-
-.inputfile:focus + label {
-    background-color:#7a7a7a;
-}
-.inputfile:active + label {
-    background-color:#999999;
 }
 
 
