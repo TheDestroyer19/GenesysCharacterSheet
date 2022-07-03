@@ -1,11 +1,12 @@
 import { invoke } from "@tauri-apps/api";
 import { OpenForEdit } from "../common";
+import { RemoveAllChildNodes } from "../util/utils.js";
 import { GenericListItem } from "./generic-list-item";
 
 type CharacterListElement = {
     id: number,
     type: "List",
-    items: [number]
+    items: number[]
 }
 
 export class ListEditorDisplay extends HTMLElement {
@@ -56,6 +57,9 @@ export class ListEditorDisplay extends HTMLElement {
         promise.then((element) => {
             this.#state = element as CharacterListElement;
             if (this.#children_tag != null) {
+                if (this.#state.items.length == 0) {
+                    RemoveAllChildNodes(this);
+                }
                 this.#state.items.forEach((id, index) => {
                     let old = this.children[index]
                     if (old && old.getAttribute('data-element-id') != id.toString()) {

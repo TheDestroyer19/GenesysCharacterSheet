@@ -28,12 +28,15 @@ textarea {
     width: 2rem;
 }
 
-.block-with-title>:not(:first-child) {
+.block-with-title>:last-child {
     background: var(--surface-2);
     border: 0.25rem solid var(--orange-5);
     border-radius: 0.25rem;
     border-top-left-radius: 0;
     padding: 0.25rem;
+}
+.block-with-title>:last-child:empty {
+    display: none;
 }
 .block-with-title>:first-child {
     color: var(--gray-9);
