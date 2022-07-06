@@ -20,7 +20,11 @@ pub(crate) fn emit_element_updated<M>(manager: &M, element: Element)
 where
     M: Manager<Wry>,
 {
-    info!("sending element {:?} {:?} updated", element.get_type(), element.id());
+    info!(
+        "sending element {:?} {:?} updated",
+        element.get_type(),
+        element.id()
+    );
     manager.emit_all("element-updated", element).unwrap();
 }
 

@@ -121,10 +121,10 @@ impl Engine {
         genesys::Character::default().into()
     }
 
-    pub fn create_element(&mut self, element_type: ElementType) -> Element {
-        let element = element_type.create();
+    pub fn create_element(&mut self, element_type: ElementType) -> Result<Element, anyhow::Error> {
+        let element = element_type.create()?;
         self.elements.insert(element.id(), element.clone());
-        element
+        Ok(element)
     }
 
     /// Deltes the element with given id, and returns a list of affected elements

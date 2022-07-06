@@ -17,13 +17,15 @@ pub(crate) enum ElementType {
 }
 
 impl ElementType {
-    pub fn create(self) -> Element {
+    pub fn create(self) -> Result<Element, anyhow::Error> {
         match self {
-            ElementType::Character => unimplemented!(),
-            ElementType::List => Element::List(List::default()),
-            ElementType::Note => Element::Note(Note::default()),
-            ElementType::Item => Element::Item(Item::default()),
-            ElementType::Ability => Element::Ability(Ability::default()),
+            ElementType::Character => Err(anyhow::anyhow!(
+                "Cannot create a Character w/o creating other elements"
+            )),
+            ElementType::List => Ok(Element::List(List::default())),
+            ElementType::Note => Ok(Element::Note(Note::default())),
+            ElementType::Item => Ok(Element::Item(Item::default())),
+            ElementType::Ability => Ok(Element::Ability(Ability::default())),
         }
     }
 }

@@ -49,9 +49,24 @@ fn get_element(id: Id, state: tauri::State<Mutex<Engine>>) -> Option<Element> {
 }
 
 #[tauri::command]
-fn create_element(element_type: ElementType, state: tauri::State<Mutex<Engine>>) -> Element {
+fn create_element(
+    element_type: ElementType,
+    state: tauri::State<Mutex<Engine>>,
+    window: Window,
+) -> Option<Element> {
     info!("creating element of type {:?}", element_type);
-    state.lock().unwrap().create_element(element_type)
+    match state.lock().unwrap().create_element(element_type) {
+        Ok(element) => Some(element),
+        Err(error) => {
+            tauri::api::dialog::message(
+                Some(&window),
+                "Something went wrong,",
+                format!("The error message is: {:#?}", error),
+            );
+            None
+        }
+    }
+
     //TODO mark character as dirty
 }
 

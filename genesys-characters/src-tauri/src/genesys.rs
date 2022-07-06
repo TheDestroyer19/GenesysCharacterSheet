@@ -136,7 +136,7 @@ pub struct Weapon {
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum Range {
-    Enganged,
+    Engaged,
     Short,
     Medium,
     Long,
