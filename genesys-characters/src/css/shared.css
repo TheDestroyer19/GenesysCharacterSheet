@@ -44,6 +44,10 @@ h1,h2,h3 {
 h1, h2 {
     font-size: medium;
 }
+h2 {
+    display: flex;
+    gap: 0.25rem;
+}
 h3 {
     font-size: small;
 }
@@ -118,12 +122,10 @@ button:focus,
 	-webkit-box-shadow:none;
 }
 .edit {
-    display: inline-block;
     padding: 0;
     margin: 0;
     width: 1.15em;
     height: 1.15em;
-    text-align: center;
 }
 @media print {
     .edit {

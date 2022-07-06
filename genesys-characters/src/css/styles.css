@@ -13,6 +13,24 @@ textarea {
     font-size: small;
 }
 
+.edit {
+    position: relative;
+}
+.edit::after {
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    right: 15%;
+    bottom: 15%;
+    background-color: white;
+    clip-path: polygon(
+        40% 0%, 60% 0%, 60% 40%,
+        100% 40%, 100% 60%, 60% 60%,
+        60% 100%, 40% 100%, 40% 60%,
+        0% 60%, 0% 40%, 40% 40%);
+}
+
 .horizontal-row {
     display: flex;
     flex-direction: row;
