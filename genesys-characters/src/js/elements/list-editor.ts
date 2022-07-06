@@ -60,18 +60,23 @@ export class ListEditorDisplay extends HTMLElement {
                 if (this.#state.items.length == 0) {
                     RemoveAllChildNodes(this);
                 }
-                this.#state.items.forEach((id, index) => {
-                    let old = this.children[index]
-                    if (old && old.getAttribute('data-element-id') != id.toString()) {
-                        let element = this.#create_display_for(id);
-                        this.insertBefore(element, old);
-                        old.remove();
-                    } else if (old == undefined) {
-                        this.append(this.#create_display_for(id));
-                    } else {
-                        console.log("happy day");
+                var count_matched = Math.min(this.#state.items.length, this.children.length);
+                var index = 0;
+                for (; index < count_matched; index++) {
+                    let id = this.#state.items[index];
+                    let element = this.children[index];
+                    if (element.getAttribute('data-element-id') != id.toString()) {
+                        //TODO consider just updating the element
+                        this.insertBefore(this.#create_display_for(id), element);
+                        element.remove();
                     }
-                });
+                }
+                while(this.children.length > this.#state.items.length) {
+                    this.children[this.#state.items.length].remove();
+                }
+                for(; index < this.#state.items.length; index++) {
+                    this.append(this.#create_display_for(this.#state.items[index]));
+                }
             }
         })
     }
