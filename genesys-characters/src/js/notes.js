@@ -64,7 +64,7 @@ const listElement = document.getElementById('notes-table');
 
 document.getElementById('new-note')?.addEventListener('click', event => {
     invoke('create_element', { elementType: "Note" })
-        .then(element => listElement.add(element.id)).onEdit(event);
+        .then(element => listElement.add(element.id).onEdit(event));
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {

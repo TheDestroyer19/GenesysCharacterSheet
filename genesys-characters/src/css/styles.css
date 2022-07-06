@@ -28,12 +28,15 @@ textarea {
     width: 2rem;
 }
 
-.block-with-title>:not(:first-child) {
-    background: var(--surface-2);
+.block-with-title>:last-child {
+    background: var(--surface-1);
     border: 0.25rem solid var(--orange-5);
     border-radius: 0.25rem;
     border-top-left-radius: 0;
     padding: 0.25rem;
+}
+.block-with-title>:last-child:empty {
+    display: none;
 }
 .block-with-title>:first-child {
     color: var(--gray-9);
@@ -47,7 +50,7 @@ textarea {
 }
 
 #skills, #favors, #page1header {
-    background: var(--surface-2);
+    background: var(--surface-1);
     border: 0.25rem solid var(--orange-5);
     border-radius: 0.25rem;
     padding: 0.25rem;

@@ -80,7 +80,7 @@ const listElement = document.getElementById('item-table');
 
 document.getElementById('new-item')?.addEventListener('click', event => {
     invoke('create_element', { elementType: "Item" })
-        .then(element => listElement.add(element.id)).onEdit(event);
+        .then(element => listElement.add(element.id).onEdit(event));
 });
 
 document.addEventListener(CHARACTER_LOADED, () => {
