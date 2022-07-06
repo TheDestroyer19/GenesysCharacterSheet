@@ -89,10 +89,15 @@
     gap: 0.5rem;
 }
 
+#characteristics > #stats {
+    --characteristic-min-width: 6.5rem;
+}
+#characteristics > #conditions {
+    --characteristic-min-width: 12rem;
+}
 #characteristics > div {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(var(--characteristic-min-width), 1fr));
     gap: 0.5rem;
 }
 .stat {
