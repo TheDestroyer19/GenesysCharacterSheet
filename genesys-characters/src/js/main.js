@@ -14,6 +14,9 @@ await listen('goto', event => {
 await listen('character-updated', event => {
     character = event.payload;
     window.character = character;
+    document.querySelectorAll('td19-modal').forEach(element => {
+        element.Close();
+    })
     SendCharacterLoaded();
 });
 
