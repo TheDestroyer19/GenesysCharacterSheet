@@ -98,8 +98,8 @@ pub(crate) async fn new_character(window: Window) {
     let character = state.character();
     *engine.lock().unwrap() = character.clone().into();
 
-    update_title(&window, &character);
-    emit_character_updated(&window, &character);
+    update_title(&window, character);
+    emit_character_updated(&window, character);
     info!("New character created");
 }
 

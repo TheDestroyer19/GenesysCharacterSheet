@@ -9,7 +9,7 @@ use tauri::{Invoke, Window};
 use crate::character_state::CharacterState;
 use crate::engine::Engine;
 
-pub(crate) fn commands() -> impl Fn(Invoke) -> () {
+pub(crate) fn commands() -> impl Fn(Invoke) {
     tauri::generate_handler![
         on_character_edited,
         get_character,

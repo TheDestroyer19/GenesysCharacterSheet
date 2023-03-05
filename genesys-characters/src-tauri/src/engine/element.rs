@@ -132,7 +132,7 @@ impl<'a> TryFrom<&'a Element> for genesys::Note {
     }
 }
 
-impl<'a> From<genesys::Item> for Element {
+impl From<genesys::Item> for Element {
     fn from(item: genesys::Item) -> Self {
         Element::Item(Item {
             id: Id::new(),
@@ -160,7 +160,7 @@ impl<'a> TryFrom<&'a Element> for genesys::Item {
     }
 }
 
-impl<'a> From<genesys::Ability> for Element {
+impl From<genesys::Ability> for Element {
     fn from(item: genesys::Ability) -> Self {
         Element::Ability(Ability {
             id: Id::new(),

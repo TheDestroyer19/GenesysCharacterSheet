@@ -87,7 +87,7 @@ impl Inner {
             None => return Err(anyhow::anyhow!("No path - use save as")),
         };
 
-        let file = File::create(&path)
+        let file = File::create(path)
             .with_context(|| format!("Failed to create file '{}'", path.display()))?;
 
         serde_json::to_writer_pretty(file, &self.character).context("Failed to save character")?;
