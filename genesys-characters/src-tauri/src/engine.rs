@@ -149,6 +149,7 @@ impl Engine {
 
         character.inventory = data.inventory;
         character.notes = data.notes;
+        character.abilities = data.abilities;
 
         Ok(())
     }
