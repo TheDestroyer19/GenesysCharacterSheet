@@ -41,7 +41,7 @@ where
     M: Manager<Wry>,
 {
     info!("sending goto {}", target);
-    if let Some(stripped) =  target.strip_prefix("goto-") {
+    if let Some(stripped) = target.strip_prefix("goto-") {
         stripped
     } else {
         target
