@@ -152,3 +152,23 @@ pub(crate) fn print_character(window: Window) {
     }
     info!("Printed character");
 }
+
+pub (crate) fn quit(window: &Window) {
+    if window.state::<CharacterState>().dirty() {
+        let window_clone = window.clone();
+        dialog::ask(
+            Some(window),
+            "You have unsaved changes",
+            "Do you still want to quit?",
+            move |yes| {
+                if yes {
+                    info!("Quitting App");
+                    window_clone.app_handle().exit(0);
+                }
+            },
+        )
+    } else {
+        info!("Quitting App");
+        window.app_handle().exit(0);
+    }
+}

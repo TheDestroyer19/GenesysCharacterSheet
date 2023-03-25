@@ -12,7 +12,7 @@ extern crate log;
 mod character_state;
 mod command;
 mod engine;
-mod filesystem;
+mod dialog;
 mod genesys;
 mod window;
 
@@ -21,33 +21,12 @@ use command::*;
 use crate::event::emit_character_updated;
 use crate::window::{build_menu, on_menu_event, on_window_event, update_title};
 use std::sync::Mutex;
-use tauri::api::dialog;
-use tauri::{Manager, Window};
+use tauri::Manager;
 
 use crate::character_state::CharacterState;
 use crate::engine::Engine;
 
 mod event;
-
-fn quit(window: &Window) {
-    if window.state::<CharacterState>().dirty() {
-        let window_clone = window.clone();
-        dialog::ask(
-            Some(window),
-            "You have unsaved changes",
-            "Do you still want to quit?",
-            move |yes| {
-                if yes {
-                    info!("Quitting App");
-                    window_clone.app_handle().exit(0);
-                }
-            },
-        )
-    } else {
-        info!("Quitting App");
-        window.app_handle().exit(0);
-    }
-}
 
 fn main() {
     pretty_env_logger::init();

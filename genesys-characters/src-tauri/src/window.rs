@@ -1,8 +1,8 @@
-use crate::filesystem::{
-    new_character, open_character, print_character, save_character, save_character_as,
+use crate::dialog::{
+    new_character, open_character, print_character, save_character, save_character_as, quit,
 };
 use crate::genesys::Character;
-use crate::{event::emit_goto, event::emit_toggle_symbols, quit};
+use crate::{event::emit_goto, event::emit_toggle_symbols};
 use tauri::{
     async_runtime, CustomMenuItem, GlobalWindowEvent, Menu, MenuItem, Submenu, Window,
     WindowMenuEvent,
