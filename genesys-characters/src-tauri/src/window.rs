@@ -105,3 +105,14 @@ pub(crate) fn build_menu() -> Menu {
         .add_submenu(view)
         .add_submenu(go)
 }
+
+pub(crate) fn create_main_window<M>(manager: &M, character: &Character) -> Result<(), tauri::Error>
+where M: tauri::Manager<tauri::Wry> {
+    let window = tauri::WindowBuilder::new(manager, "main", 
+    tauri::WindowUrl::App("index.html".into()))
+    .build()?;
+
+    update_title(&window, character);
+
+    Ok(())
+}

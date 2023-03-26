@@ -55,14 +55,6 @@
       "active": false
     },
     "windows": [
-      {
-        "label": "main",
-        "fullscreen": false,
-        "height": 600,
-        "resizable": true,
-        "title": "Genesys Characters",
-        "width": 800
-      }
     ]
   }
 }

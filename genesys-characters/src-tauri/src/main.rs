@@ -45,7 +45,12 @@ fn main() {
         .invoke_handler(commands())
         .setup(|app| {
             let state = app.state::<CharacterState>();
-            emit_character_updated(app, state.lock().character());
+            let state = state.lock();
+            let character = state.character();
+
+            window::create_main_window(app, character)?;
+
+            emit_character_updated(app, character);
             Ok(())
         })
         .run(tauri::generate_context!())
