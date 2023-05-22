@@ -77,9 +77,8 @@ pub(crate) fn save_character(window: Window) {
 }
 
 /// Async to deter calling from main thread
-pub(crate) async fn new_character(window: Window) {
+pub(crate) async fn new_character(window: Window) -> Result<(), tauri::Error> {
     let state = window.state::<CharacterState>();
-    let engine = window.state::<Mutex<Engine>>();
 
     if state.dirty() {
         let discard_changes = dialog::blocking::ask(
@@ -89,18 +88,13 @@ pub(crate) async fn new_character(window: Window) {
         );
 
         if !discard_changes {
-            return;
+            return Ok(());
         }
     }
 
-    let mut state = state.lock();
-    state.new_character();
-    let character = state.character();
-    *engine.lock().unwrap() = character.clone().into();
+    crate::window::create_template_window(&window)?;
 
-    update_title(&window, character);
-    emit_character_updated(&window, character);
-    info!("New character created");
+    Ok(())
 }
 
 pub(crate) async fn open_character(window: Window) {

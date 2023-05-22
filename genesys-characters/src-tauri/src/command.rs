@@ -1,7 +1,7 @@
 use std::sync::Mutex;
 
 use crate::engine::{Element, ElementType, Id};
-use crate::event::emit_element_updated;
+use crate::event::{emit_element_updated, emit_character_updated};
 use crate::genesys::Character;
 use crate::window::update_title;
 use tauri::{Invoke, Window};
@@ -11,6 +11,7 @@ use crate::engine::Engine;
 
 pub(crate) fn commands() -> impl Fn(Invoke) {
     tauri::generate_handler![
+        create_from_template,
         on_character_edited,
         get_character,
         get_character_element,
@@ -19,6 +20,30 @@ pub(crate) fn commands() -> impl Fn(Invoke) {
         create_element,
         delete_element,
     ]
+}
+
+#[tauri::command]
+fn create_from_template(name: String, state: tauri::State<CharacterState>, engine: tauri::State<Mutex<Engine>>, window: Window) {
+    info!("create_from_template invoked");
+    let character = match name.as_str() {
+        "blank" => Character::default(),
+        other => {
+            error!("Unknown template `{}`", other);
+            return;
+        }
+    };
+
+    let mut state = state.lock();
+    state.new_character();
+    *state.character_mut() = character;
+    let character = state.character();
+    *engine.lock().unwrap() = character.clone().into();
+
+    update_title(&window, character);
+    emit_character_updated(&window, character);
+    info!("New character created");
+
+    crate::window::close_template(&window).unwrap();
 }
 
 #[tauri::command]

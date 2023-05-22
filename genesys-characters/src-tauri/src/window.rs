@@ -23,29 +23,36 @@ pub(crate) fn on_window_event(event: GlobalWindowEvent) {
     let window = event.window();
     let event = event.event();
     if let tauri::WindowEvent::CloseRequested { api, .. } = event {
-        api.prevent_close();
-        quit(window);
+        if window.label() == "main" {
+            api.prevent_close();
+            quit(window);
+        }
     }
 }
 
 pub(crate) fn on_menu_event(event: WindowMenuEvent) {
     async_runtime::spawn(async move {
         let window = event.window().clone();
-        match event.menu_item_id() {
+        let r = match event.menu_item_id() {
             "new" => new_character(window).await,
-            "open" => open_character(window).await,
-            "save" => save_character(window),
-            "save-as" => save_character_as(window),
-            "print" => print_character(window),
-            "quit" => quit(&window),
-            "symbols" => emit_toggle_symbols(&window),
+            "open" => Ok(open_character(window).await),
+            "save" => Ok(save_character(window)),
+            "save-as" => Ok(save_character_as(window)),
+            "print" => Ok(print_character(window)),
+            "quit" => Ok(quit(&window)),
+            "symbols" => Ok(emit_toggle_symbols(&window)),
             a => {
                 if a.starts_with("goto-") {
                     emit_goto(&window, a);
                 } else {
                     error!("Unhandled menu event '{}'", a);
                 }
+                Ok(())
             }
+        };
+
+        if let Err(e) = r {
+            error!("error handling menu event: {}", e);
         }
     });
 }
@@ -115,4 +122,22 @@ where M: tauri::Manager<tauri::Wry> {
     update_title(&window, character);
 
     Ok(())
+}
+
+pub(crate) fn create_template_window<M>(manager: &M) -> Result<(), tauri::Error>
+where M: tauri::Manager<tauri::Wry> {
+    let window = tauri::WindowBuilder::new(manager, "template",
+tauri::WindowUrl::App("template.html".into()))
+    .menu(Menu::new())
+    .build()?;
+
+    window.set_title(&format!("{} - Character Templates", WINDOW_TITLE_PREFIX))?;
+
+    Ok(())
+}
+
+pub(crate) fn close_template<M>(manager: &M) -> Result<(), tauri::Error>
+where M: tauri::Manager<tauri::Wry> {
+    let Some(window) = manager.get_window("template") else { return Ok(()) };
+    window.close()
 }
